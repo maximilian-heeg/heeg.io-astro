@@ -10,6 +10,19 @@
     "astro": "astro"
   },
   "dependencies": {
-    "astro": "^2.0.17"
+    "@astrojs/image": "^0.15.1",
+    "@astrojs/svelte": "^2.0.2",
+    "astro": "^2.0.17",
+    "sharp": "^0.31.3",
+    "svelte": "^3.55.1"
+  },
+  "devDependencies": {
+    "@unocss/astro": "^0.50.3",
+    "@unocss/preset-attributify": "^0.50.3",
+    "@unocss/preset-icons": "^0.50.3",
+    "@unocss/preset-typography": "^0.50.3",
+    "@unocss/preset-uno": "^0.50.3",
+    "@unocss/transformer-directives": "^0.50.3",
+    "unocss": "^0.50.3"
   }
 }

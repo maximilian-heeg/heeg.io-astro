@@ -1,81 +1,127 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import Card from '../components/Card.astro';
+import Layout from "../layouts/Base.astro";
+import Logo from "../components/Logo.astro";
+import { Image, Picture } from '@astrojs/image/components';
+import TRM from "../images/TRM_IC.png"
 ---
 
-<Layout title="Welcome to Astro.">
-	<main>
-		<h1>Welcome to <span class="text-gradient">Astro</span></h1>
-		<p class="instructions">
-			To get started, open the directory <code>src/pages</code> in your project.<br />
-			<strong>Code Challenge:</strong> Tweak the "Welcome to Astro" message above.
-		</p>
-		<ul role="list" class="link-card-grid">
-			<Card
-				href="https://docs.astro.build/"
-				title="Documentation"
-				body="Learn how Astro works and explore the official API docs."
-			/>
-			<Card
-				href="https://astro.build/integrations/"
-				title="Integrations"
-				body="Supercharge your project with new frameworks and libraries."
-			/>
-			<Card
-				href="https://astro.build/themes/"
-				title="Themes"
-				body="Explore a galaxy of community-built starter themes."
-			/>
-			<Card
-				href="https://astro.build/chat/"
-				title="Community"
-				body="Come say hi to our amazing Discord community. ❤️"
-			/>
-		</ul>
-	</main>
+<Layout title="Home">
+  <div class="logo">
+    <Logo />
+  </div>
+
+  
+  <p>
+    Welcome to my personal website! I am a pediatrician with a passion for
+    understanding the complexities of the immune system. My research is focused
+    on CD8<sup>+</sup> tissue-resident memory T cells, or T<sub>RM</sub> cells for short. These
+    cells are critical for protecting our bodies against infections and
+    diseases, and I am fascinated by how they form and interact with other cells
+    in the body. To study T<sub>RM</sub> cells, I work with a mouse model of LCMV
+    Armstrong infection. This model allows me to investigate the formation and function
+    of T<sub>RM</sub> cells in response to viral infection. By infecting mice with
+    this virus, I can study the formation of T<sub>RM</sub> cells in response to viral infection,
+    and how these cells contribute to long-term immunity to the virus.
+  </p>
+
+  <div class="aside">
+    <blockquote>
+      <p>
+        T<sub>RM</sub> cells are a type of T cell that reside in the tissues of our
+        bodies, including the gut, skin, and lungs. They are responsible for rapid
+        immune responses at barrier sites when we encounter a pathogen that we have
+        encountered before.
+      </p>
+    </blockquote>
+  </div>
+
+  <div class="wider">
+	<Picture  
+		src={TRM} 
+		widths={[500, 600, 1000]} 
+		sizes="(max-width: 500px) 500px, (max-width: 600px) 600px, 1000px"
+		formats={['avif', 'webp']}
+		alt='TRM cells in the intestine' class="md:rounded" loading="lazy" />
+    <div class="caption">
+      T<sub>RM</sub> cells in the small intestine after acute LCMV infection
+    </div>
+  </div>
+
+  <p>
+  As part of my work, I use advanced computational techniques such as
+  single-cell RNA sequencing (scRNA) and spatial transcriptomics to study T<sub>RM</sub>
+  cells in detail. These cutting-edge methods allow me to examine the genetic
+  and molecular processes that underlie the formation and function of T<sub>RM</sub>
+  cells.
+ </p>
+ <p>
+  One of the challenges in studying T<sub>RM</sub> cells is that they are
+  difficult to isolate and study in the lab. However, with the development of
+  spatial transcriptomics, we can now analyze individual T<sub>RM</sub> cells and study
+  their gene expression patterns in great detail. This allows us to better
+  understand how these cells form and function, and to identify new targets for
+  immunotherapy.
+</p>
+
+  <div class="wider">
+    <video
+      controls
+      loop="true"
+      poster="/video/umap_to_spatial.webp"
+      preload="none"
+    >
+      <source src="/video/umap_to_spatial.webm" type="video/webm" />
+      <source src="/video/umap_to_spatial.mp4" type="video/mp4" />
+    </video>
+    <div class="caption">
+      Spatial transcriptomics of the small intestine. Cells can be viewed in
+      UMAP or spatial coordinates
+    </div>
+  </div>
+
+  <p>
+  Ultimately, my goal is to gain a more profound understanding of how the immune
+  system works and how we can develop more effective treatments for infectious
+  diseases, improve vaccination strategies and enhance antitumor T cell
+  responses.
+</p>
 </Layout>
 
 <style>
-	main {
-		margin: auto;
-		padding: 1.5rem;
-		max-width: 60ch;
-	}
-	h1 {
-		font-size: 3rem;
-		font-weight: 800;
-		margin: 0;
-	}
-	.text-gradient {
-		background-image: var(--accent-gradient);
-		-webkit-background-clip: text;
-		-webkit-text-fill-color: transparent;
-		background-size: 400%;
-		background-position: 0%;
-	}
-	.instructions {
-		line-height: 1.6;
-		margin: 1rem 0;
-		border: 1px solid rgba(var(--accent), 25%);
-		background-color: white;
-		padding: 1rem;
-		border-radius: 0.4rem;
-	}
-	.instructions code {
-		font-size: 0.875em;
-		font-weight: bold;
-		background: rgba(var(--accent), 12%);
-		color: rgb(var(--accent));
-		border-radius: 4px;
-		padding: 0.3em 0.45em;
-	}
-	.instructions strong {
-		color: rgb(var(--accent));
-	}
-	.link-card-grid {
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(24ch, 1fr));
-		gap: 1rem;
-		padding: 0;
-	}
+  .logo {
+    --at-apply: "col-span-12 grid-start-1 text-center h-60 lg:h-80 mt-0";
+  }
+
+  p {
+	--at-apply: 
+  }
+
+  p, div {
+	--at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
+	--at-apply: "md:col-span-8 md:col-start-3";
+	--at-apply: "lg:col-span-6 lg:col-start-3";
+  }
+
+  .caption {
+	--at-apply: text-sm text-gray-700 text-center mt-2;
+  }
+
+  .wider {
+	--at-apply: "!px-0";
+	--at-apply: "md:col-span-10 md:col-start-2";
+	--at-apply: "lg:col-span-9 lg:col-start-2";
+  }
+
+  .aside {
+	--at-apply: "md:col-span-10 md:col-start-2";
+	--at-apply: "lg:col-span-4 ld:col-start-9";
+  }
+
+  blockquote {
+	--at-apply: p-4 border-l-solid border-l-4 border-gray-800 bg-blue-50 border-box;
+  }
+
+  blockquote p {
+	--at-apply: my-0 italic font-medium leading-relaxed text-gray-900
+  }
 </style>
