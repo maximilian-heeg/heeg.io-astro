@@ -5,6 +5,13 @@ import ProfilePicture from "@images/profile.jpg";
 
 import { awards } from "@data/about/awards";
 import { experience } from "@data/about/experience";
+
+import TextToSVG from "text-to-svg";
+const textToSVG = TextToSVG.loadSync('public/fonts/open-sans-v34-latin_greek-regular.ttf');
+const attributes = {fill: '#222222'};
+const options = {x: 0, y: 0, fontSize: 16, anchor: 'top', attributes: attributes};
+ 
+
 ---
 
 <Layout title="About">
@@ -109,6 +116,39 @@ import { experience } from "@data/about/experience";
       ))
     }
   </div>
+
+  <h2>
+    <div class="i-mdi-account-box-outline inline-block align-middle mr-2"></div>
+    Contact
+  </h2>
+
+  <div class="twocol twocol-table">
+    <div class="contact">
+      <div class="i-mdi-email-open-outline icon"></div>
+      <Fragment set:html={textToSVG.getSVG('mheeg@ucsd.edu', options)}  />
+    </div>
+    <div class="contact">
+      <div class="i-mdi-phone-in-talk icon"></div>
+      <Fragment set:html={textToSVG.getSVG('(858) 925 4331', options)}  />
+    </div>
+    <a
+      class="contact"
+      href="https://twitter.com/MaximilianHeeg"
+      target="_blank"
+    >
+      <div class="i-mdi-twitter icon"></div>
+      <p>MaximilianHeeg</p>
+    </a>
+    <a
+      class="contact"
+      rel="me"
+      href="https://mas.to/@maximilian_heeg"
+      target="_blank"
+    >
+      <div class="i-mdi-mastodon icon"></div>
+      <p>@maximilian_heeg@mas.to</p>
+    </a>
+  </div>
 </Layout>
 
 <style>
@@ -129,7 +169,8 @@ import { experience } from "@data/about/experience";
       border shadow-md p-0 overflow-hidden;
   }
 
-  div.twocol-table div {
+  div.twocol-table div,
+  div.twocol-table a {
     --at-apply: w-full bg-gray-50 p-4 text-left box-border transition-colors
       duration-300 relative;
     --at-apply: "hover:bg-gray-100";
@@ -141,6 +182,18 @@ import { experience } from "@data/about/experience";
   }
   div.twocol-table div:hover div.award {
     --at-apply: text-heeg-active;
+  }
+
+  .contact {
+    --at-apply: "flex flex-col sm:flex-row items-center sm:gap-10";
+  }
+
+  .contact div.icon {
+    --at-apply: bg-heeg-dark w-12 h-12 transition-all duration-300;
+  }
+
+  .contact:hover div.icon {
+    --at-apply: bg-heeg-active;
   }
 
   div h2 {
