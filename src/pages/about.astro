@@ -1,0 +1,173 @@
+---
+import Layout from "@layouts/Base.astro";
+import { Image, Picture } from "@astrojs/image/components";
+import ProfilePicture from "@images/profile.jpg";
+
+import { awards } from "@data/about/awards";
+import { experience } from "@data/about/experience";
+---
+
+<Layout title="About">
+  <h1>About me</h1>
+
+  <div class="twocol lg:!grid-cols-[4fr_6fr]">
+    <div class="flex flex-col items-center">
+      <Image
+        src={ProfilePicture}
+        alt="Maximilian Heeg"
+        width={270}
+        height={270}
+        class="rounded-md m-3 border shadow-md shrink-0 grow-0 w-64 h-64 my-0 object-cover"
+      />
+      <span class="text-2xl font-semibold">Maximilian Heeg</span>
+      <span class="font-light">Postdoc @ Goldrath lab, UCSD</span>
+    </div>
+    <div>
+      <h2>Biography</h2>
+      <p>
+        I am a pediatrician whose research interest lies in immunology and
+        immunodeficiencies. My special interest is development of CD4+ and CD8+
+        T cells and T cell tissue residency. In my spare time I like to explore
+        the nature with our dog.
+      </p>
+    </div>
+  </div>
+
+  <div class="twocol">
+    <div>
+      <h2>
+        <div class="i-mdi-mountain inline-block align-middle mr-2">
+        </div>Interests
+      </h2>
+      <ul>
+        <li>Immunology</li>
+        <li>Immunodeficiencies</li>
+        <li>Programming</li>
+        <li>Mountaineering</li>
+        <li>Cycling</li>
+      </ul>
+    </div>
+
+    <div>
+      <h2>
+        <div class="i-mdi-school inline-block align-middle mr-2"></div>
+        Education
+      </h2>
+      <ul>
+        <li>
+          Facharzt für Kinder- und Jugendmedizin, 2020 Landesärztekammer
+          Baden-Württemberg
+        </li>
+        <li>Good clinical practice, 2016 ICH-GCP</li>
+        <li>
+          International Diploma for Mountain Medicine, 2014 Union Internatioal
+          des Associations d’alpinisme (UIAA)
+        </li>
+        <li>MD, 2014 University of Freiburg</li>
+      </ul>
+    </div>
+  </div>
+
+  <h2>
+    <div class="i-mdi-chart-line inline-block align-middle mr-2"></div>
+    Experience
+  </h2>
+
+  <div class="twocol twocol-table">
+    {
+      experience?.map((item) => (
+        <div>
+          <h3>{item.title}</h3>
+          <p class="tracking-wide">{item.location}</p>
+          <p class="text-sm tracking-wider">
+            {item.dates} &#183; {item.country}
+          </p>
+          {item.description && <p class="ml-2 mt-2">{item.description}</p>}
+          {item.project && (
+            <p class="ml-2 italic before:content-['Project:_'] before:font-bold before:not-italic">
+              {item.project}
+            </p>
+          )}
+        </div>
+      ))
+    }
+  </div>
+
+  <h2>
+    <div class="i-mdi-license inline-block align-middle mr-2"></div>
+    Scholarships & Awards
+  </h2>
+
+  <div class="twocol twocol-table">
+    {
+      awards?.map((award) => (
+        <div>
+          <div class="award" />
+          <h3>{award.title}</h3>
+          <p class="text-sm tracking-wider">{award.description}</p>
+        </div>
+      ))
+    }
+  </div>
+</Layout>
+
+<style>
+  h1,
+  h2,
+  div.twocol {
+    --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
+    --at-apply: "md:col-span-8 md:col-start-3";
+  }
+
+  div.twocol {
+    --at-apply: grid grid-cols-1;
+    --at-apply: "lg:grid-cols-2";
+  }
+
+  div.twocol-table {
+    --at-apply: m-3 box-border grid grod-cols-1 gap-px bg-gray-200 rounded-md
+      border shadow-md p-0 overflow-hidden;
+  }
+
+  div.twocol-table div {
+    --at-apply: w-full bg-gray-50 p-4 text-left box-border transition-colors
+      duration-300 relative;
+    --at-apply: "hover:bg-gray-100";
+  }
+
+  div.twocol-table div div.award {
+    --at-apply: i-mdi-license inline-block w-8 h-8 text-heeg-dark transition-all
+      duration-300 absolute top-1 right-1;
+  }
+  div.twocol-table div:hover div.award {
+    --at-apply: text-heeg-active;
+  }
+
+  div h2 {
+    --at-apply: px-0;
+  }
+
+  h1,
+  h2 {
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  h1 {
+    font-size: 2.25em;
+    margin: 1rem 0;
+  }
+
+  h2 {
+    font-size: 1.75em;
+    margin: 1.75em 0 0.5em;
+  }
+
+  div.twocol-table div h3 {
+    --at-apply: font-500 text-lg mr-4;
+  }
+
+  ul {
+    --at-apply: pl-5 list-disc;
+  }
+</style>

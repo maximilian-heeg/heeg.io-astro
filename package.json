@@ -17,9 +17,10 @@
     "svelte": "^3.55.1"
   },
   "devDependencies": {
+    "@iconify-json/mdi": "^1.1.49",
     "@unocss/astro": "^0.50.3",
     "@unocss/preset-attributify": "^0.50.3",
-    "@unocss/preset-icons": "^0.50.3",
+    "@unocss/preset-icons": "^0.50.4",
     "@unocss/preset-typography": "^0.50.3",
     "@unocss/preset-uno": "^0.50.3",
     "@unocss/transformer-directives": "^0.50.3",
