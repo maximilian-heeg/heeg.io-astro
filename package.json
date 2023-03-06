@@ -24,6 +24,7 @@
     "@unocss/preset-typography": "^0.50.3",
     "@unocss/preset-uno": "^0.50.3",
     "@unocss/transformer-directives": "^0.50.3",
+    "text-to-svg": "^3.1.5",
     "unocss": "^0.50.3"
   }
 }
