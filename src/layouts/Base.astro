@@ -8,7 +8,7 @@ const { title } = Astro.props;
 import '@unocss/reset/normalize.css'
 import 'uno.css'
 
-// import Navigation from '../components/Navigation.svelte';
+import Tracker from '../components/Tracker.astro';
 import Navigation from '../components/Navigation.astro'
 import Footer from '../components/Footer.astro';
 import '../styles/fonts.css'
@@ -32,6 +32,7 @@ import '../styles/fonts.css'
         <meta name="msapplication-TileColor" content="#da532c">
         <meta name="msapplication-config" content="/favicon/browserconfig.xml">
         <meta name="theme-color" content="#ffffff">
+        <Tracker />
     </head>
 
     <body class='font-sans m-0 min-h-screen flex flex-col'
