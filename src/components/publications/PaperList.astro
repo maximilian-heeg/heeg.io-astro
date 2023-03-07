@@ -6,7 +6,7 @@ export interface Props {
 const { paper } = Astro.props;
 ---
 
-<div class="container twocol">
+<div class="content twocol">
   <h2>2023</h2>
   <div class="toggle-container">
     <input type="hidden" name="featured-only" value="false" />
@@ -17,7 +17,7 @@ const { paper } = Astro.props;
   </div>
 </div>
 
-<div class="container responsive-twocol twocol-table">
+<div class="content responsive-twocol twocol-table">
   {
     paper.map((p) => (
       <div class="paper">
@@ -60,7 +60,7 @@ const { paper } = Astro.props;
 </div>
 
 <style>
-  div.container {
+  div.content {
     --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
     --at-apply: "md:col-span-10 md:col-start-2";
     --at-apply: "lg:col-span-12 lg:col-start-1";
@@ -76,7 +76,7 @@ const { paper } = Astro.props;
   }
 
   div.twocol-table {
-    --at-apply: m-3 grid grod-cols-1 gap-px bg-gray-200 rounded-md
+    --at-apply: m-3 box-border grid grod-cols-1 gap-px bg-gray-200 rounded-md
       border shadow-md p-0 overflow-hidden;
   }
 
