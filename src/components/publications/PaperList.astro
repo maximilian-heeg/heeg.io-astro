@@ -1,0 +1,163 @@
+---
+export interface Props {
+  paper: EntryObject[];
+}
+
+const { paper } = Astro.props;
+---
+
+<div class="twocol">
+  <h2>2023</h2>
+  <div class="toggle-container">
+    <input type="hidden" name="featured-only" value="false" />
+    <label id="toggle-label-1"> Featured only</label>
+    <button x-ref="toggle" class="inactive" type="button" role="switch">
+      <span aria-hidden="true" class="inactive"></span>
+    </button>
+  </div>
+</div>
+
+<div class="twocol twocol-table">
+  {
+    paper.map((p) => (
+      <div class="paper">
+        <div class="title">
+            {(p.unknown_fields && p.unknown_fields.top[0].text == 'yes' )?(
+            <div class="star"></div>
+			<h3 >{p.fields.title[0].text}</h3>
+        ):(
+            <h3 class="col-span-2">{p.fields.title[0].text}</h3>
+        )}   
+            </div>
+        <ul>
+          {p.fields.author.map((a) => (
+            <li before:siblings="content-dot">
+              {a.family[0].text.startsWith("Heeg") ? (
+                <strong>
+                  {a.given[0].text} {a.family[0].text}
+                </strong>
+              ) : (
+                <span>
+                  {a.given[0].text} {a.family[0].text}
+                </span>
+              )}
+            </li>
+          ))}
+        </ul>
+        <div class="details">
+          <span class="font-normal">
+            {p.fields.journaltitle[0].text}{" "}
+            <span class="font-semibold">{p.fields.date}</span>
+          </span>
+          <a href="https://doi.org/{{p.fields.doi}}" target="_blank">
+            <div class="link" />
+            {p.fields.doi}
+          </a>
+        </div>
+      </div>
+    ))
+  }
+</div>
+
+<style>
+  div.twocol {
+    --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
+    --at-apply: "md:col-span-10 md:col-start-2";
+    --at-apply: "lg:col-span-12 lg:col-start-1";
+  }
+
+  div.twocol {
+    --at-apply: grid grid-cols-1;
+    --at-apply: "md:grid-cols-2";
+  }
+
+  div.twocol-table {
+    --at-apply: m-3 box-border grid grod-cols-1 gap-px bg-gray-200 rounded-md
+      border shadow-md p-0 overflow-hidden;
+  }
+
+  div.twocol-table .paper {
+    --at-apply: w-full bg-gray-50 p-4 text-left box-border transition-colors
+      duration-300 relative;
+    --at-apply: "hover:bg-gray-100";
+  }
+
+  .paper .title {
+    --at-apply: grid grid-cols-[32px_1fr] gap-2 w-full;
+  }
+
+  .paper .title .star {
+    --at-apply: i-mdi-star my-auto w-8 h-8 text-yellow-400 transition-colors duration-300;
+  }
+
+  .paper .title h3 {
+    font-weight: 500;
+    line-height: 1.25;
+    margin: 0.5em 0;
+    font-size: 1.125em;
+  }
+
+  .paper .details {
+    --at-apply: "grid grid-cols-1 gap-2 w-full md:grid-cols-2 mt-1em";
+  }
+
+  .paper .details .link {
+    --at-apply: i-mdi-external-link inline-block align-middle w-4 h-4;
+  }
+
+  .paper .details a {
+    --at-apply: italic font-light;
+    --at-apply: "hover:text-heeg-active hover:underline";
+  }
+  .paper:hover .title .star {
+    --at-apply: text-yellow-500;
+  }
+
+  .paper ul {
+    --at-apply: p-0 list-none leading-snug font-light;
+  }
+
+  .paper ul li {
+    --at-apply: inline;
+  }
+
+  div.toggle-container {
+    --at-apply: mt-3em flex items-center justify-end;
+  }
+
+  .toggle-container label {
+    --at-apply: text-gray-900 font-medium;
+  }
+
+  .toggle-container button {
+    --at-apply: border-0 p-0 relative ml-4 inline-flex w-14 rounded-full py-1
+      transition;
+  }
+
+  .toggle-container button.active {
+    --at-apply: bg-slate-400;
+  }
+
+  .toggle-container button.inactive {
+    --at-apply: bg-slate-300;
+  }
+
+  .toggle-container button span {
+    --at-apply: bg-white h-6 w-6 rounded-full transition shadow-md;
+  }
+
+  .toggle-container button span.active {
+    --at-apply: translate-x-7;
+  }
+
+  .toggle-container button span.inactive {
+    --at-apply: translate-x-1;
+  }
+
+  h2 {
+    font-weight: 500;
+    line-height: 1.25;
+    font-size: 1.75em;
+    margin: 1.75em 0 0.5em;
+  }
+</style>
