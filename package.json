@@ -13,7 +13,6 @@
     "@astrojs/image": "^0.15.1",
     "@astrojs/svelte": "^2.0.2",
     "astro": "^2.0.17",
-    "astro-compress": "^1.1.35",
     "sharp": "^0.31.3",
     "svelte": "^3.55.1"
   },
