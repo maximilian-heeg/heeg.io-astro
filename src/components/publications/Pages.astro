@@ -1,0 +1,60 @@
+---
+import { links } from "@data/navigation";
+
+export interface Props {
+  years: number[];
+  current: number;
+}
+
+const { years, current } = Astro.props;
+---
+
+<h3>Select year</h3>
+
+<nav aria-labelledby="pagination">
+  <ol>
+    {
+      years.map((year) => (
+        <li>
+          <a class={year == current ? 'current' : ''}href={`/publications/${year}#year`}>{year}</a>
+        </li>
+      ))
+    }
+  </ol>
+</nav>
+
+<style>
+  h3 {
+    font-weight: 500;
+    line-height: 1.25;
+    margin: 1em 0;
+    font-size: 1.25em;
+  }
+
+  h3,
+  nav {
+    --at-apply: col-span-12 col-start-1 max-w-full px-3 leading-7;
+    --at-apply: "md:col-span-10 md:col-start-2";
+    --at-apply: "lg:col-span-12 lg:col-start-1";
+  }
+
+  ol {
+    --at-apply: text-center;
+  }
+
+  ol li {
+    --at-apply: inline text-xl mx-2;
+  }
+
+  ol li a {
+    --at-apply: transition-colors duration-300;
+  }
+
+  ol li a.current {
+    --at-apply:  text-heeg-dark font-semibold;
+  }
+
+  ol li a:hover {
+    --at-apply: text-heeg-active font-semibold;
+  }
+</style>

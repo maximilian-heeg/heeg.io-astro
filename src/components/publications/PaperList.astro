@@ -1,13 +1,19 @@
 ---
 export interface Props {
   paper: EntryObject[];
+  year: number;
 }
 
-const { paper } = Astro.props;
+const { paper, year } = Astro.props;
+
+let filtered = paper;
+if (year) {
+  filtered = paper.filter(item => item.fields.date == year)
+} 
 ---
 
 <div class="content twocol">
-  <h2>2023</h2>
+  <a id="year"><h2>{year ? year : "All"}</h2></a>
   <div class="toggle-container">
     <input type="hidden" name="featured-only" value="false" />
     <label id="toggle-label-1"> Featured only</label>
@@ -19,16 +25,18 @@ const { paper } = Astro.props;
 
 <div class="content responsive-twocol twocol-table">
   {
-    paper.map((p) => (
-      <div class="paper">
+    filtered.map((p) => (
+      <div
+        class={`paper ${
+          p.unknown_fields && p.unknown_fields.top[0].text == "yes"
+            ? "featured"
+            : "non-featured"
+        }`}
+      >
         <div class="title">
-            {(p.unknown_fields && p.unknown_fields.top[0].text == 'yes' )?(
-            <div class="star"></div>
-			<h3 >{p.fields.title[0].text}</h3>
-        ):(
-            <h3 class="col-span-2">{p.fields.title[0].text}</h3>
-        )}   
-            </div>
+          <div class="star" />
+          <h3>{p.fields.title[0].text}</h3>
+        </div>
         <ul>
           {p.fields.author.map((a) => (
             <li before:siblings="content-dot">
@@ -72,7 +80,7 @@ const { paper } = Astro.props;
   }
 
   div.twocol {
-    --at-apply: grid grid-cols-2;;
+    --at-apply: flex flex-row justify-between;
   }
 
   div.twocol-table {
@@ -81,7 +89,7 @@ const { paper } = Astro.props;
   }
 
   div.twocol-table .paper {
-    --at-apply: w-full bg-gray-50 p-4 text-left box-border transition-colors
+    --at-apply: w-full bg-gray-50 p-4 text-left box-border transition-all
       duration-300 relative;
     --at-apply: "hover:bg-gray-100";
   }
@@ -90,8 +98,28 @@ const { paper } = Astro.props;
     --at-apply: grid grid-cols-[32px_1fr] gap-2 w-full;
   }
 
-  .paper .title .star {
-    --at-apply: i-mdi-star my-auto w-8 h-8 text-yellow-400 transition-colors duration-300;
+  .paper.featured .title .star {
+    --at-apply: i-mdi-star my-auto w-8 h-8 text-yellow-400 transition-colors
+      duration-300;
+  }
+
+  .paper.non-featured .title .star {
+    display: none;
+  }
+
+  .paper.non-featured .title h3 {
+    --at-apply: col-span-2;
+  }
+
+  .paper.featured:hover .title .star {
+    --at-apply: text-yellow-500;
+  }
+
+  .paper.hide-non-featured {
+    --at-apply: "hidden";
+  }
+
+  .paper.show-non-featured {
   }
 
   .paper .title h3 {
@@ -113,9 +141,6 @@ const { paper } = Astro.props;
     --at-apply: italic font-light;
     --at-apply: "hover:text-heeg-active hover:underline";
   }
-  .paper:hover .title .star {
-    --at-apply: text-yellow-500;
-  }
 
   .paper ul {
     --at-apply: p-0 list-none leading-snug font-light;
@@ -126,11 +151,11 @@ const { paper } = Astro.props;
   }
 
   div.toggle-container {
-    --at-apply: mt-3em flex items-center justify-end;
+    --at-apply: mt-3em flex items-center justify-end cursor-pointer;
   }
 
   .toggle-container label {
-    --at-apply: text-gray-900 font-medium;
+    --at-apply: text-gray-900 font-medium cursor-pointer;
   }
 
   .toggle-container button {
@@ -165,3 +190,39 @@ const { paper } = Astro.props;
     margin: 1.75em 0 0.5em;
   }
 </style>
+
+<script>
+  const toggle = document.querySelector(".toggle-container");
+  const input = document.querySelector(".toggle-container input");
+  const button = document.querySelector(".toggle-container button")?.classList;
+  const span = document.querySelector(".toggle-container span")?.classList;
+
+  const nonFeatured = document.querySelectorAll(".non-featured");
+
+  toggle?.addEventListener("click", function () {
+    const toggleActive = input?.getAttribute("value");
+    if (toggleActive === "false") {
+      input?.setAttribute("value", "true");
+      button?.add("active");
+      button?.remove("inactive");
+      span?.add("active");
+      span?.remove("inactive");
+
+      nonFeatured?.forEach((paper) => {
+        paper.classList.add("hide-non-featured");
+        paper.classList.remove("show-non-featured");
+      });
+    } else {
+      input?.setAttribute("value", "false");
+      button?.remove("active");
+      button?.add("inactive");
+      span?.remove("active");
+      span?.add("inactive");
+
+      nonFeatured?.forEach((paper) => {
+        paper.classList.remove("hide-non-featured");
+        paper.classList.add("show-non-featured");
+      });
+    }
+  });
+</script>
