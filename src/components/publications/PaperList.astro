@@ -8,8 +8,8 @@ const { paper, year } = Astro.props;
 
 let filtered = paper;
 if (year) {
-  filtered = paper.filter(item => item.fields.date == year)
-} 
+  filtered = paper.filter((item) => item.fields.date == year);
+}
 ---
 
 <div class="content twocol">

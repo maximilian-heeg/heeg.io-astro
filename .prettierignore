@@ -1,0 +1,6 @@
+# Ignore artifacts:
+.*/
+dist
+images
+node_modules
+public

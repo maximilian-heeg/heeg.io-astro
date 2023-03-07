@@ -5,15 +5,14 @@ import PaperList from "@components/publications/PaperList.astro";
 import Pages from "@components/publications/Pages.astro";
 import { publications } from "@data/publications";
 
-const years = publications.years
+const years = publications.years;
 const { year } = Astro.params;
 
 export async function getStaticPaths() {
-  
-  let data = await publications
+  let data = await publications;
   return data.years.map((year) => {
     return {
-      params: { year: year }
+      params: { year: year },
     };
   });
 }
@@ -31,18 +30,17 @@ export async function getStaticPaths() {
 
   <PaperList paper={publications.paper} year={year} />
 
-  <Pages  years={years} current={year}
-
+  <Pages years={years} current={year} < Layout>
+    <style>
+      h1 {
+        --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
+        --at-apply: "md:col-span-10 md:col-start-2";
+        --at-apply: "lg:col-span-12 lg:col-start-1";
+        font-weight: 500;
+        line-height: 1.25;
+        font-size: 2.25em;
+        margin: 1rem 0;
+      }
+    </style>
+  </Pages>
 </Layout>
-
-<style>
-  h1 {
-    --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
-    --at-apply: "md:col-span-10 md:col-start-2";
-    --at-apply: "lg:col-span-12 lg:col-start-1";
-    font-weight: 500;
-    line-height: 1.25;
-    font-size: 2.25em;
-    margin: 1rem 0;
-  }
-</style>

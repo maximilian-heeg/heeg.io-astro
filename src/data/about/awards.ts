@@ -18,7 +18,6 @@ export const awards = [
   },
   {
     title: "Scholar of the German National Academic Foundation",
-    description:
-      "German National Academic Foundation · Jan 2009 – May 2014",
+    description: "German National Academic Foundation · Jan 2009 – May 2014",
   },
 ];

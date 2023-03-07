@@ -113,21 +113,21 @@ import { links } from "@data/navigation";
     if (menuExpanded === "false") {
       menuBtn?.setAttribute("aria-expanded", "true");
       modal?.remove("modal-closed");
-      hamburderUpper?.add("upper-open")
-      hamburderUpper?.remove("upper")
-      hamburderMiddle?.add("middle-open")
-      hamburderMiddle?.remove("middle")
-      hamburderLower?.add("lower-open")
-      hamburderLower?.remove("lower")
+      hamburderUpper?.add("upper-open");
+      hamburderUpper?.remove("upper");
+      hamburderMiddle?.add("middle-open");
+      hamburderMiddle?.remove("middle");
+      hamburderLower?.add("lower-open");
+      hamburderLower?.remove("lower");
     } else {
       menuBtn?.setAttribute("aria-expanded", "false");
       modal?.add("modal-closed");
-      hamburderUpper?.remove("upper-open")
-      hamburderUpper?.add("upper")
-      hamburderMiddle?.remove("middle-open")
-      hamburderMiddle?.add("middle")
-      hamburderLower?.remove("lower-open")
-      hamburderLower?.add("lower")
+      hamburderUpper?.remove("upper-open");
+      hamburderUpper?.add("upper");
+      hamburderMiddle?.remove("middle-open");
+      hamburderMiddle?.add("middle");
+      hamburderLower?.remove("lower-open");
+      hamburderLower?.add("lower");
     }
   });
 </script>

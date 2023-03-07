@@ -7,11 +7,17 @@ import { awards } from "@data/about/awards";
 import { experience } from "@data/about/experience";
 
 import TextToSVG from "text-to-svg";
-const textToSVG = TextToSVG.loadSync('public/fonts/open-sans-v34-latin_greek-regular.ttf');
-const attributes = {fill: '#222222'};
-const options = {x: 0, y: 0, fontSize: 16, anchor: 'top', attributes: attributes};
- 
-
+const textToSVG = TextToSVG.loadSync(
+  "public/fonts/open-sans-v34-latin_greek-regular.ttf"
+);
+const attributes = { fill: "#222222" };
+const options = {
+  x: 0,
+  y: 0,
+  fontSize: 16,
+  anchor: "top",
+  attributes: attributes,
+};
 ---
 
 <Layout title="About">
@@ -125,11 +131,11 @@ const options = {x: 0, y: 0, fontSize: 16, anchor: 'top', attributes: attributes
   <div class="twocol twocol-table">
     <div class="contact">
       <div class="i-mdi-email-open-outline icon"></div>
-      <Fragment set:html={textToSVG.getSVG('mheeg@ucsd.edu', options)}  />
+      <Fragment set:html={textToSVG.getSVG("mheeg@ucsd.edu", options)} />
     </div>
     <div class="contact">
       <div class="i-mdi-phone-in-talk icon"></div>
-      <Fragment set:html={textToSVG.getSVG('(858) 925 4331', options)}  />
+      <Fragment set:html={textToSVG.getSVG("(858) 925 4331", options)} />
     </div>
     <a
       class="contact"
