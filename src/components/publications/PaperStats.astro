@@ -9,25 +9,27 @@ export interface Props {
 
 const { total_publications, total_citations, h_index, i10_index, last_update } =
   Astro.props;
+
+import AstroCounter from "@components/AstroCounter.astro";
 ---
 
 <div class="twocol twocol-table">
   <div class="stats">
     <div class="i-mdi-note-multiple-outline icon"></div>
     <div class="title">Total publications</div>
-    <div class="number">{total_publications}</div>
+    <div class="number"><AstroCounter number={total_publications} /></div>
     <div class="description"></div>
   </div>
   <div class="stats">
     <div class="i-mdi-format-quote-close-outline icon"></div>
     <div class="title">Total citations</div>
-    <div class="number">{total_citations}</div>
+    <div class="number"><AstroCounter number={total_citations} /></div>
     <div class="description"></div>
   </div>
   <div class="stats">
     <div class="i-mdi-human-greeting-proximity icon"></div>
     <div class="title">H index</div>
-    <div class="number">{h_index}</div>
+    <div class="number"><AstroCounter number={h_index} /></div>
     <div class="description">
       h-index is the largest number h such that h publications have at least h
       citations.
@@ -36,7 +38,7 @@ const { total_publications, total_citations, h_index, i10_index, last_update } =
   <div class="stats">
     <div class="i-mdi-wan icon"></div>
     <div class="title">i10 index</div>
-    <div class="number">{i10_index}</div>
+    <div class="number"><AstroCounter number={i10_index} /></div>
     <div class="description">
       i10-index is the number of publications with at least 10 citations.
     </div>
@@ -95,32 +97,3 @@ const { total_publications, total_citations, h_index, i10_index, last_update } =
     --at-apply: "lg:col-span-12 lg:col-start-1";
   }
 </style>
-
-<script>
-  const numbers = document.querySelectorAll(".number");
-  numbers?.forEach((number) => {
-    const finalCount: number = parseInt(number.innerHTML);
-    const animationDuration = 2000;
-    // Calculate how long each ‘frame’ should last if we want to update the animation 60 times per second
-    const frameDuration = 1000 / 60;
-    // Use that to calculate how many frames we need to complete the animation
-    const totalFrames = Math.round(animationDuration / frameDuration);
-    // An ease-out function that slows the count as it progresses
-    // https://easings.net/#easeInOutQuart
-    const easingFun = (x) =>
-      x < 0.5 ? 8 * x * x * x * x : 1 - Math.pow(-2 * x + 2, 4) / 2;
-    let frame = 0;
-    let timer = setInterval(() => {
-      frame++;
-      const progress = easingFun(frame / totalFrames);
-      let current = Math.round(finalCount * progress);
-      number.innerHTML = current.toString();
-      if (frame === totalFrames) {
-        current = Math.round(finalCount);
-        number.innerHTML = current.toString();
-        clearInterval(timer);
-        return;
-      }
-    }, frameDuration);
-  });
-</script>

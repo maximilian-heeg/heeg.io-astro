@@ -12,63 +12,65 @@ if (year) {
 }
 ---
 
-<div class="content twocol">
-  <a id="year"><h2>{year ? year : "All"}</h2></a>
-  <div class="toggle-container">
-    <input type="hidden" name="featured-only" value="false" />
-    <label id="toggle-label-1"> Featured only</label>
-    <button x-ref="toggle" class="inactive" type="button" role="switch">
-      <span aria-hidden="true" class="inactive"></span>
-    </button>
+<astro-paper-list>
+  <div class="twocol">
+    <a id="year"><h2>{year ? year : "All"}</h2></a>
+    <div class="toggle-container">
+      <input type="hidden" name="featured-only" value="false" />
+      <label id="toggle-label-1"> Featured only</label>
+      <button x-ref="toggle" class="inactive" type="button" role="switch">
+        <span aria-hidden="true" class="inactive"></span>
+      </button>
+    </div>
   </div>
-</div>
 
-<div class="content responsive-twocol twocol-table">
-  {
-    filtered.map((p) => (
-      <div
-        class={`paper ${
-          p.unknown_fields && p.unknown_fields.top[0].text == "yes"
-            ? "featured"
-            : "non-featured"
-        }`}
-      >
-        <div class="title">
-          <div class="star" />
-          <h3>{p.fields.title[0].text}</h3>
+  <div class="responsive-twocol twocol-table">
+    {
+      filtered.map((p) => (
+        <div
+          class={`paper ${
+            p.unknown_fields && p.unknown_fields.top[0].text == "yes"
+              ? "featured"
+              : "non-featured"
+          }`}
+        >
+          <div class="title">
+            <div class="star" />
+            <h3>{p.fields.title[0].text}</h3>
+          </div>
+          <ul>
+            {p.fields.author.map((a) => (
+              <li before:siblings="content-dot">
+                {a.family[0].text.startsWith("Heeg") ? (
+                  <strong>
+                    {a.given[0].text} {a.family[0].text}
+                  </strong>
+                ) : (
+                  <span>
+                    {a.given[0].text} {a.family[0].text}
+                  </span>
+                )}
+              </li>
+            ))}
+          </ul>
+          <div class="details">
+            <span class="font-normal">
+              {p.fields.journaltitle[0].text}{" "}
+              <span class="font-semibold">{p.fields.date}</span>
+            </span>
+            <a href={`https://doi.org/${p.fields.doi}`} target="_blank">
+              <div class="link" />
+              {p.fields.doi}
+            </a>
+          </div>
         </div>
-        <ul>
-          {p.fields.author.map((a) => (
-            <li before:siblings="content-dot">
-              {a.family[0].text.startsWith("Heeg") ? (
-                <strong>
-                  {a.given[0].text} {a.family[0].text}
-                </strong>
-              ) : (
-                <span>
-                  {a.given[0].text} {a.family[0].text}
-                </span>
-              )}
-            </li>
-          ))}
-        </ul>
-        <div class="details">
-          <span class="font-normal">
-            {p.fields.journaltitle[0].text}{" "}
-            <span class="font-semibold">{p.fields.date}</span>
-          </span>
-          <a href={`https://doi.org/${p.fields.doi}`} target="_blank">
-            <div class="link" />
-            {p.fields.doi}
-          </a>
-        </div>
-      </div>
-    ))
-  }
-</div>
+      ))
+    }
+  </div>
+</astro-paper-list>
 
 <style>
-  div.content {
+  astro-paper-list {
     --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
     --at-apply: "md:col-span-10 md:col-start-2";
     --at-apply: "lg:col-span-12 lg:col-start-1";
@@ -76,7 +78,7 @@ if (year) {
 
   div.responsive-twocol {
     --at-apply: grid grid-cols-1;
-    --at-apply: "md:grid-cols-2";
+    --at-apply: "lg:grid-cols-2";
   }
 
   div.twocol {
@@ -84,8 +86,8 @@ if (year) {
   }
 
   div.twocol-table {
-    --at-apply: m-3 box-border grid grod-cols-1 gap-px bg-gray-200 rounded-md
-      border shadow-md p-0 overflow-hidden;
+    --at-apply: box-border grid grod-cols-1 gap-px bg-gray-200 rounded-md border
+      shadow-md p-0 overflow-hidden;
   }
 
   div.twocol-table .paper {
@@ -192,37 +194,45 @@ if (year) {
 </style>
 
 <script>
-  const toggle = document.querySelector(".toggle-container");
-  const input = document.querySelector(".toggle-container input");
-  const button = document.querySelector(".toggle-container button")?.classList;
-  const span = document.querySelector(".toggle-container span")?.classList;
+  class AstroPaperList extends HTMLElement {
+    constructor() {
+      super();
 
-  const nonFeatured = document.querySelectorAll(".non-featured");
+      const toggle = this.querySelector(".toggle-container");
+      const input = this.querySelector(".toggle-container input");
+      const button = this.querySelector(".toggle-container button")?.classList;
+      const span = this.querySelector(".toggle-container span")?.classList;
 
-  toggle?.addEventListener("click", function () {
-    const toggleActive = input?.getAttribute("value");
-    if (toggleActive === "false") {
-      input?.setAttribute("value", "true");
-      button?.add("active");
-      button?.remove("inactive");
-      span?.add("active");
-      span?.remove("inactive");
+      const nonFeatured = this.querySelectorAll(".non-featured");
 
-      nonFeatured?.forEach((paper) => {
-        paper.classList.add("hide-non-featured");
-        paper.classList.remove("show-non-featured");
-      });
-    } else {
-      input?.setAttribute("value", "false");
-      button?.remove("active");
-      button?.add("inactive");
-      span?.remove("active");
-      span?.add("inactive");
+      toggle?.addEventListener("click", function () {
+        const toggleActive = input?.getAttribute("value");
+        if (toggleActive === "false") {
+          input?.setAttribute("value", "true");
+          button?.add("active");
+          button?.remove("inactive");
+          span?.add("active");
+          span?.remove("inactive");
 
-      nonFeatured?.forEach((paper) => {
-        paper.classList.remove("hide-non-featured");
-        paper.classList.add("show-non-featured");
+          nonFeatured?.forEach((paper) => {
+            paper.classList.add("hide-non-featured");
+            paper.classList.remove("show-non-featured");
+          });
+        } else {
+          input?.setAttribute("value", "false");
+          button?.remove("active");
+          button?.add("inactive");
+          span?.remove("active");
+          span?.add("inactive");
+
+          nonFeatured?.forEach((paper) => {
+            paper.classList.remove("hide-non-featured");
+            paper.classList.add("show-non-featured");
+          });
+        }
       });
     }
-  });
+  }
+
+  customElements.define("astro-paper-list", AstroPaperList);
 </script>

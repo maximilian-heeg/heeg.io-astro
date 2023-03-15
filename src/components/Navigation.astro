@@ -2,38 +2,40 @@
 import { links } from "@data/navigation";
 ---
 
-<div class="modal modal-closed">
-  {links.map((link) => <a href={link.url}>{link.text}</a>)}
-</div>
+<astro-navigation>
+  <div class="modal modal-closed">
+    {links.map((link) => <a href={link.url}>{link.text}</a>)}
+  </div>
 
-<header>
-  <nav>
-    <a
-      class="z-10 m-2y p-1 no-underline text-heeg-dark rounded ml-2"
-      hover="bg-heeg-dark/20"
-      href="/"
-    >
-      <span class="lowercase text-2xl font-medium">Heeg</span><span
-        class="font-black uppercase text-xl text-heeg-active before:content-dot"
-        >IO</span
+  <header>
+    <nav>
+      <a
+        class="z-10 m-2y p-1 no-underline text-heeg-dark rounded ml-2"
+        hover="bg-heeg-dark/20"
+        href="/"
       >
-    </a>
+        <span class="lowercase text-2xl font-medium">Heeg</span><span
+          class="font-black uppercase text-xl text-heeg-active before:content-dot"
+          >IO</span
+        >
+      </a>
 
-    <div class="flex flex-row items-center">
-      <div class="hidden md:block space-x-4">
-        {links.map((link) => <a href={link.url}>{link.text}</a>)}
-      </div>
-
-      <button id="hamburger-menu" aria-label="Menu" aria-expanded="false">
-        <div>
-          <div class="upper"></div>
-          <div class="middle"></div>
-          <div class="lower"></div>
+      <div class="flex flex-row items-center">
+        <div class="hidden md:block space-x-4">
+          {links.map((link) => <a href={link.url}>{link.text}</a>)}
         </div>
-      </button>
-    </div>
-  </nav>
-</header>
+
+        <button id="hamburger-menu" aria-label="Menu" aria-expanded="false">
+          <div>
+            <div class="upper"></div>
+            <div class="middle"></div>
+            <div class="lower"></div>
+          </div>
+        </button>
+      </div>
+    </nav>
+  </header>
+</astro-navigation>
 
 <style>
   .modal {
@@ -102,32 +104,41 @@ import { links } from "@data/navigation";
 </style>
 
 <script>
-  const menuBtn = document.querySelector("#hamburger-menu");
-  const modal = document.querySelector(".modal")?.classList;
-  const hamburderUpper = document.querySelector(".upper")?.classList;
-  const hamburderMiddle = document.querySelector(".middle")?.classList;
-  const hamburderLower = document.querySelector(".lower")?.classList;
+  class AstroNavigation extends HTMLElement {
+    constructor() {
+      super();
 
-  menuBtn?.addEventListener("click", function () {
-    const menuExpanded = menuBtn?.getAttribute("aria-expanded");
-    if (menuExpanded === "false") {
-      menuBtn?.setAttribute("aria-expanded", "true");
-      modal?.remove("modal-closed");
-      hamburderUpper?.add("upper-open");
-      hamburderUpper?.remove("upper");
-      hamburderMiddle?.add("middle-open");
-      hamburderMiddle?.remove("middle");
-      hamburderLower?.add("lower-open");
-      hamburderLower?.remove("lower");
-    } else {
-      menuBtn?.setAttribute("aria-expanded", "false");
-      modal?.add("modal-closed");
-      hamburderUpper?.remove("upper-open");
-      hamburderUpper?.add("upper");
-      hamburderMiddle?.remove("middle-open");
-      hamburderMiddle?.add("middle");
-      hamburderLower?.remove("lower-open");
-      hamburderLower?.add("lower");
+      // Read the message from the data attribute.
+      const menuBtn = this.querySelector("#hamburger-menu");
+      const modal = this.querySelector(".modal")?.classList;
+      const hamburderUpper = this.querySelector(".upper")?.classList;
+      const hamburderMiddle = this.querySelector(".middle")?.classList;
+      const hamburderLower = this.querySelector(".lower")?.classList;
+
+      menuBtn?.addEventListener("click", function () {
+        const menuExpanded = menuBtn?.getAttribute("aria-expanded");
+        if (menuExpanded === "false") {
+          menuBtn?.setAttribute("aria-expanded", "true");
+          modal?.remove("modal-closed");
+          hamburderUpper?.add("upper-open");
+          hamburderUpper?.remove("upper");
+          hamburderMiddle?.add("middle-open");
+          hamburderMiddle?.remove("middle");
+          hamburderLower?.add("lower-open");
+          hamburderLower?.remove("lower");
+        } else {
+          menuBtn?.setAttribute("aria-expanded", "false");
+          modal?.add("modal-closed");
+          hamburderUpper?.remove("upper-open");
+          hamburderUpper?.add("upper");
+          hamburderMiddle?.remove("middle-open");
+          hamburderMiddle?.add("middle");
+          hamburderLower?.remove("lower-open");
+          hamburderLower?.add("lower");
+        }
+      });
     }
-  });
+  }
+
+  customElements.define("astro-navigation", AstroNavigation);
 </script>
