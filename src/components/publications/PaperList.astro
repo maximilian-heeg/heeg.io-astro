@@ -13,7 +13,7 @@ if (year) {
 ---
 
 <astro-paper-list>
-  <div class="twocol">
+  <div class="twocol onscroll-fade-right">
     <a id="year"><h2>{year ? year : "All"}</h2></a>
     <div class="toggle-container">
       <input type="hidden" name="featured-only" value="false" />
@@ -24,7 +24,7 @@ if (year) {
     </div>
   </div>
 
-  <div class="responsive-twocol twocol-table">
+  <div class="responsive-twocol twocol-table onscroll-fade-in">
     {
       filtered.map((p) => (
         <div

@@ -23,7 +23,7 @@ const options = {
 <Layout title="About">
   <h1>About me</h1>
 
-  <div class="twocol lg:!grid-cols-[258px_6fr]">
+  <div class="twocol lg:!grid-cols-[258px_6fr] onscroll-fade-in">
     <div class="flex flex-col items-center">
       <Image
         src={ProfilePicture}
@@ -46,7 +46,7 @@ const options = {
     </div>
   </div>
 
-  <div class="twocol">
+  <div class="twocol onscroll-fade-right">
     <div>
       <h2>
         <div class="i-mdi-mountain inline-block align-middle mr-2">
@@ -81,12 +81,12 @@ const options = {
     </div>
   </div>
 
-  <h2>
+  <h2 class="onscroll-fade-right">
     <div class="i-mdi-chart-line inline-block align-middle mr-2"></div>
     Experience
   </h2>
 
-  <div class="twocol twocol-table">
+  <div class="twocol twocol-table onscroll-fade-in">
     {
       experience?.map((item) => (
         <div>
@@ -106,12 +106,12 @@ const options = {
     }
   </div>
 
-  <h2>
+  <h2 class="onscroll-fade-right">
     <div class="i-mdi-license inline-block align-middle mr-2"></div>
     Scholarships & Awards
   </h2>
 
-  <div class="twocol twocol-table">
+  <div class="twocol twocol-table onscroll-fade-in">
     {
       awards?.map((award) => (
         <div>
@@ -123,12 +123,12 @@ const options = {
     }
   </div>
 
-  <h2>
+  <h2 class="onscroll-fade-right">
     <div class="i-mdi-account-box-outline inline-block align-middle mr-2"></div>
     Contact
   </h2>
 
-  <div class="twocol twocol-table">
+  <div class="twocol twocol-table onscroll-fade-in">
     <div class="contact">
       <div class="i-mdi-email-open-outline icon"></div>
       <Fragment set:html={textToSVG.getSVG("mheeg@ucsd.edu", options)} />

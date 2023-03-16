@@ -9,9 +9,9 @@ export interface Props {
 const { years, current } = Astro.props;
 ---
 
-<h3>Select year</h3>
+<h3 class="onscroll-fade-right">Select year</h3>
 
-<nav aria-labelledby="pagination">
+<nav aria-labelledby="pagination" class="onscroll-fade-in">
   <ol>
     {
       years.map((year) => (
