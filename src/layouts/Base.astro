@@ -85,15 +85,12 @@ const fade_in_elements = document.querySelectorAll('.onscroll-fade-in, .onscroll
 
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
-    const intersecting = entry.isIntersecting
-    if(intersecting) {
+    if(entry.isIntersecting) {
       entry.target.classList.remove("is-inactive");
-    } else {
-      // entry.target.classList.add("is-inactive");
-    }
-    
+      observer.unobserve(entry.target);
+    }     
   })
-})
+}, { rootMargin: "-50px" })
 
 // Handle clicks on each button.
 fade_in_elements.forEach((elm) => {
