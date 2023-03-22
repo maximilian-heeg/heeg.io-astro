@@ -11,6 +11,9 @@ import image from "@astrojs/image";
 import sitemap from "@astrojs/sitemap";
 
 // https://astro.build/config
+import purgecss from "astro-purgecss";
+
+// https://astro.build/config
 export default defineConfig({
   site: "https://heeg.io",
   integrations: [
@@ -20,5 +23,6 @@ export default defineConfig({
       serviceEntryPoint: "@astrojs/image/sharp",
     }),
     sitemap(),
+    purgecss(),
   ],
 });

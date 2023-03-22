@@ -12,7 +12,7 @@ import Tracker from "@components/Tracker.astro";
 import Navigation from "@components/Navigation.astro";
 import Footer from "@components/Footer.astro";
 import "@styles/fonts.css";
-import "@styles/transitions.css"
+import "@styles/transitions.css";
 ---
 
 <!DOCTYPE html>
@@ -75,6 +75,28 @@ import "@styles/transitions.css"
         color: #222;
       }
     </style>
+    <script>
+      const fade_in_elements = document.querySelectorAll(
+        ".onscroll-fade-in, .onscroll-fade-right"
+      );
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const intersecting = entry.isIntersecting;
+          if (intersecting) {
+            entry.target.classList.remove("is-inactive");
+          } else {
+            // entry.target.classList.add("is-inactive");
+          }
+        });
+      });
+
+      // Handle clicks on each button.
+      fade_in_elements.forEach((elm) => {
+        elm?.classList.add("is-inactive");
+        observer.observe(elm);
+      });
+    </script>
   </body>
 </html>
 

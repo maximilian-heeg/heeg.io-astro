@@ -1,14 +1,23 @@
 ---
+import PaperChart from "@components/publications/PaperChart.astro";
+
 export interface Props {
   total_citations: number;
   total_publications: number;
   h_index: number;
   i10_index: number;
   last_update: string;
+  citations_per_year: { year: string; number: number }[];
 }
 
-const { total_publications, total_citations, h_index, i10_index, last_update } =
-  Astro.props;
+const {
+  total_publications,
+  total_citations,
+  h_index,
+  i10_index,
+  last_update,
+  citations_per_year,
+} = Astro.props;
 
 import AstroCounter from "@components/AstroCounter.astro";
 ---
@@ -43,6 +52,9 @@ import AstroCounter from "@components/AstroCounter.astro";
       i10-index is the number of publications with at least 10 citations.
     </div>
   </div>
+  <div class="chart">
+    <PaperChart citations_per_year={citations_per_year} />
+  </div>
 </div>
 <div class="source">
   Data from Google Scholar &#8212; last update on {last_update}
@@ -67,6 +79,11 @@ import AstroCounter from "@components/AstroCounter.astro";
   }
   .stats {
     --at-apply: "grid grid-cols-[1fr_60px] p-4 w-full bg-gray-50  text-left box-border transition-colors duration-300";
+    --at-apply: "hover:bg-gray-100";
+  }
+
+  .chart {
+    --at-apply: "md:col-span-2 lg:col-span-4 p-4 w-full bg-gray-50  text-left box-border transition-colors duration-300 overflow-x-scroll";
     --at-apply: "hover:bg-gray-100";
   }
 
