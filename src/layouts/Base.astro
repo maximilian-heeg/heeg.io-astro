@@ -65,46 +65,22 @@ import "@styles/transitions.css";
     </div>
 
     <Footer />
-    <style>
-      main {
-        @apply max-w-screen-xl mx-auto grid grid-cols-12 my-6;
-      }
-
-      body {
-        font-size: 16px;
-        color: #222;
-      }
-    </style>
-    <script>
-      const fade_in_elements = document.querySelectorAll(
-        ".onscroll-fade-in, .onscroll-fade-right"
-      );
-
-      const observer = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const intersecting = entry.isIntersecting;
-          if (intersecting) {
-            entry.target.classList.remove("is-inactive");
-          } else {
-            // entry.target.classList.add("is-inactive");
-          }
-        });
-      });
-
-      // Handle clicks on each button.
-      fade_in_elements.forEach((elm) => {
-        elm?.classList.add("is-inactive");
-        observer.observe(elm);
-      });
-    </script>
   </body>
 </html>
 
+<style>
+  main {
+    @apply max-w-screen-xl mx-auto grid grid-cols-12 my-6;
+  }
+
+  body {
+    font-size: 16px;
+    color: #222;
+  }
+</style>
 
 <script>
-
 const fade_in_elements = document.querySelectorAll('.onscroll-fade-in, .onscroll-fade-right');
-
 const observer = new IntersectionObserver(entries => {
   entries.forEach(entry => {
     if(entry.isIntersecting) {
