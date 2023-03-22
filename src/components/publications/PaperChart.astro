@@ -27,7 +27,7 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
             <th>
               <span>{x.year}</span>
             </th>
-            <td class="chart-bar" style={`--size: calc( ${x.number} / ${max_citations} )`}>
+            <td style={`--size: calc( ${x.number} / ${max_citations} )`}>
               <a href={`/publications/${x.year}#year`} />
               <span class="tooltip">{x.number}</span>
             </td>
@@ -82,18 +82,18 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
     transform: rotateZ(180deg);
   }
 
-  .chart-bar {
+  #chart table tbody td {
     --at-apply: "!transition-transform !duration-2000 scale-y-100 origin-bottom";
   }
 
-  .chart-bar.is-inactive {
+  #chart.is-inactive table tbody td {
     --at-apply: scale-y-0;
   }
 </style>
 
 
 <script>
-  const fade_in_elements = document.querySelectorAll('.chart-bar');
+  const fade_in_elements = document.querySelectorAll('#chart');
   const observer = new IntersectionObserver(entries => {
     entries.forEach(entry => {
       if(entry.isIntersecting) {
