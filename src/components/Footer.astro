@@ -1,3 +1,42 @@
-<footer bg="heeg-light" text="heeg-dark" class="w-full flex-shrink-0">
-  <div class="max-w-screen-xl mx-auto p-3 text-sm">&copy; 2023</div>
+---
+import { Image, Picture } from "@astrojs/image/components";
+import ProfilePicture from "@images/profile.jpg";
+import { links } from "@data/navigation";
+---
+
+<footer>
+  <div>
+    <div class="flex space-x-6">
+      <a href="/about/"><Image
+        src={ProfilePicture}
+        alt="Maximilian Heeg"
+        width={88}
+        height={88}
+        class="rounded-full border border-heeg-light w-22 h-22 my-0 object-cover"
+      /></a>
+      <div>
+        <div class="font-medium text-base"> Maximilian Heeg</div>
+        <div class="font-light">made with <a href="https://astro.build/" target="_blank">astro.build</a></div>
+        <div class="font-light">view on <a href="https://github.com/maximilian-heeg/heeg.io-astro" target="_blank">GitHub</a></div>
+        <div>&copy; 2023</div>
+      </div>
+    </div>
+  </div>
 </footer>
+
+<style>
+  footer {
+    --at-apply: bg-slate-800/95 text-heeg-light w-full flex-shrink-0 mt-6;
+  }
+
+  footer > div {
+    --at-apply: "max-w-screen-xl mx-auto p-3 text-sm my-3 flex justify-center" ;
+  }
+
+  footer > div > div {
+    --at-apply: my-auto;
+  }
+
+  div a {
+    --at-apply: "hover:text-heeg-active duration-300 transition-colors";
+</style>
