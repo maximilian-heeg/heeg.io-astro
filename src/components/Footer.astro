@@ -12,7 +12,6 @@ import { links } from "@data/navigation";
         alt="Maximilian Heeg"
         width={88}
         height={88}
-        class="rounded-full border border-heeg-active w-22 h-22 my-0 object-cover"
       /></a>
       <div>
         <div class="font-medium text-base"> Maximilian Heeg</div>
@@ -35,6 +34,10 @@ import { links } from "@data/navigation";
 
   footer > div > div {
     --at-apply: my-auto;
+  }
+
+  footer img {
+    --at-apply: "rounded-full border-2 border-heeg-light ring-1 ring-heeg-active hover:ring-4 my-0 object-cover transition-all duration-300";
   }
 
   div a {
