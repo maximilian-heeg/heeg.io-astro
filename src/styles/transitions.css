@@ -1,5 +1,5 @@
 .onscroll-fade-in {
-  --at-apply: transition-opacity duration-1000 delay-300;
+  --at-apply: transition-opacity duration-1000 delay-100;
 }
 
 .onscroll-fade-in.is-inactive {
@@ -7,7 +7,7 @@
 }
 
 .onscroll-fade-right {
-  --at-apply: transition-all duration-750 delay-300;
+  --at-apply: transition-all duration-750 delay-100;
 }
 
 .onscroll-fade-right.is-inactive {
