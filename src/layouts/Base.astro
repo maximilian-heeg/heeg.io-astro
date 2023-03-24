@@ -90,9 +90,14 @@ const observer = new IntersectionObserver(entries => {
   })
 }, { rootMargin: "-50px" })
 
-// Handle clicks on each button.
+// Handle intersection for each element
 fade_in_elements.forEach((elm) => {
   elm?.classList.add("is-inactive")
   observer.observe(elm)
 });
+
+const scroll_right_elements = document.querySelectorAll('.scroll-right');
+  scroll_right_elements.forEach((elm) => {
+    elm.scrollLeft = elm.scrollWidth;
+  });
 </script>

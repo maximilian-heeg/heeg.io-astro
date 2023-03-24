@@ -11,79 +11,59 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
 ---
 
 <div id="chart">
-  <table
-    class="charts-css column show-data-on-hover show-labels data-spacing-5"
-  >
-    <thead>
-      <tr>
-        <th scope="col"> Year</th>
-        <th scope="col"> Value</th>
-      </tr>
-    </thead>
-    <tbody>
-      {
-        citations_per_year.map((x) => (
-          <tr>
-            <th>
-              <span>{x.year}</span>
-            </th>
-            <td style={`--size: calc( ${x.number} / ${max_citations} )`}>
-              <a href={`/publications/${x.year}#year`} />
-              <span class="tooltip">{x.number}</span>
-            </td>
-          </tr>
-        ))
-      }
-    </tbody>
-  </table>
-
-  <div class="data-axis">Number of citations</div>
+  <div class="data-title">Number of citations</div>
+  <div class="table-container scroll-right">
+    <table
+      class="charts-css column show-data-on-hover show-labels data-spacing-5"
+    >
+      <thead>
+        <tr>
+          <th scope="col"> Year</th>
+          <th scope="col"> Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          citations_per_year.map((x) => (
+            <tr>
+              <th>
+                <span>{x.year}</span>
+              </th>
+              <td style={`--size: calc( ${x.number} / ${max_citations} )`}>
+                <a href={`/publications/${x.year}#year`} />
+                <span class="tooltip">{x.number}</span>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
 </div>
 
 <style>
-  #chart {
-    display: grid;
-    align-items: center;
-    justify-items: center;
-    grid-template-columns: 50px 1fr;
-    grid-template-rows: 250px 0px;
-    grid-template-areas:
-      "data-axis chart"
-      ".         primary-axis";
+  #chart .table-container {
+    --at-apply: overflow-x-scroll box-border overflow-y-hidden pb-4;
   }
 
   #chart table {
     --at-apply: min-w-sm h-64;
   }
 
-  #chart td {
-    --at-apply: border-2 border-solid border-heeg-dark/60 bg-heeg-dark/20
-      transition-colors duration-300;
-    --at-apply: "hover:bg-heeg-dark/60";
-  }
-
-  #chart tr {
-    --at-apply: "hover:bg-heeg-active/10 transition-colors duration-300";
-  }
-
   #chart tr th span {
-    --at-apply: "text-xs md:text-sm lg:text-base";
+    --at-apply: "text-xs md:text-sm lg:text-base font-600 opacity-60";
   }
 
-  #chart > table {
-    grid-area: chart;
-  }
-  #chart > .primary-axis {
-    grid-area: primary-axis;
-  }
-  #chart > .data-axis {
-    grid-area: data-axis;
-    writing-mode: tb-rl;
-    transform: rotateZ(180deg);
+  #chart > .data-title {
+    --at-apply: opacity-60 text-center ml-4 mr-19;
+    --at-apply: "md:mr-4";
   }
 
   #chart table tbody td {
-    --at-apply: "!transition-transform !duration-2000 scale-y-100 origin-bottom";
+    --at-apply: "border-2 border-solid border-slate-800/95 bg-heeg-dark scale-y-100 origin-bottom";
+    --at-apply: "hover:bg-heeg-active";
+    transition: transform 2s, background-color 0.3s;
+    transition-delay: 500ms, 0ms;
   }
 
   #chart.is-inactive table tbody td {
@@ -91,21 +71,23 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
   }
 </style>
 
-
 <script>
-  const fade_in_elements = document.querySelectorAll('#chart');
-  const observer = new IntersectionObserver(entries => {
-    entries.forEach(entry => {
-      if(entry.isIntersecting) {
-        entry.target.classList.remove("is-inactive");
-      }  else {
-        entry.target.classList.add("is-inactive");
-      }   
-    })
-  }, { rootMargin: "0px" })
-  
-  // Handle clicks on each button.
+  const fade_in_elements = document.querySelectorAll("#chart");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("is-inactive");
+        } else {
+          entry.target.classList.add("is-inactive");
+        }
+      });
+    },
+    { rootMargin: "0px" }
+  );
+
+  // Handle intersection
   fade_in_elements.forEach((elm) => {
-    observer.observe(elm)
+    observer.observe(elm);
   });
-  </script>
+</script>
