@@ -43,11 +43,11 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
 
 <style>
   #chart .table-container {
-    --at-apply: overflow-x-scroll box-border overflow-y-hidden pb-4;
+    --at-apply: overflow-x-auto overflow-y-hidden pb-4 px-4;
   }
 
   #chart table {
-    --at-apply: min-w-sm h-64;
+    --at-apply: min-w-sm h-64 box-border;
   }
 
   #chart tr th span {
