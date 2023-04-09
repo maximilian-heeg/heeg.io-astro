@@ -1,0 +1,117 @@
+---
+import Layout from "@layouts/Base.astro";
+import { Image, Picture } from "@astrojs/image/components";
+import { galleries } from "@data/gallery";
+---
+
+<Layout title="Gallery">
+  
+  
+  <div class="content">
+    <h1>Gallery</h1>
+    <p>Random collection of some pictures. Mainly to test functions in astro.</p>
+    {
+      galleries.map((gallery) => (
+        <>
+          <h2 class="onscroll-fade-in">{gallery.title}</h2>
+          <p class="onscroll-fade-in">{gallery.description}</p>
+          <div class="gallery">
+            {gallery.images.map((x) => (
+              <div class="imgcontainer onscroll-fade-in">
+                <Image
+                  src={import(`../images/${gallery.path}/${x.img}.jpg`)}
+                  alt={x.alt}
+                  width={300}
+                  height={200}
+                />
+                <h3>{x.alt}</h3>
+              </div>
+            ))}
+          </div>
+        </>
+      ))
+    }
+  </div>
+</Layout>
+
+<style>
+  div.content {
+    --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
+    --at-apply: "md:col-span-10 md:col-start-2";
+  }
+
+  h1,
+  h2 {
+    font-weight: 500;
+    line-height: 1.25;
+  }
+
+  h1 {
+    font-size: 2.25em;
+    margin: 1rem 0;
+  }
+
+  h2 {
+    font-size: 1.75em;
+    margin: 1.75em 0 0.5em;
+  }
+
+  .content .gallery {
+    --at-apply: flex flex-wrap;
+  }
+
+  .content div.imgcontainer {
+    --at-apply: rounded-md border shadow-md shrink-0 grow-1 m-1 relative
+      overflow-hidden;
+  }
+
+  .content div.imgcontainer img {
+    --at-apply: object-cover w-full h-auto;
+  }
+
+  .content div.imgcontainer::after {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 00%;
+    width: 100%;
+    height: 100%;
+    background-image: linear-gradient(120deg, #e2e8f0, #184c80);
+    opacity: 0.5;
+    transition-property: all;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 500ms;
+    mix-blend-mode: color;
+  }
+
+  .content div.imgcontainer h3 {
+    --at-apply: absolute bottom-0 w-full text-center
+      font-semibold text-lg transition-all duration-500 p-1 bg-heeg-light opacity-30;
+  }
+
+  .content div.imgcontainer:hover h3 {
+    --at-apply: opacity-90;
+  }
+
+  .content div.imgcontainer::after {
+    /* transform: skew(-30deg)
+               translateX(-50%); */
+  }
+
+  /* .content div.imgcontainer::before {
+    transform: skew(30deg)
+               translateX(-50%);
+  } */
+
+  .content div.imgcontainer:hover::after {
+    opacity: 0;
+    /* transform: skew(-90deg)
+               translateX(-50%); */
+  }
+
+  /* .content div.imgcontainer:hover::before {
+    opacity: 0;
+    transform: skew(90deg)
+               translateX(-50%);
+  } */
+</style>
