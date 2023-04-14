@@ -5,11 +5,11 @@ import { galleries } from "@data/gallery";
 ---
 
 <Layout title="Gallery">
-  
-  
   <div class="content">
     <h1>Gallery</h1>
-    <p>Random collection of some pictures. Mainly to test functions in astro.</p>
+    <p>
+      Random collection of some pictures. Mainly to test functions in astro.
+    </p>
     {
       galleries.map((gallery) => (
         <>
@@ -38,22 +38,6 @@ import { galleries } from "@data/gallery";
   div.content {
     --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
     --at-apply: "md:col-span-10 md:col-start-2";
-  }
-
-  h1,
-  h2 {
-    font-weight: 500;
-    line-height: 1.25;
-  }
-
-  h1 {
-    font-size: 2.25em;
-    margin: 1rem 0;
-  }
-
-  h2 {
-    font-size: 1.75em;
-    margin: 1.75em 0 0.5em;
   }
 
   .content .gallery {
@@ -85,8 +69,9 @@ import { galleries } from "@data/gallery";
   }
 
   .content div.imgcontainer h3 {
-    --at-apply: absolute bottom-0 w-full text-center
-      font-semibold text-lg transition-all duration-500 p-1 bg-heeg-light opacity-30;
+    --at-apply: absolute bottom-0 w-full text-center m-0 font-semibold text-lg
+      transition-all duration-500 p-1 bg-heeg-light opacity-30;
+    filter: none;
   }
 
   .content div.imgcontainer:hover h3 {

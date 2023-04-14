@@ -20,3 +20,9 @@ h3 {
   margin: 1em 0;
   font-size: 1.25em;
 }
+
+h1,
+h2,
+h3 {
+  filter: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg"> <filter id="filter"> <feTurbulence type="turbulence" x="-10%" y="-10%" width="120%" height="120%" baseFrequency="0.08" numOctaves="2" result="turbulence" /> <feDisplacementMap in2="turbulence" in="SourceGraphic" scale="1" xChannelSelector="R" yChannelSelector="R" /> </filter> </svg>#filter ');
+}
