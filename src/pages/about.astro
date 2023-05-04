@@ -90,17 +90,19 @@ const options = {
     {
       experience?.map((item) => (
         <div>
-          <h3>{item.title}</h3>
-          <p class="tracking-wide">{item.location}</p>
-          <p class="text-sm tracking-wider">
-            {item.dates} &#183; {item.country}
-          </p>
-          {item.description && <p class="ml-2 mt-2">{item.description}</p>}
-          {item.project && (
-            <p class="ml-2 italic before:content-['Project:_'] before:font-bold before:not-italic">
-              {item.project}
+          <div>
+            <h3>{item.title}</h3>
+            <p class="tracking-wide">{item.location}</p>
+            <p class="text-sm tracking-wider">
+              {item.dates} &#183; {item.country}
             </p>
-          )}
+            {item.description && <p class="ml-2 mt-2">{item.description}</p>}
+            {item.project && (
+              <p class="ml-2 italic before:content-['Project:_'] before:font-bold before:not-italic">
+                {item.project}
+              </p>
+            )}
+          </div>
         </div>
       ))
     }
@@ -115,9 +117,11 @@ const options = {
     {
       awards?.map((award) => (
         <div>
-          <div class="award" />
-          <h3>{award.title}</h3>
-          <p class="text-sm tracking-wider">{award.description}</p>
+          <div>
+            <div class="award" />
+            <h3>{award.title}</h3>
+            <p class="text-sm tracking-wider">{award.description}</p>
+          </div>
         </div>
       ))
     }
@@ -129,31 +133,39 @@ const options = {
   </h2>
 
   <div class="twocol twocol-table onscroll-fade-in">
-    <div class="contact">
-      <div class="i-mdi-email-open-outline icon"></div>
-      <Fragment set:html={textToSVG.getSVG("mheeg@ucsd.edu", options)} />
+    <div>
+      <div class="contact">
+        <div class="i-mdi-email-open-outline icon"></div>
+        <Fragment set:html={textToSVG.getSVG("mheeg@ucsd.edu", options)} />
+      </div>
     </div>
-    <div class="contact">
-      <div class="i-mdi-phone-in-talk icon"></div>
-      <Fragment set:html={textToSVG.getSVG("(858) 925 4331", options)} />
+    <div>
+      <div class="contact">
+        <div class="i-mdi-phone-in-talk icon"></div>
+        <Fragment set:html={textToSVG.getSVG("(858) 925 4331", options)} />
+      </div>
     </div>
-    <a
-      class="contact"
-      href="https://twitter.com/MaximilianHeeg"
-      target="_blank"
-    >
-      <div class="i-mdi-twitter icon"></div>
-      <p>MaximilianHeeg</p>
-    </a>
-    <a
-      class="contact"
-      rel="me"
-      href="https://mas.to/@maximilian_heeg"
-      target="_blank"
-    >
-      <div class="i-mdi-mastodon icon"></div>
-      <p>@maximilian_heeg@mas.to</p>
-    </a>
+    <div>
+      <a
+        class="contact"
+        href="https://twitter.com/MaximilianHeeg"
+        target="_blank"
+      >
+        <div class="i-mdi-twitter icon"></div>
+        <p>MaximilianHeeg</p>
+      </a>
+    </div>
+    <div>
+      <a
+        class="contact"
+        rel="me"
+        href="https://mas.to/@maximilian_heeg"
+        target="_blank"
+      >
+        <div class="i-mdi-mastodon icon"></div>
+        <p>@maximilian_heeg@mas.to</p>
+      </a>
+    </div>
   </div>
 </Layout>
 
@@ -175,11 +187,15 @@ const options = {
       border shadow-md p-0 overflow-hidden;
   }
 
-  div.twocol-table div,
-  div.twocol-table a {
-    --at-apply: w-full bg-gray-50 p-4 text-left box-border transition-colors
+  div.twocol-table > div {
+    --at-apply: overflow-hidden;
+  }
+
+  div.twocol-table > div > div,
+  div.twocol-table > div > a {
+    --at-apply: w-full h-full bg-gray-50 p-4 text-left box-border transition-all
       duration-300 relative;
-    --at-apply: "hover:bg-gray-100";
+    --at-apply: "hover:bg-gray-100 hover:scale-102";
   }
 
   div.twocol-table div div.award {
