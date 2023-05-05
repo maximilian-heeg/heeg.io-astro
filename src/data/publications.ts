@@ -15,7 +15,7 @@ async function getPublications() {
     processUnknown: true,
   });
   let paper = Object.values(bib.entries);
-  paper = paper.sort((a, b) => (a.fields.date < b.fields.date ? 1 : -1));
+  // paper = paper.sort((a, b) => (a.fields.date < b.fields.date ? 1 : -1));
 
   let now = new Date();
   let update = Intl.DateTimeFormat("en-US").format(now);
