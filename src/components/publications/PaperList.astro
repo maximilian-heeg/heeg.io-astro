@@ -27,14 +27,14 @@ if (year) {
   <div class="responsive-twocol twocol-table onscroll-fade-in">
     {
       filtered.map((p) => (
-        <div>
-          <div
-            class={`paper ${
-              p.unknown_fields && p.unknown_fields.top[0].text == "yes"
-                ? "featured"
-                : "non-featured"
-            }`}
-          >
+        <div
+          class={`${
+            p.unknown_fields && p.unknown_fields.top[0].text == "yes"
+              ? "featured"
+              : "non-featured"
+          }`}
+        >
+          <div class="paper">
             <div class="title">
               <div class="star" />
               <h3>{p.fields.title[0].text}</h3>
@@ -106,28 +106,28 @@ if (year) {
     --at-apply: grid grid-cols-[32px_1fr] gap-2 w-full;
   }
 
-  .paper.featured .title .star {
+  .featured > .paper .title .star {
     --at-apply: i-mdi-star my-auto w-8 h-8 text-yellow-400 transition-colors
       duration-300;
   }
 
-  .paper.non-featured .title .star {
+  .non-featured > .paper .title .star {
     display: none;
   }
 
-  .paper.non-featured .title h3 {
+  .non-featured > .paper .title h3 {
     --at-apply: col-span-2;
   }
 
-  .paper.featured:hover .title .star {
+  .featured:hover > .paper .title .star {
     --at-apply: text-yellow-500;
   }
 
-  .paper.hide-non-featured {
+  .hide-non-featured {
     --at-apply: "hidden";
   }
 
-  .paper.show-non-featured {
+  .show-non-featured {
   }
 
   .paper .title h3 {
