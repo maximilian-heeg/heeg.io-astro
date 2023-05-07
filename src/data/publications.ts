@@ -21,6 +21,8 @@ async function getPublications() {
   let update = Intl.DateTimeFormat("en-US").format(now);
 
   let years = [...new Set(paper.map((x) => x.fields.date))];
+  years = years.sort((a, b) => (a < b ? 1 : -1));
+
 
   return {
     total: paper.length,
