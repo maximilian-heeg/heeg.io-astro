@@ -30,7 +30,7 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
                 <span>{x.year}</span>
               </th>
               <td style={`--size: calc( ${x.number} / ${max_citations} )`}>
-                <a href={`/publications/${x.year}#year`} />
+                <a href={`/publications/${x.year}#year`} aria-label={`${x.year}: ${x.number} citations`} />
                 <span class="tooltip">{x.number}</span>
               </td>
             </tr>
@@ -51,11 +51,11 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
   }
 
   #chart tr th span {
-    --at-apply: "text-xs md:text-sm lg:text-base font-600 opacity-60";
+    --at-apply: "text-xs md:text-sm lg:text-base font-600 opacity-70";
   }
 
   #chart > .data-title {
-    --at-apply: opacity-60 text-center ml-4 mr-19;
+    --at-apply: opacity-80 text-center ml-4 mr-19;
     --at-apply: "md:mr-4";
   }
 

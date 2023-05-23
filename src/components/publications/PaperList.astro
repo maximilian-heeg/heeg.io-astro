@@ -14,11 +14,18 @@ if (year) {
 
 <astro-paper-list>
   <div class="twocol onscroll-fade-right">
-    <a id="year"><h2>{year ? year : "All"}</h2></a>
+    <h2 id="year" aria-label={year ? year : "All"}>{year ? year : "All"}</h2>
     <div class="toggle-container">
       <input type="hidden" name="featured-only" value="false" />
       <label id="toggle-label-1"> Featured only</label>
-      <button x-ref="toggle" class="inactive" type="button" role="switch">
+      <button
+        x-ref="toggle"
+        class="inactive"
+        type="button"
+        role="switch"
+        aria-checked="false"
+        aria-label="Toggle featured only"
+      >
         <span aria-hidden="true" class="inactive"></span>
       </button>
     </div>
@@ -198,7 +205,7 @@ if (year) {
 
       const toggle = this.querySelector(".toggle-container");
       const input = this.querySelector(".toggle-container input");
-      const button = this.querySelector(".toggle-container button")?.classList;
+      const button = this.querySelector(".toggle-container button");
       const span = this.querySelector(".toggle-container span")?.classList;
 
       const nonFeatured = this.querySelectorAll(".non-featured");
@@ -207,8 +214,9 @@ if (year) {
         const toggleActive = input?.getAttribute("value");
         if (toggleActive === "false") {
           input?.setAttribute("value", "true");
-          button?.add("active");
-          button?.remove("inactive");
+          button?.classList?.add("active");
+          button?.classList?.remove("inactive");
+          button?.setAttribute("aria-checked", "true");
           span?.add("active");
           span?.remove("inactive");
 
@@ -218,8 +226,9 @@ if (year) {
           });
         } else {
           input?.setAttribute("value", "false");
-          button?.remove("active");
-          button?.add("inactive");
+          button?.classList?.remove("active");
+          button?.classList?.add("inactive");
+          button?.setAttribute("aria-checked", "false");
           span?.remove("active");
           span?.add("inactive");
 
