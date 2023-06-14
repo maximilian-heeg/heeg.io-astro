@@ -16,9 +16,17 @@ export async function getStaticPaths() {
     };
   });
 }
+
+var description = `
+    Heeg.IO - Maximilian Heeg - 
+    List of publications from the the year ${year}.
+    ${publications.total} total publications.
+    ${publications.scholar.total_citations} citations.
+    H-index ${publications.scholar.h_index}.
+`
 ---
 
-<Layout title="Publications">
+<Layout title="Publications" content={description}>
   <h1>Publications</h1>
   <PaperStats
     total_publications={publications.total}

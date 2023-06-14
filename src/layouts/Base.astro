@@ -1,9 +1,10 @@
 ---
 export interface Props {
   title: string;
+  content: string;
 }
 
-const { title } = Astro.props;
+const { title, content } = Astro.props;
 
 import "@unocss/reset/normalize.css";
 import "uno.css";
@@ -24,8 +25,7 @@ import "@styles/global.css";
     <meta charset="UTF-8">
     <meta
       name="description"
-      content="Heeg.IO
-                       my personal webite."
+      content={content}
     />
     <link
       rel="apple-touch-icon"
@@ -57,7 +57,7 @@ import "@styles/global.css";
     <Tracker />
   </head>
 
-  <body class="font-sans m-0 min-h-screen flex flex-col" all="scroll-m-t-14">
+  <body class="font-sans m-0 min-h-screen flex bg-light-50 flex-col" all="scroll-m-t-14">
     <Navigation />
 
     <div class="pt-14 flex-grow">

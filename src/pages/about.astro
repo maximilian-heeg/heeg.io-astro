@@ -18,9 +18,15 @@ const options = {
   anchor: "top",
   attributes: attributes,
 };
+
+var description = `
+    Heeg.IO - Maximilian Heeg - 
+    Find out more about me. Highlights from my CV.
+    Awards and sholarships. Professional experiences.
+`
 ---
 
-<Layout title="About">
+<Layout title="About" content={description}>
   <h1>About me</h1>
 
   <div class="twocol lg:!grid-cols-[258px_6fr] onscroll-fade-in">

@@ -3,9 +3,25 @@ import Layout from "@layouts/Base.astro";
 import Logo from "@components/Logo.astro";
 import { Image, Picture } from "@astrojs/image/components";
 import TRM from "@images/TRM_IC.png";
+
+var description = `
+    Heeg.IO - Maximilian Heeg - 
+    Welcome to my personal website! I am a pediatrician with a passion for
+    understanding the complexities of the immune system. My research is focused
+    on CD8<sup>+</sup> tissue-resident memory T cells, or TRM cells for
+    short. These cells are critical for protecting our bodies against infections
+    and diseases, and I am fascinated by how they form and interact with other cells
+    in the body. To study TRM cells, I work with a mouse model of LCMV
+    Armstrong infection. This model allows me to investigate the formation and function
+    of TRM cells in response to viral infection. By infecting mice with
+    this virus, I can study the formation of TRM cells in response to
+    viral infection, and how these cells contribute to long-term immunity to the
+    virus.
+`
+
 ---
 
-<Layout title="Home">
+<Layout title="Home" content={description}>
   <div class="logo">
     <Logo />
   </div>
@@ -42,7 +58,7 @@ import TRM from "@images/TRM_IC.png";
       sizes="(max-width: 500px) 500px, (max-width: 600px) 600px, 1000px"
       formats={["avif", "webp"]}
       alt="TRM cells in the intestine"
-      class="md:rounded w-full aspect-[1000/593]"
+      class="w-full aspect-[1000/593]"
       loading="lazy"
     />
     <div class="caption">
@@ -110,9 +126,14 @@ import TRM from "@images/TRM_IC.png";
   }
 
   .wider {
-    --at-apply: "!px-0";
+    --at-apply: "!px-0 py-2";
     --at-apply: "md:col-span-10 md:col-start-2";
     --at-apply: "lg:col-span-9 lg:col-start-2";
+  }
+
+  .wider > video,
+  .wider  img {
+    --at-apply: "shadow-md shadow-stone-500 md:rounded";
   }
 
   .aside {
@@ -121,8 +142,8 @@ import TRM from "@images/TRM_IC.png";
   }
 
   blockquote {
-    --at-apply: p-4 border-l-solid border-l-4 border-slate-600 bg-slate-50
-      border-box;
+    --at-apply: p-4 border-solid border-1 border-slate-300 border-l-solid border-l-4 border-l-slate-600 bg-slate-50
+      border-box shadow-md;
   }
 
   blockquote p {

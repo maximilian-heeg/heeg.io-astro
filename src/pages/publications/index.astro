@@ -7,9 +7,18 @@ import Pages from "@components/publications/Pages.astro";
 import { publications } from "@data/publications";
 
 const years = publications.years;
+
+var description = `
+    Heeg.IO - Maximilian Heeg - 
+    List of publications from the last three years.
+    ${publications.total} total publications.
+    ${publications.scholar.total_citations} citations.
+    H-index ${publications.scholar.h_index}.
+`
+
 ---
 
-<Layout title="Publications">
+<Layout title="Publications" content={description}>
   <h1 class="onscroll-fade-right">Publications</h1>
   <PaperStats
     total_publications={publications.total}
