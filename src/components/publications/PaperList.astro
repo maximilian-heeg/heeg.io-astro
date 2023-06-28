@@ -36,7 +36,7 @@ if (year) {
       filtered.map((p) => (
         <div
           class={`${
-            p.unknown_fields && p.unknown_fields.top[0].text == "yes"
+            p.unexpected_fields.label && p.unexpected_fields.label[0].text == "featured"
               ? "featured"
               : "non-featured"
           }`}
