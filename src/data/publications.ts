@@ -1,5 +1,3 @@
-import BibLatexParser from "biblatex-csl-converter";
-import fs from "fs";
 import axios from "axios";
 import * as cheerio from "cheerio";
 
@@ -8,19 +6,54 @@ type citations_in_year = {
   number: number;
 };
 
+type author = {
+  authorId: string;
+  name: string;
+}
+
+type externalIds = {
+  DOI: string,
+}
+
+type journal = {
+  volume: string;
+  pages: string;
+  name: string;
+}
+
+export type paper = {
+  paperId: string;
+  externalIds: externalIds;
+  title: string;
+  year: number;
+  isOpenAccess: boolean;
+  openAccessPdf: {
+    url: string;
+  };
+  publicationTypes: string[];
+  journal: journal;
+  authors: author[];
+  citationCount: number;
+}
+
+
+var url = 'https://api.semanticscholar.org/graph/v1/author/50644098/papers?fields=title,year,authors,publicationTypes,journal,externalIds,isOpenAccess,openAccessPdf,citationCount'
+
 async function getPublications() {
-  const file = fs.readFileSync("src/data/publications.bib", "utf8");
-  let bib = BibLatexParser.parse(file, {
-    processUnexpected: true,
-    processUnknown: true,
-  });
-  let paper = Object.values(bib.entries);
-  // paper = paper.sort((a, b) => (a.fields.date < b.fields.date ? 1 : -1));
+  const res = await axios.get(url);
+
+  var paper: paper[] = res.data.data;
+
+  paper = paper.filter(function (el) {
+    return el.publicationTypes !== null
+  })
+
+  paper = paper.sort((a, b) => (a.year < b.year ? 1 : -1));
 
   let now = new Date();
   let update = Intl.DateTimeFormat("en-US").format(now);
 
-  let years = [...new Set(paper.map((x) => x.fields.date))];
+  let years = [...new Set(paper.map((x) => x.year))];
   years = years.sort((a, b) => (a < b ? 1 : -1));
 
 

@@ -3,6 +3,7 @@ import Layout from "@layouts/Base.astro";
 import PaperStats from "@components/publications/PaperStats.astro";
 import PaperList from "@components/publications/PaperList.astro";
 import Pages from "@components/publications/Pages.astro";
+import PaperSource from "@components/publications/PaperSource.astro";
 
 import { publications } from "@data/publications";
 
@@ -32,6 +33,8 @@ var description = `
   <PaperList paper={publications.paper} year={years[0]} />
   <PaperList paper={publications.paper} year={years[1]} />
   <PaperList paper={publications.paper} year={years[2]} />
+
+  <PaperSource last_update={publications.last_update} />
 
   <Pages years={years} current={years[0]} < Layout>
     <style>

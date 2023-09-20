@@ -4,6 +4,7 @@ import PaperStats from "@components/publications/PaperStats.astro";
 import PaperList from "@components/publications/PaperList.astro";
 import Pages from "@components/publications/Pages.astro";
 import { publications } from "@data/publications";
+import PaperSource from "@components/publications/PaperSource.astro";
 
 const years = publications.years;
 const { year } = Astro.params;
@@ -38,6 +39,8 @@ var description = `
   />
 
   <PaperList paper={publications.paper} year={year} />
+
+  <PaperSource last_update={publications.last_update} />
 
   <Pages years={years} current={year} < Layout>
     <style>

@@ -1,6 +1,7 @@
 ---
+import type { paper } from "@data/publications";
 export interface Props {
-  paper: EntryObject[];
+  paper: paper[];
   year: number;
 }
 
@@ -8,68 +9,65 @@ const { paper, year } = Astro.props;
 
 let filtered = paper;
 if (year) {
-  filtered = paper.filter((item) => item.fields.date == year);
+  filtered = paper.filter((item) => item.year == year);
 }
 ---
 
 <astro-paper-list>
   <div class="twocol onscroll-fade-right">
     <h2 id="year" aria-label={year ? year : "All"}>{year ? year : "All"}</h2>
-    <div class="toggle-container">
-      <input type="hidden" name="featured-only" value="false" />
-      <label id="toggle-label-1"> Featured only</label>
-      <button
-        x-ref="toggle"
-        class="inactive"
-        type="button"
-        role="switch"
-        aria-checked="false"
-        aria-label="Toggle featured only"
-      >
-        <span aria-hidden="true" class="inactive"></span>
-      </button>
-    </div>
   </div>
 
   <div class="responsive-twocol twocol-table onscroll-fade-in">
     {
       filtered.map((p) => (
-        <div
-          class={`${
-            p.unexpected_fields.label && p.unexpected_fields.label[0].text == "featured"
-              ? "featured"
-              : "non-featured"
-          }`}
-        >
+        <div class="non-featured">
           <div class="paper">
             <div class="title">
               <div class="star" />
-              <h3>{p.fields.title[0].text}</h3>
+              <h3>{p.title}</h3>
+            </div>
+            <div class="tags">
+              {p.publicationTypes.map((el) => (
+                <span>{el}</span>
+              ))}
+              {p.isOpenAccess && (
+                <span>
+                  Open Access
+                  {p.openAccessPdf && (
+                    <a href={p.openAccessPdf.url} target="_blank">
+                      <span class="pdf" />
+                    </a>
+                  )}
+                </span>
+              )}
             </div>
             <ul>
-              {p.fields.author.map((a) => (
+              {p.authors.map((a) => (
                 <li before:siblings="content-dot">
-                  {a.family[0].text.startsWith("Heeg") ? (
-                    <strong>
-                      {a.given[0].text} {a.family[0].text}
-                    </strong>
+                  {a.name.endsWith("Heeg") ? (
+                    <strong>{a.name}</strong>
                   ) : (
-                    <span>
-                      {a.given[0].text} {a.family[0].text}
-                    </span>
+                    <span>{a.name}</span>
                   )}
                 </li>
               ))}
             </ul>
             <div class="details">
               <span class="font-normal">
-                {p.fields.journaltitle[0].text}{" "}
-                <span class="font-semibold">{p.fields.date}</span>
+                {p.journal.name}
+                <span class="font-semibold">{p.year}</span>
               </span>
-              <a href={`https://doi.org/${p.fields.doi}`} target="_blank">
-                <div class="link" />
-                {p.fields.doi}
-              </a>
+              {p.externalIds.DOI && (
+                <a
+                  href={`https://doi.org/${p.externalIds.DOI}`}
+                  target="_blank"
+                  class="pdf"
+                >
+                  <div class="link" />
+                  {p.externalIds.DOI}
+                </a>
+              )}
             </div>
           </div>
         </div>
@@ -107,6 +105,22 @@ if (year) {
     --at-apply: w-full h-full bg-gray-50 p-4 text-left box-border transition-all
       duration-300 relative;
     --at-apply: "hover:bg-gray-100 hover:scale-102";
+  }
+
+  div.tags {
+    margin-bottom: 0.5rem;
+  }
+
+  div.tags > span {
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    padding: 2px 8px;
+    margin-right: 0.5rem;
+  }
+
+  div.tags span.pdf {
+    --at-apply: i-ph-file-pdf inline-block align-middle w-6 h-6;
   }
 
   .paper .title {
@@ -158,6 +172,8 @@ if (year) {
 
   .paper ul {
     --at-apply: p-0 list-none leading-snug font-light;
+    max-height: 10rem;
+    overflow: scroll;
   }
 
   .paper ul li {
@@ -202,42 +218,6 @@ if (year) {
   class AstroPaperList extends HTMLElement {
     constructor() {
       super();
-
-      const toggle = this.querySelector(".toggle-container");
-      const input = this.querySelector(".toggle-container input");
-      const button = this.querySelector(".toggle-container button");
-      const span = this.querySelector(".toggle-container span")?.classList;
-
-      const nonFeatured = this.querySelectorAll(".non-featured");
-
-      toggle?.addEventListener("click", function () {
-        const toggleActive = input?.getAttribute("value");
-        if (toggleActive === "false") {
-          input?.setAttribute("value", "true");
-          button?.classList?.add("active");
-          button?.classList?.remove("inactive");
-          button?.setAttribute("aria-checked", "true");
-          span?.add("active");
-          span?.remove("inactive");
-
-          nonFeatured?.forEach((paper) => {
-            paper.classList.add("hide-non-featured");
-            paper.classList.remove("show-non-featured");
-          });
-        } else {
-          input?.setAttribute("value", "false");
-          button?.classList?.remove("active");
-          button?.classList?.add("inactive");
-          button?.setAttribute("aria-checked", "false");
-          span?.remove("active");
-          span?.add("inactive");
-
-          nonFeatured?.forEach((paper) => {
-            paper.classList.remove("hide-non-featured");
-            paper.classList.add("show-non-featured");
-          });
-        }
-      });
     }
   }
 
