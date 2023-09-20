@@ -117,6 +117,7 @@ if (year) {
     border: 1px solid #e0e0e0;
     padding: 2px 8px;
     margin-right: 0.5rem;
+    display: inline-block;
   }
 
   div.tags span.pdf {
@@ -173,7 +174,71 @@ if (year) {
   .paper ul {
     --at-apply: p-0 list-none leading-snug font-light;
     max-height: 10rem;
-    overflow: scroll;
+    overflow: auto;
+    background:
+    /* Shadow Cover TOP */
+    linear-gradient(
+      rgba(249, 250, 251, 1),
+      rgba(249, 250, 251, 1)
+    ) center top,
+    
+    /* Shadow Cover BOTTOM */
+    linear-gradient(
+    rgba(249, 250, 251, 1),
+    rgba(249, 250, 251, 1)
+    ) center bottom,
+    
+    /* Shadow TOP */
+    radial-gradient(
+      farthest-side at 50% 0,
+      rgba(0, 0, 0, 0.2),
+      rgba(249, 250, 251, 1)
+    ) center top,
+    
+    /* Shadow BOTTOM */
+    radial-gradient(
+      farthest-side at 50% 100%,
+      rgba(0, 0, 0, 0.2),
+      rgba(249, 250, 251, 1)
+    ) center bottom;
+  
+  background-repeat: no-repeat;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-attachment: local, local, scroll, scroll;
+  }
+
+  .paper:hover ul {
+    --at-apply: transition-all duration-300;
+    background:
+    /* Shadow Cover TOP */
+    linear-gradient(
+      rgba(243, 244, 246, 1),
+      rgba(243, 244, 246, 1)
+    ) center top,
+    
+    /* Shadow Cover BOTTOM */
+    linear-gradient(
+    rgba(243, 244, 246, 1),
+    rgba(243, 244, 246, 1)
+    ) center bottom,
+    
+    /* Shadow TOP */
+    radial-gradient(
+      farthest-side at 50% 0,
+      rgba(0, 0, 0, 0.2),
+      rgba(243, 244, 246, 1)
+    ) center top,
+    
+    /* Shadow BOTTOM */
+    radial-gradient(
+      farthest-side at 50% 100%,
+      rgba(0, 0, 0, 0.2),
+      rgba(243, 244, 246, 1)
+    ) center bottom;
+  
+  background-repeat: no-repeat;
+  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+  background-attachment: local, local, scroll, scroll;
   }
 
   .paper ul li {
