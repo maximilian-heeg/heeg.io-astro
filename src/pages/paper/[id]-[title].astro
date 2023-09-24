@@ -2,6 +2,8 @@
 import { publications } from "@data/publications";
 import Layout from "@layouts/Base.astro";
 import PaperCitations from "@components/paperCitations.astro";
+import PaperSource from "@components/publications/PaperSource.astro";
+
 const { id, title } = Astro.params;
 
 import { getPublications } from "@data/paperDetails";
@@ -9,13 +11,14 @@ import { getPublications } from "@data/paperDetails";
 export async function getStaticPaths() {
     let data = await publications;
     return data.paper.map((el) => {
-        let title = el.title.replace(/[^a-zA-Z ]/g, "")
+        let title = el.title.replace(/[^a-zA-Z0-9 ]/g, "")
         return {
             params: { id: el.paperId, title: title },
         };
     });
 }
 
+let update = Intl.DateTimeFormat("en-US").format(new Date());
 var paper = await getPublications(id);
 
 var description = `
@@ -25,7 +28,7 @@ var description = `
 
 <Layout title="Publications" content={description}>
     <h1 class="onscroll-fade-right">
-        {title}
+        {paper.title}
     </h1>
 
     <div class="tags maincol">
@@ -79,7 +82,9 @@ var description = `
     </div>
     <div class="maincol">
         <h2 class="onscroll-fade-right">TL;DR</h2>
-        <p>{paper.tldr.text}</p>
+        {paper.tldr && (
+            <p>{paper.tldr.text}</p>
+        )}
         {paper.abstract && (
             <h2 class="onscroll-fade-right">Abstract</h2>
         <p>{paper.abstract}</p>
@@ -118,6 +123,9 @@ var description = `
         <h2 class="onscroll-fade-right">Cite as</h2>
         <pre>{paper.citationStyles.bibtex}</pre>
     </div>
+    <div class="maincol update">
+    <PaperSource last_update={update} />
+</div>
 </Layout>
 
 <style>
@@ -125,6 +133,10 @@ var description = `
     .maincol {
         --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6;
         --at-apply: "md:col-span-8 md:col-start-3";
+    }
+
+    .update {
+        margin-top: 0;
     }
 
     h1 {

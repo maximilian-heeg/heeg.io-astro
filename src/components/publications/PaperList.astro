@@ -27,7 +27,7 @@ if (year) {
               <div class="star" />
               <a
                 href={`/paper/${p.paperId}-${p.title.replace(
-                  /[^a-zA-Z ]/g,
+                  /[^a-zA-Z0-9 ]/g,
                   ""
                 )}`}
               >
