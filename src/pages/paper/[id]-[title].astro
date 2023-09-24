@@ -1,0 +1,193 @@
+---
+import { publications } from "@data/publications";
+import Layout from "@layouts/Base.astro";
+import PaperCitations from "@components/paperCitations.astro";
+const { id, title } = Astro.params;
+
+import { getPublications } from "@data/paperDetails";
+
+export async function getStaticPaths() {
+    let data = await publications;
+    return data.paper.map((el) => {
+        let title = el.title.replace(/[^a-zA-Z ]/g, "")
+        return {
+            params: { id: el.paperId, title: title },
+        };
+    });
+}
+
+var paper = await getPublications(id);
+
+var description = `
+    Heeg.IO - Maximilian Heeg
+    `;
+---
+
+<Layout title="Publications" content={description}>
+    <h1 class="onscroll-fade-right">
+        {title}
+    </h1>
+
+    <div class="tags maincol">
+        {paper.publicationTypes.map((el) => <span>{el}</span>)}
+        {
+            paper.isOpenAccess && (
+                <span>
+                    Open Access
+                    {paper.openAccessPdf && (
+                        <a href={paper.openAccessPdf.url} target="_blank">
+                            <span class="pdf" />
+                        </a>
+                    )}
+                </span>
+            )
+        }
+    </div>
+    <div class="details maincol">
+        <span class="font-normal">
+            {paper.journal.name}
+            <span class="font-semibold">{paper.year}</span>
+        </span>
+        {
+            paper.externalIds.DOI && (
+                <a
+                    href={`https://doi.org/${paper.externalIds.DOI}`}
+                    target="_blank"
+                    class="pdf"
+                >
+                    <div class="link" />
+                    {paper.externalIds.DOI}
+                </a>
+            )
+        }
+    </div>
+    <div class="maincol">
+        <h2 class="onscroll-fade-right">Authors</h2>
+        <ul>
+            {
+                paper.authors.map((a) => (
+                    <li before:siblings="content-dot">
+                        {a.name.endsWith("Heeg") ? (
+                            <strong>{a.name}</strong>
+                        ) : (
+                            <span>{a.name}</span>
+                        )}
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+    <div class="maincol">
+        <h2 class="onscroll-fade-right">TL;DR</h2>
+        <p>{paper.tldr.text}</p>
+        {paper.abstract && (
+            <h2 class="onscroll-fade-right">Abstract</h2>
+        <p>{paper.abstract}</p>
+        )}
+    </div>
+    <div class="maincol citations">
+        <h2 class="onscroll-fade-right">{paper.citations.length} Citations</h2>
+
+        <PaperCitations citations={paper.citations} />
+
+        {
+            paper.citations.map((c) => (
+                <div>
+                    <h3>{c.title}</h3>
+                    <div class="details">
+                        <span class="font-normal">
+                            {c.journal != null ? c.journal.name : ''}
+                            <span class="font-semibold">{c.year}</span>
+                        </span>
+                        {c.externalIds.DOI && (
+                            <a
+                                href={`https://doi.org/${c.externalIds.DOI}`}
+                                target="_blank"
+                                class="pdf"
+                            >
+                                <div class="link" />
+                                {c.externalIds.DOI}
+                            </a>
+                        )}
+                    </div>
+                </div>
+            ))
+        }
+    </div>
+    <div class="maincol">
+        <h2 class="onscroll-fade-right">Cite as</h2>
+        <pre>{paper.citationStyles.bibtex}</pre>
+    </div>
+</Layout>
+
+<style>
+    h1,
+    .maincol {
+        --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6;
+        --at-apply: "md:col-span-8 md:col-start-3";
+    }
+
+    h1 {
+        --at-apply: leading-12;
+    }
+
+    .maincol > h2 {
+        margin-top: 0.5rem;
+    }
+
+    div.tags {
+        margin-bottom: 0.5rem;
+    }
+
+    div.tags > span {
+        border-radius: 3px;
+        background-color: white;
+        border: 1px solid #e0e0e0;
+        padding: 2px 8px;
+        margin-right: 0.5rem;
+        display: inline-block;
+    }
+
+    div.tags span.pdf {
+        --at-apply: i-ph-file-pdf inline-block align-middle w-6 h-6;
+    }
+
+    .details {
+        --at-apply: "grid grid-cols-1 gap-2 w-full md:grid-cols-2 mt-0.5em";
+    }
+
+    .details .link {
+        --at-apply: i-mdi-external-link inline-block align-middle w-4 h-4;
+    }
+
+    .details a {
+        --at-apply: italic font-light;
+        --at-apply: "hover:text-heeg-active hover:underline";
+    }
+
+    ul {
+        --at-apply: p-0 list-none leading-snug font-light;
+    }
+
+    ul li {
+        --at-apply: inline;
+    }
+
+    div.citations > div {
+        --at-apply: p-3 border-solid border-1 border-slate-300 border-l-solid border-l-4 border-l-slate-600 bg-slate-50
+      border-box shadow-md mb-4;
+      font-size: 0.875rem;
+    }
+
+    div.citations > div > h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 1.05rem;
+        filter: none;
+    }
+
+    .maincol pre {
+        --at-apply: p-3 border-solid border-1 border-slate-300 bg-slate-50 border-box shadow-md mb-4;
+        white-space: pre-wrap; 
+    }
+</style>

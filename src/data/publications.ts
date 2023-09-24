@@ -34,10 +34,12 @@ export type paper = {
   journal: journal;
   authors: author[];
   citationCount: number;
+  publicationDate: Date;
 }
 
-
-var url = 'https://api.semanticscholar.org/graph/v1/author/50644098/papers?fields=title,year,authors,publicationTypes,journal,externalIds,isOpenAccess,openAccessPdf,citationCount'
+const id = 50644098;
+const fields = 'title,year,authors,publicationTypes,journal,externalIds,isOpenAccess,openAccessPdf,citationCount,publicationDate';
+var url = `https://api.semanticscholar.org/graph/v1/author/${id}/papers?fields=${fields}`
 
 async function getPublications() {
   const res = await axios.get(url);
@@ -48,7 +50,13 @@ async function getPublications() {
     return el.publicationTypes !== null
   })
 
-  paper = paper.sort((a, b) => (a.year < b.year ? 1 : -1));
+  // convert date
+  paper = paper.map(el => {
+    el.publicationDate = new Date(el.publicationDate)
+    return el
+  });
+
+  paper = paper.sort((a, b) => (a.publicationDate < b.publicationDate ? 1 : -1));
 
   let now = new Date();
   let update = Intl.DateTimeFormat("en-US").format(now);

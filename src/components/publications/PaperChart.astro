@@ -60,9 +60,9 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
   }
 
   #chart table tbody td {
-    --at-apply: "border-2 border-solid border-slate-800/95 bg-heeg-dark scale-y-100 origin-bottom";
-    --at-apply: "hover:bg-heeg-active";
-    transition: transform 2s, background-color 0.3s;
+    --at-apply: "border-1 border-solid border-slate-800/95 scale-y-100 origin-bottom bg-gradient-to-t from-sky-700 to-sky-800";
+    --at-apply: "hover:from-sky-600 hover:to-sky-700";
+    transition: transform 2s, background-image 3s;
     transition-delay: 500ms, 0ms;
   }
 

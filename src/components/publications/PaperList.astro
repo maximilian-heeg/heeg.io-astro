@@ -25,7 +25,14 @@ if (year) {
           <div class="paper">
             <div class="title">
               <div class="star" />
-              <h3>{p.title}</h3>
+              <a
+                href={`/paper/${p.paperId}-${p.title.replace(
+                  /[^a-zA-Z ]/g,
+                  ""
+                )}`}
+              >
+                <h3>{p.title}</h3>
+              </a>
             </div>
             <div class="tags">
               {p.publicationTypes.map((el) => (
@@ -137,8 +144,12 @@ if (year) {
     display: none;
   }
 
-  .non-featured > .paper .title h3 {
-    --at-apply: col-span-2;
+  .non-featured > .paper .title a {
+    --at-apply: col-span-2 transition-all duration-300;
+  }
+
+  .paper .title a:hover {
+    --at-apply: "hover:text-heeg-active hover:underline";
   }
 
   .featured:hover > .paper .title .star {
@@ -176,69 +187,63 @@ if (year) {
     max-height: 10rem;
     overflow: auto;
     background:
-    /* Shadow Cover TOP */
-    linear-gradient(
-      rgba(249, 250, 251, 1),
-      rgba(249, 250, 251, 1)
-    ) center top,
-    
-    /* Shadow Cover BOTTOM */
-    linear-gradient(
-    rgba(249, 250, 251, 1),
-    rgba(249, 250, 251, 1)
-    ) center bottom,
-    
-    /* Shadow TOP */
-    radial-gradient(
-      farthest-side at 50% 0,
-      rgba(0, 0, 0, 0.2),
-      rgba(249, 250, 251, 1)
-    ) center top,
-    
-    /* Shadow BOTTOM */
-    radial-gradient(
-      farthest-side at 50% 100%,
-      rgba(0, 0, 0, 0.2),
-      rgba(249, 250, 251, 1)
-    ) center bottom;
-  
-  background-repeat: no-repeat;
-  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-  background-attachment: local, local, scroll, scroll;
+    /* Shadow Cover TOP */ linear-gradient(
+          rgba(249, 250, 251, 1),
+          rgba(249, 250, 251, 1)
+        )
+        center top,
+      /* Shadow Cover BOTTOM */
+        linear-gradient(rgba(249, 250, 251, 1), rgba(249, 250, 251, 1)) center
+        bottom,
+      /* Shadow TOP */
+        radial-gradient(
+          farthest-side at 50% 0,
+          rgba(0, 0, 0, 0.2),
+          rgba(249, 250, 251, 1)
+        )
+        center top,
+      /* Shadow BOTTOM */
+        radial-gradient(
+          farthest-side at 50% 100%,
+          rgba(0, 0, 0, 0.2),
+          rgba(249, 250, 251, 1)
+        )
+        center bottom;
+
+    background-repeat: no-repeat;
+    background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+    background-attachment: local, local, scroll, scroll;
   }
 
   .paper:hover ul {
     --at-apply: transition-all duration-300;
     background:
-    /* Shadow Cover TOP */
-    linear-gradient(
-      rgba(243, 244, 246, 1),
-      rgba(243, 244, 246, 1)
-    ) center top,
-    
-    /* Shadow Cover BOTTOM */
-    linear-gradient(
-    rgba(243, 244, 246, 1),
-    rgba(243, 244, 246, 1)
-    ) center bottom,
-    
-    /* Shadow TOP */
-    radial-gradient(
-      farthest-side at 50% 0,
-      rgba(0, 0, 0, 0.2),
-      rgba(243, 244, 246, 1)
-    ) center top,
-    
-    /* Shadow BOTTOM */
-    radial-gradient(
-      farthest-side at 50% 100%,
-      rgba(0, 0, 0, 0.2),
-      rgba(243, 244, 246, 1)
-    ) center bottom;
-  
-  background-repeat: no-repeat;
-  background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
-  background-attachment: local, local, scroll, scroll;
+    /* Shadow Cover TOP */ linear-gradient(
+          rgba(243, 244, 246, 1),
+          rgba(243, 244, 246, 1)
+        )
+        center top,
+      /* Shadow Cover BOTTOM */
+        linear-gradient(rgba(243, 244, 246, 1), rgba(243, 244, 246, 1)) center
+        bottom,
+      /* Shadow TOP */
+        radial-gradient(
+          farthest-side at 50% 0,
+          rgba(0, 0, 0, 0.2),
+          rgba(243, 244, 246, 1)
+        )
+        center top,
+      /* Shadow BOTTOM */
+        radial-gradient(
+          farthest-side at 50% 100%,
+          rgba(0, 0, 0, 0.2),
+          rgba(243, 244, 246, 1)
+        )
+        center bottom;
+
+    background-repeat: no-repeat;
+    background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+    background-attachment: local, local, scroll, scroll;
   }
 
   .paper ul li {
