@@ -15,7 +15,7 @@ type journal = {
   name: string;
 }
 
-type citations = {
+export type citations = {
 paperId: string;
   externalIds: externalIds;
   title: string;

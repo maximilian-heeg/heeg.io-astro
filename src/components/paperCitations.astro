@@ -1,8 +1,9 @@
 ---
 import "charts.css";
+import type {citations} from "@data/paperDetails"
 
 export interface Props {
-  citations: { year: number;}[];
+  citations: citations[];
 }
 
 const { citations } = Astro.props;
@@ -54,8 +55,37 @@ const table_wdith = Object.keys(years).length * 60 + "px";
       </table>
     </div>
   </div> 
-  
-  <style define:vars={{ table_wdith }}>
+
+<div class="citations">
+  {
+    citations.map((c, index) => (
+        <div class="onscroll-fade-in">
+            <span class="number">{citations.length - index}</span>
+            <h3>{c.title}</h3>
+            <div class="details">
+                <span class="font-normal">
+                    {c.journal != null ? c.journal.name : ""}
+                    <span class="font-semibold">{c.year}</span>
+                </span>
+                {c.externalIds.DOI && (
+                    <a
+                        href={`https://doi.org/${c.externalIds.DOI}`}
+                        target="_blank"
+                        class="pdf"
+                    >
+                        <div class="link" />
+                        {c.externalIds.DOI}
+                    </a>
+                )}
+            </div>
+        </div>
+    ))
+}
+
+
+</div>  
+
+  <style define:vars={{ table_wdith }}>  
     #chart .table-container {
       --at-apply: overflow-x-auto overflow-y-hidden pb-4 px-4;
     }
@@ -84,6 +114,44 @@ const table_wdith = Object.keys(years).length * 60 + "px";
   
     #chart.is-inactive table tbody td {
       --at-apply: scale-y-0;
+    }
+
+    div.citations {
+      padding: 1rem;
+      display: grid;
+      grid-template-rows: repeat(3, minmax(0, 1fr));
+      grid-auto-columns: minmax(90%, 1fr);
+      grid-auto-flow: column;
+      grid-gap: 1rem;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+    }
+
+    div.citations > div {
+        --at-apply: p-3 border-solid border-1 border-slate-300 border-l-solid
+            border-l-4 border-l-slate-600 bg-slate-50 border-box shadow-md mb-3 mr-3;
+        font-size: 0.875rem;
+        position: relative;
+        scroll-snap-align: center;
+    }
+
+    div.citations > div > span.number {
+        position: absolute;
+        display: block;
+        margin-top: 0;
+        margin-right: 0;
+        left: 0; 
+        top: 0;
+        transform: translate(-1rem, -50%);
+        --at-apply: bg-slate-50 px-2 h-6 border-2 rounded-full border-slate-600;
+        text-align: center;
+    }
+
+    div.citations > div > h3 {
+        margin-top: 0;
+        margin-bottom: 0;
+        font-size: 1.05rem;
+        filter: none;
     }
   </style>
   

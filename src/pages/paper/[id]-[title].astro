@@ -11,7 +11,7 @@ import { getPublications } from "@data/paperDetails";
 export async function getStaticPaths() {
     let data = await publications;
     return data.paper.map((el) => {
-        let title = el.title.replace(/[^a-zA-Z0-9 ]/g, "")
+        let title = el.title.replace(/[^a-zA-Z0-9 ]/g, "");
         return {
             params: { id: el.paperId, title: title },
         };
@@ -23,7 +23,11 @@ var paper = await getPublications(id);
 
 var description = `
     Heeg.IO - Maximilian Heeg
-    `;
+    ${paper.title}`;
+
+if (paper.tldr) {
+    description = description + "\n" + paper.tldr.text;
+}
 ---
 
 <Layout title="Publications" content={description}>
@@ -31,7 +35,7 @@ var description = `
         {paper.title}
     </h1>
 
-    <div class="tags maincol">
+    <div class="tags maincol onscroll-fade-in">
         {paper.publicationTypes.map((el) => <span>{el}</span>)}
         {
             paper.isOpenAccess && (
@@ -46,7 +50,7 @@ var description = `
             )
         }
     </div>
-    <div class="details maincol">
+    <div class="details maincol onscroll-fade-in">
         <span class="font-normal">
             {paper.journal.name}
             <span class="font-semibold">{paper.year}</span>
@@ -66,7 +70,7 @@ var description = `
     </div>
     <div class="maincol">
         <h2 class="onscroll-fade-right">Authors</h2>
-        <ul>
+        <ul class="onscroll-fade-in">
             {
                 paper.authors.map((a) => (
                     <li before:siblings="content-dot">
@@ -82,50 +86,27 @@ var description = `
     </div>
     <div class="maincol">
         <h2 class="onscroll-fade-right">TL;DR</h2>
-        {paper.tldr && (
-            <p>{paper.tldr.text}</p>
-        )}
-        {paper.abstract && (
-            <h2 class="onscroll-fade-right">Abstract</h2>
-        <p>{paper.abstract}</p>
-        )}
+        {paper.tldr && <p class="onscroll-fade-in">{paper.tldr.text}</p>}
+        {
+            paper.abstract && (
+                <>
+                    <h2 class="onscroll-fade-right">Abstract</h2>
+                    <p class="onscroll-fade-in">{paper.abstract}</p>
+                </>
+            )
+        }
     </div>
     <div class="maincol citations">
         <h2 class="onscroll-fade-right">{paper.citations.length} Citations</h2>
-
         <PaperCitations citations={paper.citations} />
-
-        {
-            paper.citations.map((c) => (
-                <div>
-                    <h3>{c.title}</h3>
-                    <div class="details">
-                        <span class="font-normal">
-                            {c.journal != null ? c.journal.name : ''}
-                            <span class="font-semibold">{c.year}</span>
-                        </span>
-                        {c.externalIds.DOI && (
-                            <a
-                                href={`https://doi.org/${c.externalIds.DOI}`}
-                                target="_blank"
-                                class="pdf"
-                            >
-                                <div class="link" />
-                                {c.externalIds.DOI}
-                            </a>
-                        )}
-                    </div>
-                </div>
-            ))
-        }
     </div>
     <div class="maincol">
         <h2 class="onscroll-fade-right">Cite as</h2>
-        <pre>{paper.citationStyles.bibtex}</pre>
+        <pre class="onscroll-fade-in">{paper.citationStyles.bibtex}</pre>
     </div>
     <div class="maincol update">
-    <PaperSource last_update={update} />
-</div>
+        <PaperSource last_update={update} />
+    </div>
 </Layout>
 
 <style>
@@ -140,7 +121,11 @@ var description = `
     }
 
     h1 {
-        --at-apply: leading-12;
+        --at-apply: "text-7 md:text-8 lg:text-9";
+    }
+
+    h2 {
+        --at-apply: "text-5 md:text-6";
     }
 
     .maincol > h2 {
@@ -185,21 +170,9 @@ var description = `
         --at-apply: inline;
     }
 
-    div.citations > div {
-        --at-apply: p-3 border-solid border-1 border-slate-300 border-l-solid border-l-4 border-l-slate-600 bg-slate-50
-      border-box shadow-md mb-4;
-      font-size: 0.875rem;
-    }
-
-    div.citations > div > h3 {
-        margin-top: 0;
-        margin-bottom: 0;
-        font-size: 1.05rem;
-        filter: none;
-    }
-
     .maincol pre {
-        --at-apply: p-3 border-solid border-1 border-slate-300 bg-slate-50 border-box shadow-md mb-4;
-        white-space: pre-wrap; 
+        --at-apply: p-3 border-solid border-1 border-slate-300 bg-slate-50
+            border-box shadow-md mb-4;
+        white-space: pre-wrap;
     }
 </style>
