@@ -153,6 +153,19 @@ const table_wdith = Object.keys(years).length * 60 + "px";
         font-size: 1.05rem;
         filter: none;
     }
+
+    .details {
+        --at-apply: "grid grid-cols-1 gap-2 w-full lg:grid-cols-2 mt-0.5em";
+    }
+
+    .details .link {
+        --at-apply: i-mdi-external-link inline-block align-middle w-4 h-4;
+    }
+
+    .details a {
+        --at-apply: italic font-light;
+        --at-apply: "hover:text-heeg-active hover:underline";
+    }
   </style>
   
   <script>
