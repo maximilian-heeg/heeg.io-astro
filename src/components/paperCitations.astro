@@ -67,7 +67,7 @@ const table_wdith = Object.keys(years).length * 60 + "px";
                     {c.journal != null ? c.journal.name : ""}
                     <span class="font-semibold">{c.year}</span>
                 </span>
-                {c.externalIds.DOI && (
+                {c.externalIds && c.externalIds.DOI && (
                     <a
                         href={`https://doi.org/${c.externalIds.DOI}`}
                         target="_blank"
