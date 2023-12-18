@@ -31,5 +31,8 @@
     "prettier": "2.8.4",
     "text-to-svg": "^3.1.5",
     "unocss": "^0.50.3"
+  },
+  "optionalDependencies": {
+    "@rollup/rollup-linux-x64-gnu": "^4.9.1"
   }
 }
