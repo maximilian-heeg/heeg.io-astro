@@ -1,6 +1,10 @@
 export const awards = [
   {
-    title: "La Jolla Immunology Conference Young Investigator Award",
+    title: "La Jolla Immunology Conference: AAI Oral Presentation Award",
+    description: "Oct 2023",
+  },
+  {
+    title: "La Jolla Immunology Conference: AAI Young Investigator Award",
     description: "Oct 2022",
   },
   {
