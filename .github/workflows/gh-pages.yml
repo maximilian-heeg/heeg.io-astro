@@ -41,6 +41,8 @@ jobs:
         name: Install node dependencies
       - name: Build Astro Website
         run: npm run build
+        env:
+          SEMANTIC_API_KEY: ${{secrets.SEMANTIC_API_KEY}}
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v1
         with:
