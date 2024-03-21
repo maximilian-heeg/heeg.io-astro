@@ -7,5 +7,5 @@ import sitemap from "astro-sitemap";
 // https://astro.build/config
 export default defineConfig({
   site: "https://heeg.io",
-  integrations: [UnoCSS(), purgecss(), sitemap()]
+  integrations: [UnoCSS(), purgecss(), sitemap()],
 });

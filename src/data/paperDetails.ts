@@ -1,31 +1,29 @@
-import axios from "axios";
-
 type author = {
   authorId: string;
   name: string;
-}
+};
 
 type externalIds = {
-  DOI: string,
-}
+  DOI: string;
+};
 
 type journal = {
   volume: string;
   pages: string;
   name: string;
-}
+};
 
 export type citations = {
-paperId: string;
+  paperId: string;
   externalIds: externalIds;
   title: string;
   year: number;
-  journal: journal
-}
+  journal: journal;
+};
 
 type citationStyles = {
   bibtex: string;
-}
+};
 
 export type paper = {
   paperId: string;
@@ -45,16 +43,21 @@ export type paper = {
   citations: citations[];
   tldr: {
     text: string;
-  },
-  citationStyles: citationStyles
-}
+  };
+  citationStyles: citationStyles;
+};
 
-var fields = 'title,year,authors,publicationTypes,journal,externalIds,isOpenAccess,openAccessPdf,citationStyles';
-fields = fields + ',citationCount,publicationDate,abstract,tldr,citations.year,citations.externalIds,citations.title,citations.journal';
+var fields =
+  "title,year,authors,publicationTypes,journal,externalIds,isOpenAccess,openAccessPdf,citationStyles";
+fields =
+  fields +
+  ",citationCount,publicationDate,abstract,tldr,citations.year,citations.externalIds,citations.title,citations.journal";
+
+import { makeRequest } from "./helper";
 
 export async function getPublications(id: string) {
-  const url = `https://api.semanticscholar.org/graph/v1/paper/${id}?fields=${fields}`
-  const res = await axios.get(url);
-  const paper: paper = res.data;
+  const url = `https://api.semanticscholar.org/graph/v1/paper/${id}?fields=${fields}`;
+
+  const paper: paper = await makeRequest(url);
   return paper;
 }

@@ -1,6 +1,8 @@
 import axios from "axios";
 import * as cheerio from "cheerio";
 
+import { makeRequest } from "./helper";
+
 type citations_in_year = {
   year: string;
   number: number;
@@ -9,17 +11,17 @@ type citations_in_year = {
 type author = {
   authorId: string;
   name: string;
-}
+};
 
 type externalIds = {
-  DOI: string,
-}
+  DOI: string;
+};
 
 type journal = {
   volume: string;
   pages: string;
   name: string;
-}
+};
 
 export type paper = {
   paperId: string;
@@ -35,35 +37,35 @@ export type paper = {
   authors: author[];
   citationCount: number;
   publicationDate: Date;
-}
+};
 
 const id = 50644098;
-const fields = 'title,year,authors,publicationTypes,journal,externalIds,isOpenAccess,openAccessPdf,citationCount,publicationDate';
-var url = `https://api.semanticscholar.org/graph/v1/author/${id}/papers?fields=${fields}`
+const fields =
+  "title,year,authors,publicationTypes,journal,externalIds,isOpenAccess,openAccessPdf,citationCount,publicationDate";
+var url = `https://api.semanticscholar.org/graph/v1/author/${id}/papers?fields=${fields}`;
 
 async function getPublications() {
-  const res = await axios.get(url);
-
-  var paper: paper[] = res.data.data;
+  var paper: paper[] = (await makeRequest(url)).data;
 
   paper = paper.filter(function (el) {
-    return el.publicationTypes !== null
-  })
-
-  // convert date
-  paper = paper.map(el => {
-    el.publicationDate = new Date(el.publicationDate)
-    return el
+    return el.publicationTypes !== null;
   });
 
-  paper = paper.sort((a, b) => (a.publicationDate < b.publicationDate ? 1 : -1));
+  // convert date
+  paper = paper.map((el) => {
+    el.publicationDate = new Date(el.publicationDate);
+    return el;
+  });
+
+  paper = paper.sort((a, b) =>
+    a.publicationDate < b.publicationDate ? 1 : -1
+  );
 
   let now = new Date();
   let update = Intl.DateTimeFormat("en-US").format(now);
 
   let years = [...new Set(paper.map((x) => x.year))];
   years = years.sort((a, b) => (a < b ? 1 : -1));
-
 
   return {
     total: paper.length,
