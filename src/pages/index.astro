@@ -47,8 +47,8 @@ var description = `
     <h3>Exploring Further?</h3>
     <p class="onscroll-fade-in">
     To learn more about me and myresearch, have look at this website and feel free to visit my profiles on
-    <a target="_blank" href="https://github.com/maximilian-heeg">Maximilian Heeg</a> and
-    <a target="_blank" href="https://scholar.google.com/citations?user=H7sOPf8AAAAJ&hl=en">Google Scholar</a>.
+    <a target="_blank" href="https://github.com/maximilian-heeg"><span class="i-mdi-github icon"></span> GitHub</a> and
+    <a target="_blank" href="https://scholar.google.com/citations?user=H7sOPf8AAAAJ&hl=en"><span class="i-mdi-account-school icon"></span> Google Scholar</a>.
     </p>
     </blockquote>
   </div>
@@ -157,6 +157,10 @@ var description = `
       --at-apply: "hover:text-heeg-active";
   }
 
+  .icon {
+    display: inline-block;
+    vertical-align: sub;
+  }
 
   blockquote {
     --at-apply: p-4 border-solid border-1 border-slate-300 border-l-solid border-l-4 border-l-slate-600 bg-slate-50
