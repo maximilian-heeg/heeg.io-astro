@@ -1,0 +1,66 @@
+---
+export interface Props {
+  text: string;
+  class: string;
+}
+
+const { text, class: className, ...rest } = Astro.props;
+---
+
+<astro-typewriter data-text={text} class="hidden">
+  <pre class={className} {...rest} id="output">
+    <slot /> 
+  </pre>
+</astro-typewriter>
+
+<script>
+  class AstroTypewriter extends HTMLElement {
+    constructor() {
+      super();
+      this.lineIndex = 0;
+      this.output = null;
+      console.log(this.textLines);
+    }
+
+    connectedCallback() {
+      this.render();
+      this.typeNextLine();
+    }
+
+    render() {
+      this.output = this.querySelector('#output');
+      this.output = this.querySelector('#output');
+      this.textLines = this.output.textContent.split('\n').filter(line => line.trim() !== '');
+      this.output.textContent = '';
+      this.classList.remove("hidden");
+    }
+
+    typeText(text, element, delay = 80) {
+      let i = 0;
+      const interval = setInterval(() => {
+        element.textContent += text[i];
+        i++;
+        if (i === text.length) {
+          clearInterval(interval);
+          setTimeout(() => {
+            element.textContent = '';
+            this.typeNextLine();
+          }, 1000);
+        }
+      }, delay);
+    }
+
+    typeNextLine() {
+      if (this.lineIndex < this.textLines.length) {
+        this.typeText(this.textLines[this.lineIndex], this.output);
+        this.lineIndex++;
+      } else {
+        this.lineIndex = 0;
+        this.typeNextLine();
+      }
+    }
+
+  }
+
+  customElements.define("astro-typewriter", AstroTypewriter);
+</script>

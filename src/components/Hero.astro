@@ -2,6 +2,7 @@
 import { Picture, Image } from "astro:assets";
 import Connections from "@images/connections.webp";
 import ProfilePicture from "@images/profile.jpg";
+import AstroTypewriter from "./AstroTypewriter.astro";
 ---
 
 <div class="hero">
@@ -27,7 +28,27 @@ import ProfilePicture from "@images/profile.jpg";
         />
         <div class="title">
             <h1>Hi! I'm Max</h1>
-            <h2>~/&gt; ...</h2>
+            <div class="second">
+                <div class="code font-bold text-heeg-dark w-12 flex-shrink-0">~/&gt; </div>
+                <AstroTypewriter class="code typewriter" text="Mein Text">
+python3 ...
+import scanpy as sc
+adata = sc.read_h5ad("your_data.h5ad")
+sc.pp.filter_cells(adata, min_counts=200, max_counts=5000)
+sc.pp.filter_genes(adata, min_cells=10)
+sc.pp.normalize_total(adata)
+sc.pp.log1p(adata)
+sc.pp.highly_variable_genes(adata)
+sc.tl.pca(adata)
+sc.tl.umap(adata)
+sc.tl.leiden(adata)
+sc.tl.umap(adata)
+sc.tl.leiden(adata)
+sc.tl.umap(adata)
+sc.tl.leiden(adata)
+
+                </AstroTypewriter>
+            </div>
         </div>
     </div>
 </div>
@@ -42,18 +63,30 @@ import ProfilePicture from "@images/profile.jpg";
   }
 
   div.hero  .logo {
-    --at-apply: "relative bg-gray-200/90 w-4/5 border px-0";
+    --at-apply: "relative bg-gray-200/90 w-4/5 border px-0 ";
     --at-apply: "flex items-center justify-start flex-row h-24 translate-y-1/2";
     --at-apply: "ml-16 sm:ml-24 sm:h-32 ";
   }
 
   div.hero  .logo .title {
-      --at-apply: "flex flex-col items-start my-0 pl-4";
+      --at-apply: "flex flex-col items-start my-0 pl-4 min-w-0  mr-2";
+  }
+
+  div.hero  .logo .title  .second {
+      --at-apply: "flex items-center overflow-hidden max-w-full";
+  }
+
+  .code {
+      --at-apply: "font-mono ml-2 text-lg text-nowrap";
+  }
+
+  .typewriter {
+      --at-apply: "overflow-hidden";
   }
 
   div.hero  .logo .title h1,
-  div.hero  .logo .title h2 {
-    --at-apply: "my-1";
+  div.hero  .logo .title .second {
+    --at-apply: "sm:my-2 my-1";
   }
 
   div.hero  .logo .image {
@@ -62,3 +95,5 @@ import ProfilePicture from "@images/profile.jpg";
     --at-apply: "-ml-16 sm:-ml-24 sm:w-48 sm:h-48 sm:block";
   }
 </style>
+
+
