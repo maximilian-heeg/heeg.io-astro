@@ -1,0 +1,64 @@
+---
+import { Picture, Image } from "astro:assets";
+import Connections from "@images/connections.webp";
+import ProfilePicture from "@images/profile.jpg";
+---
+
+<div class="hero">
+    <div class="background">
+    <Picture
+      src={Connections}
+      widths={[500, 600, 1280]}
+      sizes="(max-width: 500px) 500px, (max-width: 600px) 600px, 1000px"
+      formats={["webp", "avif"]}
+      alt="Network of cells in the intestine"
+      class="background aspect-[1600/900] w-full object-cover"
+      loading="eager"
+    />
+    </div>
+    <div class="logo">
+        <Image
+        src={ProfilePicture}
+        alt="Maximilian Heeg"
+        width={270}
+        height={270}
+        loading="eager"
+        class="image"
+        />
+        <div class="title">
+            <h1>Hi! I'm Max</h1>
+            <h2>~/&gt; ...</h2>
+        </div>
+    </div>
+</div>
+
+<style>
+  div.hero {
+    --at-apply: "h-60 lg:h-80 relative flex items-end justify-center mb-12 sm:mb-24 w-full";
+  }
+
+  div.hero  .background {
+    --at-apply: "absolute inset-0 -z-2 h-60 lg:h-80";
+  }
+
+  div.hero  .logo {
+    --at-apply: "relative bg-gray-200/90 w-4/5 border px-0";
+    --at-apply: "flex items-center justify-start flex-row h-24 translate-y-1/2";
+    --at-apply: "ml-16 sm:ml-24 sm:h-32 ";
+  }
+
+  div.hero  .logo .title {
+      --at-apply: "flex flex-col items-start my-0 pl-4";
+  }
+
+  div.hero  .logo .title h1,
+  div.hero  .logo .title h2 {
+    --at-apply: "my-1";
+  }
+
+  div.hero  .logo .image {
+    --at-apply: "rounded-full border-2 border-heeg-light shadow-md shrink-0 grow-0 object-cover";
+    --at-apply: "w-32 h-32  ring-1 ring-heeg-active hover:ring-4 transition-all duration-300 hover:scale-102";
+    --at-apply: "-ml-16 sm:-ml-24 sm:w-48 sm:h-48 sm:block";
+  }
+</style>
