@@ -22,8 +22,7 @@ var description = `
 `;
 ---
 
-<Layout title="Home" content={description}>
-  <div class="hero">
+<Layout title="Home" description={description}>
     <Hero
       Title={"Hi! I'm Max"}
       ProfilePicture={ProfilePicture}
@@ -32,7 +31,6 @@ var description = `
       Prefix="~/&gt;"
       Lines={['cd ~', 'cd ./publications', 'ls -l']}
     />
-  </div>
 
   <p class="onscroll-fade-in">
     I am a pediatrician with a passion for understanding the complexities of the
@@ -122,5 +120,3 @@ var description = `
     I am still lacking a good usecase. :-)
   </p>
 </Layout>
-
-<style></style>

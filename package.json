@@ -10,6 +10,7 @@
     "astro": "astro"
   },
   "dependencies": {
+    "@astrojs/mdx": "^2.2.1",
     "astro": "^4.5.9",
     "astro-purgecss": "^4.1.0",
     "astro-sitemap": "^1.0.0",
