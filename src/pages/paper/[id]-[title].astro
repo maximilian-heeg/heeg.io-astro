@@ -9,13 +9,13 @@ const { id, title } = Astro.params;
 import { getPublications } from "@data/paperDetails";
 
 export async function getStaticPaths() {
-    let data = await publications;
-    return data.paper.map((el) => {
-        let title = el.title.replace(/[^a-zA-Z0-9 ]/g, "");
-        return {
-            params: { id: el.paperId, title: title },
-        };
-    });
+  let data = await publications;
+  return data.paper.map((el) => {
+    let title = el.title.replace(/[^a-zA-Z0-9 ]/g, "");
+    return {
+      params: { id: el.paperId, title: title },
+    };
+  });
 }
 
 let update = Intl.DateTimeFormat("en-US").format(new Date());
@@ -26,153 +26,153 @@ var description = `
     ${paper.title}`;
 
 if (paper.tldr) {
-    description = description + "\n" + paper.tldr.text;
+  description = description + "\n" + paper.tldr.text;
 }
 ---
 
 <Layout title="Publications" content={description}>
-    <h1 class="onscroll-fade-right">
-        {paper.title}
-    </h1>
+  <h1 class="onscroll-fade-right">
+    {paper.title}
+  </h1>
 
-    <div class="tags maincol onscroll-fade-in">
-        {paper.publicationTypes.map((el) => <span>{el}</span>)}
-        {
-            paper.isOpenAccess && (
-                <span>
-                    Open Access
-                    {paper.openAccessPdf && (
-                        <a href={paper.openAccessPdf.url} target="_blank">
-                            <span class="pdf" />
-                        </a>
-                    )}
-                </span>
-            )
-        }
-    </div>
-    <div class="details maincol onscroll-fade-in">
-        <span class="font-normal">
-            {paper.journal.name}
-            <span class="font-semibold">{paper.year}</span>
+  <div class="tags maincol onscroll-fade-in">
+    {paper.publicationTypes.map((el) => <span>{el}</span>)}
+    {
+      paper.isOpenAccess && (
+        <span>
+          Open Access
+          {paper.openAccessPdf && (
+            <a href={paper.openAccessPdf.url} target="_blank">
+              <span class="pdf" />
+            </a>
+          )}
         </span>
-        {
-            paper.externalIds.DOI && (
-                <a
-                    href={`https://doi.org/${paper.externalIds.DOI}`}
-                    target="_blank"
-                    class="pdf"
-                >
-                    <div class="link" />
-                    {paper.externalIds.DOI}
-                </a>
-            )
-        }
-    </div>
-    <div class="maincol">
-        <h2 class="onscroll-fade-right">Authors</h2>
-        <ul class="onscroll-fade-in">
-            {
-                paper.authors.map((a) => (
-                    <li before:siblings="content-dot">
-                        {a.name.endsWith("Heeg") ? (
-                            <strong>{a.name}</strong>
-                        ) : (
-                            <span>{a.name}</span>
-                        )}
-                    </li>
-                ))
-            }
-        </ul>
-    </div>
-    <div class="maincol">
-        <h2 class="onscroll-fade-right">TL;DR</h2>
-        {paper.tldr && <p class="onscroll-fade-in">{paper.tldr.text}</p>}
-        {
-            paper.abstract && (
-                <>
-                    <h2 class="onscroll-fade-right">Abstract</h2>
-                    <p class="onscroll-fade-in">{paper.abstract}</p>
-                </>
-            )
-        }
-    </div>
-    <div class="maincol citations">
-        <h2 class="onscroll-fade-right">{paper.citations.length} Citations</h2>
-        <PaperCitations citations={paper.citations} />
-    </div>
-    <div class="maincol">
-        <h2 class="onscroll-fade-right">Cite as</h2>
-        <pre class="onscroll-fade-in">{paper.citationStyles.bibtex}</pre>
-    </div>
-    <div class="maincol update">
-        <PaperSource last_update={update} />
-    </div>
+      )
+    }
+  </div>
+  <div class="details maincol onscroll-fade-in">
+    <span class="font-normal">
+      {paper.journal.name}
+      <span class="font-semibold">{paper.year}</span>
+    </span>
+    {
+      paper.externalIds.DOI && (
+        <a
+          href={`https://doi.org/${paper.externalIds.DOI}`}
+          target="_blank"
+          class="pdf"
+        >
+          <div class="link" />
+          {paper.externalIds.DOI}
+        </a>
+      )
+    }
+  </div>
+  <div class="maincol">
+    <h2 class="onscroll-fade-right">Authors</h2>
+    <ul class="onscroll-fade-in">
+      {
+        paper.authors.map((a) => (
+          <li before:siblings="content-dot">
+            {a.name.endsWith("Heeg") ? (
+              <strong>{a.name}</strong>
+            ) : (
+              <span>{a.name}</span>
+            )}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+  <div class="maincol">
+    <h2 class="onscroll-fade-right">TL;DR</h2>
+    {paper.tldr && <p class="onscroll-fade-in">{paper.tldr.text}</p>}
+    {
+      paper.abstract && (
+        <>
+          <h2 class="onscroll-fade-right">Abstract</h2>
+          <p class="onscroll-fade-in">{paper.abstract}</p>
+        </>
+      )
+    }
+  </div>
+  <div class="maincol citations">
+    <h2 class="onscroll-fade-right">{paper.citations.length} Citations</h2>
+    <PaperCitations citations={paper.citations} />
+  </div>
+  <div class="maincol">
+    <h2 class="onscroll-fade-right">Cite as</h2>
+    <pre class="onscroll-fade-in">{paper.citationStyles.bibtex}</pre>
+  </div>
+  <div class="maincol update">
+    <PaperSource last_update={update} />
+  </div>
 </Layout>
 
 <style>
-    h1,
-    .maincol {
-        --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6;
-        --at-apply: "md:col-span-8 md:col-start-3";
-    }
+  h1,
+  .maincol {
+    --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6;
+    --at-apply: "md:col-span-8 md:col-start-3";
+  }
 
-    .update {
-        margin-top: 0;
-    }
+  .update {
+    margin-top: 0;
+  }
 
-    h1 {
-        --at-apply: "text-7 md:text-8 lg:text-9";
-    }
+  h1 {
+    --at-apply: "text-7 md:text-8 lg:text-9";
+  }
 
-    h2 {
-        --at-apply: "text-5 md:text-6";
-    }
+  h2 {
+    --at-apply: "text-5 md:text-6";
+  }
 
-    .maincol > h2 {
-        margin-top: 0.5rem;
-    }
+  .maincol > h2 {
+    margin-top: 0.5rem;
+  }
 
-    div.tags {
-        margin-bottom: 0.5rem;
-    }
+  div.tags {
+    margin-bottom: 0.5rem;
+  }
 
-    div.tags > span {
-        border-radius: 3px;
-        background-color: white;
-        border: 1px solid #e0e0e0;
-        padding: 2px 8px;
-        margin-right: 0.5rem;
-        display: inline-block;
-    }
+  div.tags > span {
+    border-radius: 3px;
+    background-color: white;
+    border: 1px solid #e0e0e0;
+    padding: 2px 8px;
+    margin-right: 0.5rem;
+    display: inline-block;
+  }
 
-    div.tags span.pdf {
-        --at-apply: i-ph-file-pdf inline-block align-middle w-6 h-6;
-    }
+  div.tags span.pdf {
+    --at-apply: i-ph-file-pdf inline-block align-middle w-6 h-6;
+  }
 
-    .details {
-        --at-apply: "grid grid-cols-1 gap-2 w-full md:grid-cols-2 mt-0.5em";
-    }
+  .details {
+    --at-apply: "grid grid-cols-1 gap-2 w-full md:grid-cols-2 mt-0.5em";
+  }
 
-    .details .link {
-        --at-apply: i-mdi-external-link inline-block align-middle w-4 h-4;
-    }
+  .details .link {
+    --at-apply: i-mdi-external-link inline-block align-middle w-4 h-4;
+  }
 
-    .details a {
-        --at-apply: italic font-light;
-        --at-apply: "hover:text-heeg-active hover:underline";
-    }
+  .details a {
+    --at-apply: italic font-light;
+    --at-apply: "hover:text-heeg-active hover:underline";
+  }
 
-    ul {
-        --at-apply: p-0 list-none leading-snug font-light;
-    }
+  ul {
+    --at-apply: p-0 list-none leading-snug font-light;
+  }
 
-    ul li {
-        --at-apply: inline;
-    }
+  ul li {
+    --at-apply: inline;
+  }
 
-    .maincol pre {
-        --at-apply: p-3 border-solid border-1 border-slate-300 bg-slate-50
-            border-box shadow-md mb-4;
-        white-space: pre-wrap;
-    }
+  .maincol pre {
+    --at-apply: p-3 border-solid border-1 border-slate-300 bg-slate-50
+      border-box shadow-md mb-4;
+    white-space: pre-wrap;
+  }
 </style>

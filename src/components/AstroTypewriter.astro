@@ -2,23 +2,35 @@
 export interface Props {
   text: string;
   class: string;
+  lines: string[];
 }
 
-const { text, class: className, ...rest } = Astro.props;
+const { text, lines, class: className, ...rest } = Astro.props;
+
+function elemAttrs(arr: string[]): { [key: string]: string } {
+  const obj: { [key: string]: string } = {};
+  arr.forEach((value, index) => {
+    obj[`data-line_${index + 1}`] = value;
+  });
+  return obj;
+}
 ---
 
-<astro-typewriter data-text={text} class="hidden">
-  <pre class={className} {...rest} id="output">
-    <slot /> 
-  </pre>
+<astro-typewriter {...elemAttrs(lines)}>
+  <pre class={className} {...rest} id="output">{lines[0]}</pre>
 </astro-typewriter>
 
 <script>
   class AstroTypewriter extends HTMLElement {
+    textLines: (string | undefined)[];
+    lineIndex: number;
+    output: Element | null;
+
     constructor() {
       super();
       this.lineIndex = 0;
       this.output = null;
+      this.textLines = this.getLine1Values(this.dataset);
       console.log(this.textLines);
     }
 
@@ -28,38 +40,51 @@ const { text, class: className, ...rest } = Astro.props;
     }
 
     render() {
-      this.output = this.querySelector('#output');
-      this.output = this.querySelector('#output');
-      this.textLines = this.output.textContent.split('\n').filter(line => line.trim() !== '');
-      this.output.textContent = '';
-      this.classList.remove("hidden");
+      this.output = this.querySelector("#output");
+      this.output = this.querySelector("#output");
+      this.output && (this.output.textContent = "");
     }
 
-    typeText(text, element, delay = 80) {
-      let i = 0;
-      const interval = setInterval(() => {
-        element.textContent += text[i];
-        i++;
-        if (i === text.length) {
-          clearInterval(interval);
-          setTimeout(() => {
-            element.textContent = '';
-            this.typeNextLine();
-          }, 1000);
-        }
-      }, delay);
-    }
-
-    typeNextLine() {
-      if (this.lineIndex < this.textLines.length) {
-        this.typeText(this.textLines[this.lineIndex], this.output);
-        this.lineIndex++;
-      } else {
-        this.lineIndex = 0;
-        this.typeNextLine();
+    typeText(text: string | undefined, element: Element, delay = 80) {
+      if (text) {
+        let i = 0;
+        const interval = setInterval(() => {
+          element.textContent += text[i];
+          i++;
+          if (i === text.length) {
+            clearInterval(interval);
+            setTimeout(() => {
+              element.textContent = "";
+              this.typeNextLine();
+            }, 1000);
+          }
+        }, delay);
       }
     }
 
+    typeNextLine() {
+      if (this.output) {
+        if (this.lineIndex < this.textLines.length) {
+          this.typeText(this.textLines[this.lineIndex], this.output);
+          this.lineIndex++;
+        } else {
+          this.lineIndex = 0;
+          this.typeNextLine();
+        }
+      }
+    }
+
+    getLine1Values(obj: DOMStringMap): (string | undefined)[] {
+      const line1Values = [];
+      for (const key in obj) {
+        if (Object.prototype.hasOwnProperty.call(obj, key)) {
+          if (key.startsWith("line_")) {
+            line1Values.push(obj[key]);
+          }
+        }
+      }
+      return line1Values;
+    }
   }
 
   customElements.define("astro-typewriter", AstroTypewriter);

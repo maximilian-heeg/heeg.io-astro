@@ -28,7 +28,7 @@ if (year) {
               <a
                 href={`/paper/${p.paperId}-${p.title.replace(
                   /[^a-zA-Z0-9 ]/g,
-                  ""
+                  "",
                 )}`}
               >
                 <h3>{p.title}</h3>
@@ -187,11 +187,8 @@ if (year) {
     max-height: 10rem;
     overflow: auto;
     background:
-    /* Shadow Cover TOP */ linear-gradient(
-          rgba(249, 250, 251, 1),
-          rgba(249, 250, 251, 1)
-        )
-        center top,
+    /* Shadow Cover TOP */
+      linear-gradient(rgba(249, 250, 251, 1), rgba(249, 250, 251, 1)) center top,
       /* Shadow Cover BOTTOM */
         linear-gradient(rgba(249, 250, 251, 1), rgba(249, 250, 251, 1)) center
         bottom,
@@ -211,18 +208,19 @@ if (year) {
         center bottom;
 
     background-repeat: no-repeat;
-    background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+    background-size:
+      100% 40px,
+      100% 40px,
+      100% 14px,
+      100% 14px;
     background-attachment: local, local, scroll, scroll;
   }
 
   .paper:hover ul {
     --at-apply: transition-all duration-300;
     background:
-    /* Shadow Cover TOP */ linear-gradient(
-          rgba(243, 244, 246, 1),
-          rgba(243, 244, 246, 1)
-        )
-        center top,
+    /* Shadow Cover TOP */
+      linear-gradient(rgba(243, 244, 246, 1), rgba(243, 244, 246, 1)) center top,
       /* Shadow Cover BOTTOM */
         linear-gradient(rgba(243, 244, 246, 1), rgba(243, 244, 246, 1)) center
         bottom,
@@ -242,7 +240,11 @@ if (year) {
         center bottom;
 
     background-repeat: no-repeat;
-    background-size: 100% 40px, 100% 40px, 100% 14px, 100% 14px;
+    background-size:
+      100% 40px,
+      100% 40px,
+      100% 14px,
+      100% 14px;
     background-attachment: local, local, scroll, scroll;
   }
 

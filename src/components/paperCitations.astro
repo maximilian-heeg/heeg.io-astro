@@ -1,6 +1,6 @@
 ---
 import "charts.css";
-import type {citations} from "@data/paperDetails"
+import type { citations } from "@data/paperDetails";
 
 export interface Props {
   citations: citations[];
@@ -8,12 +8,11 @@ export interface Props {
 
 const { citations } = Astro.props;
 
-
 let years = citations.reduce((p: { [key: string]: number }, c) => {
-  if (c.year){
+  if (c.year) {
     var name = c.year.toString();
     if (!p.hasOwnProperty(name)) {
-        p[name] = 0;
+      p[name] = 0;
     }
     p[name]++;
   }
@@ -26,165 +25,168 @@ const table_wdith = Object.keys(years).length * 60 + "px";
 ---
 
 <div id="chart">
-    <div class="data-title"></div>
-    <div class="table-container scroll-right">
-      <table
-        class="charts-css column show-data-on-hover show-labels data-spacing-5"
-      >
-        <thead>
-          <tr>
-            <th scope="col"> Year</th>
-            <th scope="col"> Value</th>
-          </tr>
-        </thead>
-        <tbody>
-          {
-            Object.keys(years).map((k) => (
-              <tr>
-                <th>
-                  <span>{k}</span>
-                </th>
-                <td style={`--size: calc( ${years[k]} / ${max_citations} )`}>
-                  <a href={`/publications/${years[k]}#year`} aria-label={`${k}: ${years[k]} citations`} />
-                  <span class="tooltip">{years[k]}</span>
-                </td>
-              </tr>
-            ))
-          }
-        </tbody>
-      </table>
-    </div>
-  </div> 
+  <div class="data-title"></div>
+  <div class="table-container scroll-right">
+    <table
+      class="charts-css column show-data-on-hover show-labels data-spacing-5"
+    >
+      <thead>
+        <tr>
+          <th scope="col"> Year</th>
+          <th scope="col"> Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        {
+          Object.keys(years).map((k) => (
+            <tr>
+              <th>
+                <span>{k}</span>
+              </th>
+              <td style={`--size: calc( ${years[k]} / ${max_citations} )`}>
+                <a
+                  href={`/publications/${years[k]}#year`}
+                  aria-label={`${k}: ${years[k]} citations`}
+                />
+                <span class="tooltip">{years[k]}</span>
+              </td>
+            </tr>
+          ))
+        }
+      </tbody>
+    </table>
+  </div>
+</div>
 
 <div class="citations">
   {
     citations.map((c, index) => (
-        <div class="onscroll-fade-in">
-            <span class="number">{citations.length - index}</span>
-            <h3>{c.title}</h3>
-            <div class="details">
-                <span class="font-normal">
-                    {c.journal != null ? c.journal.name : ""}
-                    <span class="font-semibold">{c.year}</span>
-                </span>
-                {c.externalIds && c.externalIds.DOI && (
-                    <a
-                        href={`https://doi.org/${c.externalIds.DOI}`}
-                        target="_blank"
-                        class="pdf"
-                    >
-                        <div class="link" />
-                        {c.externalIds.DOI}
-                    </a>
-                )}
-            </div>
+      <div class="onscroll-fade-in">
+        <span class="number">{citations.length - index}</span>
+        <h3>{c.title}</h3>
+        <div class="details">
+          <span class="font-normal">
+            {c.journal != null ? c.journal.name : ""}
+            <span class="font-semibold">{c.year}</span>
+          </span>
+          {c.externalIds && c.externalIds.DOI && (
+            <a
+              href={`https://doi.org/${c.externalIds.DOI}`}
+              target="_blank"
+              class="pdf"
+            >
+              <div class="link" />
+              {c.externalIds.DOI}
+            </a>
+          )}
         </div>
+      </div>
     ))
-}
+  }
+</div>
 
+<style define:vars={{ table_wdith }}>
+  #chart .table-container {
+    --at-apply: overflow-x-auto overflow-y-hidden pb-4 px-4;
+  }
 
-</div>  
+  #chart table {
+    --at-apply: h-32 box-border;
+    max-width: var(--table_wdith);
+    margin-left: 0;
+  }
 
-  <style define:vars={{ table_wdith }}>  
-    #chart .table-container {
-      --at-apply: overflow-x-auto overflow-y-hidden pb-4 px-4;
-    }
-  
-    #chart table {
-      --at-apply: h-32 box-border;
-      max-width: var(--table_wdith);
-      margin-left: 0;
-    }
-  
-    #chart tr th span {
-      --at-apply: "text-xs md:text-sm lg:text-base font-600 opacity-70";
-    }
-  
-    #chart > .data-title {
-      --at-apply: opacity-80 text-center ml-4 mr-19;
-      --at-apply: "md:mr-4";
-    }
-  
-    #chart table tbody td {
-      --at-apply: "border-1 border-solid border-slate-800/95 scale-y-100 origin-bottom bg-gradient-to-t from-sky-700 to-sky-800";
-      --at-apply: "hover:from-sky-600 hover:to-sky-700";
-      transition: transform 2s, background-image 3s;
-      transition-delay: 500ms, 0ms;
-    }
-  
-    #chart.is-inactive table tbody td {
-      --at-apply: scale-y-0;
-    }
+  #chart tr th span {
+    --at-apply: "text-xs md:text-sm lg:text-base font-600 opacity-70";
+  }
 
-    div.citations {
-      padding: 1rem;
-      display: grid;
-      grid-template-rows: repeat(3, minmax(0, 1fr));
-      grid-auto-columns: minmax(90%, 1fr);
-      grid-auto-flow: column;
-      grid-gap: 1rem;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-    }
+  #chart > .data-title {
+    --at-apply: opacity-80 text-center ml-4 mr-19;
+    --at-apply: "md:mr-4";
+  }
 
-    div.citations > div {
-        --at-apply: p-3 border-solid border-1 border-slate-300 border-l-solid
-            border-l-4 border-l-slate-600 bg-slate-50 border-box shadow-md mb-3 mr-3;
-        font-size: 0.875rem;
-        position: relative;
-        scroll-snap-align: center;
-    }
+  #chart table tbody td {
+    --at-apply: "border-1 border-solid border-slate-800/95 scale-y-100 origin-bottom bg-gradient-to-t from-sky-700 to-sky-800";
+    --at-apply: "hover:from-sky-600 hover:to-sky-700";
+    transition:
+      transform 2s,
+      background-image 3s;
+    transition-delay: 500ms, 0ms;
+  }
 
-    div.citations > div > span.number {
-        position: absolute;
-        display: block;
-        margin-top: 0;
-        margin-right: 0;
-        left: 0; 
-        top: 0;
-        transform: translate(-1rem, -50%);
-        --at-apply: bg-slate-50 px-2 h-6 border-2 rounded-full border-slate-600;
-        text-align: center;
-    }
+  #chart.is-inactive table tbody td {
+    --at-apply: scale-y-0;
+  }
 
-    div.citations > div > h3 {
-        margin-top: 0;
-        margin-bottom: 0;
-        font-size: 1.05rem;
-        filter: none;
-    }
+  div.citations {
+    padding: 1rem;
+    display: grid;
+    grid-template-rows: repeat(3, minmax(0, 1fr));
+    grid-auto-columns: minmax(90%, 1fr);
+    grid-auto-flow: column;
+    grid-gap: 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+  }
 
-    .details {
-        --at-apply: "grid grid-cols-1 gap-2 w-full lg:grid-cols-2 mt-0.5em";
-    }
+  div.citations > div {
+    --at-apply: p-3 border-solid border-1 border-slate-300 border-l-solid
+      border-l-4 border-l-slate-600 bg-slate-50 border-box shadow-md mb-3 mr-3;
+    font-size: 0.875rem;
+    position: relative;
+    scroll-snap-align: center;
+  }
 
-    .details .link {
-        --at-apply: i-mdi-external-link inline-block align-middle w-4 h-4;
-    }
+  div.citations > div > span.number {
+    position: absolute;
+    display: block;
+    margin-top: 0;
+    margin-right: 0;
+    left: 0;
+    top: 0;
+    transform: translate(-1rem, -50%);
+    --at-apply: bg-slate-50 px-2 h-6 border-2 rounded-full border-slate-600;
+    text-align: center;
+  }
 
-    .details a {
-        --at-apply: italic font-light;
-        --at-apply: "hover:text-heeg-active hover:underline";
-    }
-  </style>
-  
-  <script>
-    const fade_in_elements = document.querySelectorAll("#chart");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.remove("is-inactive");
-          } else {
-            entry.target.classList.add("is-inactive");
-          }
-        });
-      },
-      { rootMargin: "0px" }
-    );
-  
-    // Handle intersection
-    fade_in_elements.forEach((elm) => {
-      observer.observe(elm);
-    });
-  </script>
+  div.citations > div > h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    font-size: 1.05rem;
+    filter: none;
+  }
+
+  .details {
+    --at-apply: "grid grid-cols-1 gap-2 w-full lg:grid-cols-2 mt-0.5em";
+  }
+
+  .details .link {
+    --at-apply: i-mdi-external-link inline-block align-middle w-4 h-4;
+  }
+
+  .details a {
+    --at-apply: italic font-light;
+    --at-apply: "hover:text-heeg-active hover:underline";
+  }
+</style>
+
+<script>
+  const fade_in_elements = document.querySelectorAll("#chart");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.remove("is-inactive");
+        } else {
+          entry.target.classList.add("is-inactive");
+        }
+      });
+    },
+    { rootMargin: "0px" },
+  );
+
+  // Handle intersection
+  fade_in_elements.forEach((elm) => {
+    observer.observe(elm);
+  });
+</script>

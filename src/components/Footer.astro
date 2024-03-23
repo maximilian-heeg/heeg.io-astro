@@ -7,16 +7,25 @@ import { links } from "@data/navigation";
 <footer>
   <div>
     <div class="flex space-x-6 onscroll-fade-in">
-      <a href="/about/"><Image
-        src={ProfilePicture}
-        alt="Maximilian Heeg"
-        width={88}
-        height={88}
-      /></a>
+      <a href="/about/"
+        ><Image
+          src={ProfilePicture}
+          alt="Maximilian Heeg"
+          width={88}
+          height={88}
+        /></a
+      >
       <div>
-        <div class="font-medium text-base"> Maximilian Heeg</div>
-        <div class="font-light">made with <a href="https://astro.build/" target="_blank">astro.build</a></div>
-        <div class="font-light">view on <a href="https://github.com/maximilian-heeg/heeg.io-astro" target="_blank">GitHub</a></div>
+        <div class="font-medium text-base">Maximilian Heeg</div>
+        <div class="font-light">
+          made with <a href="https://astro.build/" target="_blank"
+            >astro.build</a>
+        </div>
+        <div class="font-light">
+          view on <a
+            href="https://github.com/maximilian-heeg/heeg.io-astro"
+            target="_blank">GitHub</a>
+        </div>
         <div>&copy; 2024</div>
       </div>
     </div>
@@ -29,7 +38,7 @@ import { links } from "@data/navigation";
   }
 
   footer > div {
-    --at-apply: "max-w-screen-xl mx-auto p-3 text-sm my-3 flex justify-center" ;
+    --at-apply: "max-w-screen-xl mx-auto p-3 text-sm my-3 flex justify-center";
   }
 
   footer > div > div {
@@ -42,4 +51,5 @@ import { links } from "@data/navigation";
 
   div a {
     --at-apply: "hover:text-heeg-active duration-300 transition-colors";
+  }
 </style>

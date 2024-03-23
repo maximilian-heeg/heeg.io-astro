@@ -3,28 +3,26 @@ export interface Props {
   last_update: string;
 }
 
-const {
-  last_update,
-} = Astro.props;
-
-
+const { last_update } = Astro.props;
 ---
 
 <div class="source">
-    Data from <a href="https://www.semanticscholar.org/author/M.-Heeg/50644098" target="_blank">semanticscholar.org</a> &#8212; last update on {last_update}
+  Data from <a
+    href="https://www.semanticscholar.org/author/M.-Heeg/50644098"
+    target="_blank">semanticscholar.org</a
+  > &#8212; last update on {last_update}
 </div>
 
-
 <style>
-div.source {
+  div.source {
     --at-apply: col-span-12 col-start-1 text-right text-xs opacity-70 px-3;
     --at-apply: "md:col-span-10 md:col-start-2";
     --at-apply: "lg:col-span-12 lg:col-start-1";
     margin-top: 0.75rem;
   }
 
-div.source > a {
-  text-decoration: underline;
-  font-weight: 500;
-}
+  div.source > a {
+    text-decoration: underline;
+    font-weight: 500;
+  }
 </style>

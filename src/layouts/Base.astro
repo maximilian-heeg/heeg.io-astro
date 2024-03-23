@@ -17,16 +17,13 @@ import "@styles/transitions.css";
 import "@styles/global.css";
 ---
 
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <title>{title}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta charset="UTF-8">
-    <meta
-      name="description"
-      content={content}
-    />
+    <meta charset="UTF-8" />
+    <meta name="description" content={content} />
     <link
       rel="apple-touch-icon"
       sizes="180x180"
@@ -57,7 +54,10 @@ import "@styles/global.css";
     <Tracker />
   </head>
 
-  <body class="font-sans m-0 min-h-screen flex bg-light-50 flex-col" all="scroll-m-t-14">
+  <body
+    class="font-sans m-0 min-h-screen flex bg-light-50 flex-col"
+    all="scroll-m-t-14"
+  >
     <Navigation />
 
     <div class="pt-14 flex-grow">
@@ -67,39 +67,102 @@ import "@styles/global.css";
     </div>
 
     <Footer />
+    <style>
+      main {
+        @apply max-w-screen-xl mx-auto grid grid-cols-12 my-6;
+      }
+
+      main > :global(div),
+      main > :global(h1),
+      main > :global(h2),
+      main > :global(h3),
+      main > :global(p) {
+        --at-apply: col-span-12 col-start-1 max-w-full px-3 mb-3;
+        --at-apply: "md:col-span-8 md:col-start-3";
+        --at-apply: "lg:col-span-6 lg:col-start-3";
+      }
+
+      main :global(p) {
+        --at-apply: mb-3 leading-7 text-justify;
+      }
+
+      main > :global(.hero) {
+        --at-apply: "col-span-12 grid-start-1 text-center -mt-24";
+        --at-apply: "!px-0 py-2";
+      }
+
+      main :global(.caption) {
+        --at-apply: text-sm text-gray-700 text-center mt-2;
+      }
+
+      main > :global(.wider) {
+        --at-apply: "!px-0 py-2";
+        --at-apply: "md:col-span-10 md:col-start-2";
+        --at-apply: "lg:col-span-9 lg:col-start-2";
+      }
+
+      main > :global(.wider video),
+      main > :global(.wider img) {
+        --at-apply: "shadow-md shadow-stone-500 md:rounded";
+      }
+
+      main > :global(.aside) {
+        --at-apply: "md:col-span-10 md:col-start-2";
+        --at-apply: "lg:col-span-4 ld:col-start-9";
+      }
+
+      main :global(a) {
+        font-weight: 500;
+        --at-apply: "text-heeg-dark";
+        --at-apply: "hover:text-heeg-active";
+      }
+
+      main :global(.icon) {
+        display: inline-block;
+        vertical-align: sub;
+      }
+
+      main :global(blockquote) {
+        --at-apply: p-4 border-solid border-1 border-slate-300 border-l-solid
+          border-l-4 border-l-slate-600 bg-slate-50 border-box shadow-sm;
+      }
+
+      main :global(blockquote p) {
+        --at-apply: my-0 italic font-medium leading-relaxed text-gray-900;
+      }
+
+      body {
+        font-size: 16px;
+        color: #222;
+      }
+    </style>
+
+    <script>
+      const fade_in_elements = document.querySelectorAll(
+        ".onscroll-fade-in, .onscroll-fade-right",
+      );
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.remove("is-inactive");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        { rootMargin: "-50px" },
+      );
+
+      // Handle intersection for each element
+      fade_in_elements.forEach((elm) => {
+        elm?.classList.add("is-inactive");
+        observer.observe(elm);
+      });
+
+      const scroll_right_elements = document.querySelectorAll(".scroll-right");
+      scroll_right_elements.forEach((elm) => {
+        elm.scrollLeft = elm.scrollWidth;
+      });
+    </script>
   </body>
 </html>
-
-<style>
-  main {
-    @apply max-w-screen-xl mx-auto grid grid-cols-12 my-6;
-  }
-
-  body {
-    font-size: 16px;
-    color: #222;
-  }
-</style>
-
-<script>
-const fade_in_elements = document.querySelectorAll('.onscroll-fade-in, .onscroll-fade-right');
-const observer = new IntersectionObserver(entries => {
-  entries.forEach(entry => {
-    if(entry.isIntersecting) {
-      entry.target.classList.remove("is-inactive");
-      observer.unobserve(entry.target);
-    }     
-  })
-}, { rootMargin: "-50px" })
-
-// Handle intersection for each element
-fade_in_elements.forEach((elm) => {
-  elm?.classList.add("is-inactive")
-  observer.observe(elm)
-});
-
-const scroll_right_elements = document.querySelectorAll('.scroll-right');
-  scroll_right_elements.forEach((elm) => {
-    elm.scrollLeft = elm.scrollWidth;
-  });
-</script>

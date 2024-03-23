@@ -30,7 +30,10 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
                 <span>{x.year}</span>
               </th>
               <td style={`--size: calc( ${x.number} / ${max_citations} )`}>
-                <a href={`/publications/${x.year}#year`} aria-label={`${x.year}: ${x.number} citations`} />
+                <a
+                  href={`/publications/${x.year}#year`}
+                  aria-label={`${x.year}: ${x.number} citations`}
+                />
                 <span class="tooltip">{x.number}</span>
               </td>
             </tr>
@@ -62,7 +65,9 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
   #chart table tbody td {
     --at-apply: "border-1 border-solid border-slate-800/95 scale-y-100 origin-bottom bg-gradient-to-t from-sky-700 to-sky-800";
     --at-apply: "hover:from-sky-600 hover:to-sky-700";
-    transition: transform 2s, background-image 3s;
+    transition:
+      transform 2s,
+      background-image 3s;
     transition-delay: 500ms, 0ms;
   }
 
@@ -83,7 +88,7 @@ const max_citations = Math.max(...citations_per_year.map((o) => o.number));
         }
       });
     },
-    { rootMargin: "0px" }
+    { rootMargin: "0px" },
   );
 
   // Handle intersection

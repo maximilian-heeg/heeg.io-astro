@@ -8,7 +8,7 @@ import { experience } from "@data/about/experience";
 
 import TextToSVG from "text-to-svg";
 const textToSVG = TextToSVG.loadSync(
-  "public/fonts/open-sans-v34-latin_greek-regular.ttf"
+  "public/fonts/open-sans-v34-latin_greek-regular.ttf",
 );
 const attributes = { fill: "#222222" };
 const options = {
@@ -23,7 +23,7 @@ var description = `
     Heeg.IO - Maximilian Heeg -
     Find out more about me. Highlights from my CV.
     Awards and sholarships. Professional experiences.
-`
+`;
 ---
 
 <Layout title="About" content={description}>
@@ -147,11 +147,11 @@ var description = `
       </div>
     </div>
     <div>
-    <a
-      class="contact"
-      href="https://github.com/maximilian-heeg"
-      target="_blank"
-    >
+      <a
+        class="contact"
+        href="https://github.com/maximilian-heeg"
+        target="_blank"
+      >
         <div class="i-mdi-github icon"></div>
         <p>maximilian-heeg</p>
       </a>

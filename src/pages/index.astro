@@ -2,6 +2,8 @@
 import Layout from "@layouts/Base.astro";
 import Hero from "@components/Hero.astro";
 import { Picture } from "astro:assets";
+import Connections from "@images/connections.webp";
+import ProfilePicture from "@images/profile.jpg";
 import TRM from "@images/TRM_IC.png";
 
 var description = `
@@ -17,43 +19,52 @@ var description = `
     this virus, I can study the formation of TRM cells in response to
     viral infection, and how these cells contribute to long-term immunity to the
     virus.
-`
-
+`;
 ---
 
 <Layout title="Home" content={description}>
   <div class="hero">
-    <Hero />
+    import ProfilePicture from "@images/profile.jpg";
+    <Hero
+      Title={"Hi! I'm Max"}
+      ProfilePicture={ProfilePicture}
+      ProfilePicture_alt="Maximilian Heeg"
+      Background={Connections}
+      Prefix="~/&gt;"
+      Lines={['cd ~', 'cd ./publications', 'ls -l']}
+    />
   </div>
 
-  <div class="onscroll-fade-in">
-  <p>
-    Hi, I am a pediatrician with a passion for
-    understanding the complexities of the immune system. My research is focused
-    on CD8<sup>+</sup> tissue-resident memory T cells, or T<sub>RM</sub> cells for
-    short. These cells are critical for protecting our bodies against infections
-    and diseases, and I am fascinated by how they form and interact with other cells
-    in the body.
-    </p>
-
-    <p>
-      When I'm not immersed in research, I enjoy spending time exploring the
-      mountains with my Goldendoodle companion.
-    </p>
-  </div>
+  <p class="onscroll-fade-in">
+    I am a pediatrician with a passion for understanding the complexities of the
+    immune system. My research is focused on CD8<sup>+</sup> tissue-resident memory
+    T cells, or T<sub>RM</sub> cells for short. These cells are critical for protecting
+    our bodies against infections and diseases, and I am fascinated by how they form
+    and interact with other cells in the body.
+  </p>
 
   <div class="aside onscroll-fade-in">
     <blockquote>
-    <h3>Exploring Further?</h3>
-    <p class="onscroll-fade-in">
-    To learn more about me and my research, have look at this website and feel free to visit my profiles on
-    <a target="_blank" href="https://github.com/maximilian-heeg"><span class="i-mdi-github icon"></span> GitHub</a> and
-    <a target="_blank" href="https://scholar.google.com/citations?user=H7sOPf8AAAAJ&hl=en"><span class="i-mdi-account-school icon"></span> Google Scholar</a>.
-    </p>
+      <h3>Exploring Further?</h3>
+      <p class="onscroll-fade-in">
+        To learn more about me and my research, have look at this website and
+        feel free to visit my profiles on
+        <a target="_blank" href="https://github.com/maximilian-heeg"
+          ><span class="i-mdi-github icon"></span> GitHub</a
+        > and
+        <a
+          target="_blank"
+          href="https://scholar.google.com/citations?user=H7sOPf8AAAAJ&hl=en"
+          ><span class="i-mdi-account-school icon"></span> Google Scholar</a
+        >.
+      </p>
     </blockquote>
   </div>
 
-
+  <p class="onscroll-fade-in">
+    When I'm not immersed in research, I enjoy spending time exploring the
+    mountains with my Goldendoodle companion.
+  </p>
 
   <div class="wider onscroll-fade-in">
     <Picture
@@ -72,11 +83,12 @@ var description = `
 
   <h3>Unveiling the Secrets of Tissue-Specific Immunity</h3>
   <p class="onscroll-fade-in">
-    I leverage the power of bioinformatics, specifically single-cell RNA sequencing (scRNA-seq)
-    and spatial transcriptomics, to delve into the fascinating world of T cell adaptation to
-    diverse tissue environments. These advanced techniques allow me to map the gene
-    expression profiles of individual cells, providing a high-resolution view of the
-    immune response at the tissue level.
+    I leverage the power of bioinformatics, specifically single-cell RNA
+    sequencing (scRNA-seq) and spatial transcriptomics, to delve into the
+    fascinating world of T cell adaptation to diverse tissue environments. These
+    advanced techniques allow me to map the gene expression profiles of
+    individual cells, providing a high-resolution view of the immune response at
+    the tissue level.
   </p>
 
   <p class="onscroll-fade-in">
@@ -104,70 +116,12 @@ var description = `
 
   <h3>Decoding the Language of Immunity: My Computational Toolkit</h3>
   <p>
-  Beyond the wet lab, I'm passionate about using code to crack the code of the
-  immune system. Python and R are my go-to languages for wrangling complex
-  biological data and extracting hidden patterns.  Always on the lookout
-  for new tools, I'm currently exploring the potential of Rust, a fun journey, but I am
-  still lacking a good usecase. :-)
-</p>
-
-
-
+    Beyond the wet lab, I'm passionate about using code to crack the code of the
+    immune system. Python and R are my go-to languages for wrangling complex
+    biological data and extracting hidden patterns. Always on the lookout for
+    new tools, I'm currently exploring the potential of Rust, a fun journey, but
+    I am still lacking a good usecase. :-)
+  </p>
 </Layout>
 
-<style>
-  .hero {
-    --at-apply: "col-span-12 grid-start-1 text-center -mt-24";
-    --at-apply: "!px-0 py-2";
-  }
-  p,
-  div, h3{
-    --at-apply: col-span-12 col-start-1 max-w-full px-3 mb-3 leading-7 text-justify;
-    --at-apply: "md:col-span-8 md:col-start-3";
-    --at-apply: "lg:col-span-6 lg:col-start-3";
-  }
-
-  h3 {
-      --at-apply: mt-0;
-  }
-
-  .caption {
-    --at-apply: text-sm text-gray-700 text-center mt-2;
-  }
-
-  .wider {
-    --at-apply: "!px-0 py-2";
-    --at-apply: "md:col-span-10 md:col-start-2";
-    --at-apply: "lg:col-span-9 lg:col-start-2";
-  }
-
-  .wider > video,
-  .wider  img {
-    --at-apply: "shadow-md shadow-stone-500 md:rounded";
-  }
-
-  .aside {
-    --at-apply: "md:col-span-10 md:col-start-2";
-    --at-apply: "lg:col-span-4 ld:col-start-9";
-  }
-
-  a {
-      font-weight: 500;
-      --at-apply: "text-heeg-dark";
-      --at-apply: "hover:text-heeg-active";
-  }
-
-  .icon {
-    display: inline-block;
-    vertical-align: sub;
-  }
-
-  blockquote {
-    --at-apply: p-4 border-solid border-1 border-slate-300 border-l-solid border-l-4 border-l-slate-600 bg-slate-50
-      border-box shadow-sm;
-  }
-
-  blockquote p {
-    --at-apply: my-0 italic font-medium leading-relaxed text-gray-900;
-  }
-</style>
+<style></style>

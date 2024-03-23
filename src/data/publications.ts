@@ -58,7 +58,7 @@ async function getPublications() {
   });
 
   paper = paper.sort((a, b) =>
-    a.publicationDate < b.publicationDate ? 1 : -1
+    a.publicationDate < b.publicationDate ? 1 : -1,
   );
 
   let now = new Date();
