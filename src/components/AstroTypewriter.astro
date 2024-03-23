@@ -53,8 +53,17 @@ function elemAttrs(arr: string[]): { [key: string]: string } {
           if (i === text.length) {
             clearInterval(interval);
             setTimeout(() => {
-              element.textContent = "";
-              this.typeNextLine();
+              const deleteInterval = setInterval(() => {
+                if (element.textContent) {
+                  element.textContent = element.textContent.slice(0, -1);
+                  if (element.textContent === "") {
+                    clearInterval(deleteInterval);
+                    setTimeout(() => {
+                      this.typeNextLine();
+                    }, 500);
+                  }
+                }
+              }, delay/2);
             }, 1000);
           }
         }, delay);

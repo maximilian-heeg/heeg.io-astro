@@ -5,32 +5,42 @@ import { Picture } from "astro:assets";
 import Connections from "@images/connections.webp";
 import ProfilePicture from "@images/profile.jpg";
 import TRM from "@images/TRM_IC.png";
+import AstroTypewriter from "@components/AstroTypewriter.astro";
 
 var description = `
     Heeg.IO - Maximilian Heeg -
-    Welcome to my personal website! I am a pediatrician with a passion for
-    understanding the complexities of the immune system. My research is focused
-    on CD8<sup>+</sup> tissue-resident memory T cells, or TRM cells for
-    short. These cells are critical for protecting our bodies against infections
-    and diseases, and I am fascinated by how they form and interact with other cells
-    in the body. To study TRM cells, I work with a mouse model of LCMV
-    Armstrong infection. This model allows me to investigate the formation and function
-    of TRM cells in response to viral infection. By infecting mice with
-    this virus, I can study the formation of TRM cells in response to
-    viral infection, and how these cells contribute to long-term immunity to the
-    virus.
+    I am a pediatrician with a passion for understanding the complexities of the
+    immune system. My research is focused on CD8 tissue-resident memory
+    T cells, or TRM cells for short. These cells are critical for protecting
+    our bodies against infections and diseases, and I am fascinated by how they form
+    and interact with other cells in the body.
 `;
 ---
 
 <Layout title="Home" description={description}>
   <Hero
-    Title={"Hi! I'm Max"}
     ProfilePicture={ProfilePicture}
     ProfilePicture_alt="Maximilian Heeg"
     Background={Connections}
-    Prefix="~/>"
-    Lines={["cd ~", "cd ./publications", "ls -l"]}
-  />
+    Background_alt="A network of cells in the small intestine"
+  >
+    <h1>Hi! I'm Max!</h1>
+    <Fragment slot="subtitle">
+      <div class="code font-bold text-heeg-dark w-12 flex-shrink-0">~/&gt;</div>
+      <AstroTypewriter
+        class="code typewriter"
+        lines={[
+          "Postdoc @GoldrathLab",
+          "Pediatrician",
+          "Passion for T cells",
+          "Hobby programmer",
+          "Training in Immunodeficiencies",
+          "Mountain enthusiast",
+          "Dogfather"
+        ]}
+      />
+    </Fragment>
+  </Hero>
 
   <p class="onscroll-fade-in">
     I am a pediatrician with a passion for understanding the complexities of the
@@ -120,3 +130,13 @@ var description = `
     I am still lacking a good usecase. :-)
   </p>
 </Layout>
+
+<style>
+  .code {
+    --at-apply: "font-mono text-lg text-nowrap";
+  }
+
+  .typewriter {
+    --at-apply: "overflow-hidden ml-0.5";
+  }
+</style>
