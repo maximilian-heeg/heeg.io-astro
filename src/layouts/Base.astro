@@ -2,17 +2,17 @@
 export interface Props {
   title: string;
   description: string;
-  frontmatter?: {[key: string]: string } | null
+  frontmatter?: { [key: string]: string } | null;
 }
 
 var { title, description, frontmatter } = Astro.props;
 
 if (!title && frontmatter) {
-  title = frontmatter.title
+  title = frontmatter.title;
 }
 
 if (!description && frontmatter) {
-  title = frontmatter.description
+  title = frontmatter.description;
 }
 
 import "@unocss/reset/normalize.css";

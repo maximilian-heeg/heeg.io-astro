@@ -1,11 +1,10 @@
 ---
 export interface Props {
-  text: string;
   class: string;
   lines: string[];
 }
 
-const { text, lines, class: className, ...rest } = Astro.props;
+const { lines, class: className, ...rest } = Astro.props;
 
 function elemAttrs(arr: string[]): { [key: string]: string } {
   const obj: { [key: string]: string } = {};

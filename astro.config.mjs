@@ -8,5 +8,5 @@ import mdx from "@astrojs/mdx";
 // https://astro.build/config
 export default defineConfig({
   site: "https://heeg.io",
-  integrations: [UnoCSS(), purgecss(), sitemap(), mdx()]
+  integrations: [UnoCSS(), purgecss(), sitemap(), mdx()],
 });

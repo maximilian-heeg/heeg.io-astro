@@ -8,7 +8,8 @@ export interface Props {
   Lines: string[];
 }
 
-const { Background, ProfilePicture, ProfilePicture_alt, Title, Prefix, Lines } = Astro.props;
+const { Background, ProfilePicture, ProfilePicture_alt, Title, Prefix, Lines } =
+  Astro.props;
 
 import { Picture, Image } from "astro:assets";
 import AstroTypewriter from "./AstroTypewriter.astro";
@@ -41,7 +42,7 @@ import AstroTypewriter from "./AstroTypewriter.astro";
         <div class="code font-bold text-heeg-dark w-12 flex-shrink-0">
           {Prefix}
         </div>
-        <AstroTypewriter class="code typewriter" text="Mein Text" lines={Lines}></AstroTypewriter>
+        <AstroTypewriter class="code typewriter" lines={Lines} />
       </div>
     </div>
   </div>
@@ -49,7 +50,7 @@ import AstroTypewriter from "./AstroTypewriter.astro";
 
 <style>
   div.hero {
-    --at-apply: "h-60 lg:h-80 relative flex items-end justify-center mb-12 sm:mb-24 w-full";
+    --at-apply: "h-60 lg:h-80 relative flex items-end justify-center mb-16 sm:mb-26 w-full";
   }
 
   div.hero .background {
