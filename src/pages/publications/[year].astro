@@ -6,6 +6,9 @@ import Pages from "@components/publications/Pages.astro";
 import { publications } from "@data/publications";
 import PaperSource from "@components/publications/PaperSource.astro";
 
+import HeroBackground from "@images/publications.webp";
+import Hero from "@components/Hero.astro";
+
 const years = publications.years;
 const { year } = Astro.params;
 
@@ -28,7 +31,13 @@ var description = `
 ---
 
 <Layout title="Publications" description={description}>
-  <h1>Publications</h1>
+  <Hero Background={HeroBackground} Background_alt="Publications">
+    <h1>Publications</h1>
+    <Fragment slot="subtitle">
+      <h3 class="truncate">Thing's that I have done in {year}</h3>
+    </Fragment>
+  </Hero>
+
   <PaperStats
     total_publications={publications.total}
     total_citations={publications.scholar.total_citations}
@@ -42,13 +51,5 @@ var description = `
 
   <PaperSource last_update={publications.last_update} />
 
-  <Pages years={years} current={year} < Layout>
-    <style>
-      h1 {
-        --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
-        --at-apply: "md:col-span-10 md:col-start-2";
-        --at-apply: "lg:col-span-12 lg:col-start-1";
-      }
-    </style>
-  </Pages>
+  <Pages years={years} current={year} />
 </Layout>

@@ -2,8 +2,8 @@
 export interface Props {
   Background: ImageMetadata;
   Background_alt: string;
-  ProfilePicture: ImageMetadata;
-  ProfilePicture_alt: string;
+  ProfilePicture?: ImageMetadata;
+  ProfilePicture_alt?: string;
 }
 
 const { Background, Background_alt, ProfilePicture, ProfilePicture_alt } =
@@ -13,7 +13,7 @@ import { Picture, Image } from "astro:assets";
 import AstroTypewriter from "./AstroTypewriter.astro";
 ---
 
-<div class="hero">
+<div class:list={["hero", ProfilePicture && "has_picture"]}>
   <div class="background">
     <Picture
       src={Background}
@@ -25,18 +25,23 @@ import AstroTypewriter from "./AstroTypewriter.astro";
       loading="eager"
     />
   </div>
-  <div class="logo">
-    <Image
-      src={ProfilePicture}
-      alt={ProfilePicture_alt}
-      width={270}
-      height={270}
-      loading="eager"
-      class="image"
-    />
+  <div class:list={["logo", ProfilePicture && "has_picture"]}>
+    {
+      ProfilePicture && ProfilePicture_alt && (
+        <Image
+          src={ProfilePicture}
+          alt={ProfilePicture_alt}
+          width={270}
+          height={270}
+          loading="eager"
+          class="image"
+        />
+      )
+    }
+
     <div class="title">
       <div class="first">
-        <slot/>
+        <slot />
       </div>
       <div class="second">
         <slot name="subtitle" />
@@ -47,7 +52,11 @@ import AstroTypewriter from "./AstroTypewriter.astro";
 
 <style>
   div.hero {
-    --at-apply: "h-60 lg:h-80 relative flex items-end justify-center mb-16 sm:mb-26 w-full";
+    --at-apply: "h-60 lg:h-80 relative flex items-end justify-center w-full mb-12";
+  }
+
+  div.hero.has_picture {
+    --at-apply: "mb-16 sm:mb-26";
   }
 
   div.hero .background {
@@ -55,15 +64,19 @@ import AstroTypewriter from "./AstroTypewriter.astro";
   }
 
   div.hero .logo {
-    --at-apply: "relative bg-gray-200/90 w-4/5 border px-0 ";
+    --at-apply: "relative bg-gray-200/90 md:w-10/12 w-full border px-0";
     --at-apply: "flex items-center justify-start flex-row h-24 translate-y-1/2";
-    --at-apply: "ml-16 sm:ml-24 sm:h-32 ";
+    --at-apply: "box-content";
+  }
+
+  div.hero .logo.has_picture {
+    --at-apply: "ml-16 sm:ml-24 w-[calc(100%-4rem)] sm:w-[calc((100%/12*10)-6rem)]";
   }
 
   div.hero .logo .title {
     --at-apply: "my-0 lg:pl-4 pl-2 min-w-0 mr-2 max-h-full";
     --at-apply: "grid";
-    grid-auto-rows: 1fr
+    grid-auto-rows: 1fr;
   }
 
   div.hero .logo .title .second {
@@ -72,7 +85,7 @@ import AstroTypewriter from "./AstroTypewriter.astro";
 
   div.hero .logo .title > .first,
   div.hero .logo .title > .second {
-    --at-apply: "sm:my-0 my-1 sm:max-h-18 max-h-12 flex items-center";
+    --at-apply: "sm:my-0 my-1 sm:max-h-12 max-h-10 flex items-center";
   }
 
   div.hero .logo .image {

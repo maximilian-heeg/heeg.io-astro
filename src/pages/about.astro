@@ -7,6 +7,9 @@ import { awards } from "@data/about/awards";
 import { experience } from "@data/about/experience";
 
 import TextToSVG from "text-to-svg";
+import Hero from "@components/Hero.astro";
+import HeroBackground from "@images/hero_about.jpg";
+
 const textToSVG = TextToSVG.loadSync(
   "public/fonts/open-sans-v34-latin_greek-regular.ttf",
 );
@@ -27,7 +30,12 @@ var description = `
 ---
 
 <Layout title="About" description={description}>
-  <h1>About me</h1>
+  <Hero Background={HeroBackground} Background_alt="Publications">
+    <h1>About me</h1>
+    <Fragment slot="subtitle">
+      <h3 class="truncate">Who am I?</h3>
+    </Fragment>
+  </Hero>
 
   <div class="twocol lg:!grid-cols-[258px_6fr] onscroll-fade-in">
     <div class="flex flex-col items-center">
@@ -184,7 +192,7 @@ var description = `
   h1,
   h2,
   div.twocol {
-    --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
+    --at-apply: col-span-12 col-start-1 max-w-full mt-6 leading-7;
     --at-apply: "md:col-span-8 md:col-start-3";
   }
 

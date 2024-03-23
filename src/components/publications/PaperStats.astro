@@ -72,33 +72,32 @@ import AstroCounter from "@components/AstroCounter.astro";
 
 <style>
   div.twocol {
-    --at-apply: col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7;
+    --at-apply: "col-span-12 col-start-1 max-w-full px-3 mt-6 leading-7";
     --at-apply: "md:col-span-10 md:col-start-2";
-    --at-apply: "lg:col-span-12 lg:col-start-1";
   }
 
   div.twocol {
-    --at-apply: grid grid-cols-1;
+    --at-apply: "grid grid-cols-1";
     --at-apply: "md:grid-cols-2";
     --at-apply: "lg:grid-cols-4";
   }
 
   div.twocol-table {
-    --at-apply: m-3 box-border grid grod-cols-1 gap-px bg-gray-200 rounded-md
-      grid-flow-row-dense border shadow-md p-0 overflow-hidden;
+    --at-apply: "m-3 mt-8 box-border grid grod-cols-1 gap-px bg-gray-200"
+      --at-apply:
+      "rounded-md grid-flow-row-dense border shadow-md p-0 overflow-hidden";
   }
 
   div.twocol-table > div {
-    --at-apply: overflow-hidden;
+    --at-apply: "overflow-hidden";
   }
 
   div.twocol-table > div.chart {
-    --at-apply: md: col-span-2 order-last lg: order-none lg-row-span-2;
+    --at-apply: "md:col-span-2 order-last lg:order-none lg-row-span-2";
   }
 
   div.twocol-table > div > div {
-    --at-apply: p-4 w-full h-full bg-gray-50 text-left box-border transition-all
-      duration-300;
+    --at-apply: "p-4 w-full h-full bg-gray-50 text-left box-border transition-all duration-300";
     --at-apply: "hover:bg-gray-100 hover:scale-102";
   }
 
@@ -107,12 +106,12 @@ import AstroCounter from "@components/AstroCounter.astro";
   }
 
   .stats div.icon {
-    --at-apply: bg-heeg-dark w-10 h-10 transition-all duration-300
-      grid-col-start-2 row-span-3 my-auto mr-0 ml-auto;
+    --at-apply: "bg-heeg-dark w-10 h-10 transition-all duration-300";
+    --at-apply: "grid-col-start-2 row-span-3 my-auto mr-0 ml-auto";
   }
 
   .stats:hover div.icon {
-    --at-apply: bg-heeg-active;
+    --at-apply: "bg-heeg-active";
   }
 
   .stats div.title {
@@ -130,6 +129,5 @@ import AstroCounter from "@components/AstroCounter.astro";
   div.source {
     --at-apply: col-span-12 col-start-1 text-right text-xs opacity-70 px-3;
     --at-apply: "md:col-span-10 md:col-start-2";
-    --at-apply: "lg:col-span-12 lg:col-start-1";
   }
 </style>
