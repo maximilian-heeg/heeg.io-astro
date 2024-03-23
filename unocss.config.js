@@ -6,6 +6,7 @@ import {
   presetIcons,
   transformerDirectives,
 } from "unocss";
+import { presetScrollbar } from "unocss-preset-scrollbar";
 
 export default defineConfig({
   presets: [
@@ -13,6 +14,7 @@ export default defineConfig({
     presetUno(),
     presetTypography(),
     presetIcons(),
+    presetScrollbar(),
   ],
   rules: [["content-dot", { content: '"\\B7"' }]],
   theme: {

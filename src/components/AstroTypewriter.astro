@@ -15,11 +15,25 @@ function elemAttrs(arr: string[]): { [key: string]: string } {
 }
 ---
 
-<astro-typewriter {...elemAttrs(lines)}>
+<astro-typewriter {...elemAttrs(lines)} class="min-w-0">
   <pre class={className} {...rest} id="output">{lines[0]}</pre>
 </astro-typewriter>
 
 <script>
+  declare global {
+    interface String {
+      replaceAt(index: number, replacement: string): string;
+    }
+  }
+
+  String.prototype.replaceAt = function (index, replacement) {
+    return (
+      this.substring(0, index) +
+      replacement +
+      this.substring(index + replacement.length)
+    );
+  };
+
   class AstroTypewriter extends HTMLElement {
     textLines: (string | undefined)[];
     lineIndex: number;
@@ -30,7 +44,6 @@ function elemAttrs(arr: string[]): { [key: string]: string } {
       this.lineIndex = 0;
       this.output = null;
       this.textLines = this.getLine1Values(this.dataset);
-      console.log(this.textLines);
     }
 
     connectedCallback() {
@@ -48,7 +61,23 @@ function elemAttrs(arr: string[]): { [key: string]: string } {
       if (text) {
         let i = 0;
         const interval = setInterval(() => {
-          element.textContent += text[i];
+          element.textContent += " ";
+          element.scrollTo({
+            left: element.scrollWidth,
+            behavior: "smooth",
+          });
+          setTimeout(
+            (i, replacement) => {
+              element.textContent = element.textContent?.replaceAt(
+                i,
+                replacement,
+              )!;
+            },
+            200,
+            i,
+            text[i],
+          );
+
           i++;
           if (i === text.length) {
             clearInterval(interval);
@@ -64,7 +93,7 @@ function elemAttrs(arr: string[]): { [key: string]: string } {
                   }
                 }
               }, delay / 2);
-            }, 1000);
+            }, 1500);
           }
         }, delay);
       }
