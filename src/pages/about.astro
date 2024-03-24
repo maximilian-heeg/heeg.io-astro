@@ -37,7 +37,7 @@ var description = `
     </Fragment>
   </Hero>
 
-  <div class="twocol lg:!grid-cols-[258px_6fr] grid-gap-x-3 onscroll-fade-in">
+  <div class="twocol bio onscroll-fade-in">
     <div class="flex flex-col items-center">
       <Image
         src={ProfilePicture}
@@ -199,6 +199,10 @@ var description = `
   div.twocol {
     --at-apply: grid grid-cols-1;
     --at-apply: "lg:grid-cols-2";
+  }
+
+  div.twocol.bio {
+    --at-apply: "lg:!grid-cols-[258px_6fr] grid-gap-x-3";
   }
 
   div.twocol-table {
