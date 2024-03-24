@@ -1,0 +1,40 @@
+---
+export interface Props {
+  Background: ImageMetadata;
+  Background_alt: string;
+
+}
+
+const { Background, Background_alt } =
+  Astro.props;
+
+import { Picture, Image } from "astro:assets";
+
+---
+
+<div class:list={["hero"]}>
+  <div class="background">
+    <Picture
+      src={Background}
+      widths={[500, 600, 1280]}
+      sizes="(max-width: 500px) 500px, (max-width: 600px) 600px, 1000px"
+      formats={["webp", "avif"]}
+      alt={Background_alt}
+      class="background w-full object-cover"
+      loading="eager"
+    />
+  </div>
+</div>
+
+<style>
+  div.hero {
+    --at-apply: "h-40 lg:h-60 relative flex items-end justify-center w-full mb-0";
+  }
+
+
+  div.hero .background {
+    --at-apply: "absolute inset-0 -z-2 h-40 lg:h-60";
+  }
+
+
+</style>

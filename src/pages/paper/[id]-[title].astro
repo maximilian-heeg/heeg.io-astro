@@ -4,6 +4,9 @@ import Layout from "@layouts/Base.astro";
 import PaperCitations from "@components/paperCitations.astro";
 import PaperSource from "@components/publications/PaperSource.astro";
 
+import HeroBackground from "@images/publications.webp";
+import HeroSmall from "@components/HeroSmall.astro";
+
 const { id, title } = Astro.params;
 
 import { getPublications } from "@data/paperDetails";
@@ -31,6 +34,8 @@ if (paper.tldr) {
 ---
 
 <Layout title="Publications" description={description}>
+  <HeroSmall Background={HeroBackground} Background_alt="Publications" />
+
   <h1 class="onscroll-fade-right">
     {paper.title}
   </h1>
