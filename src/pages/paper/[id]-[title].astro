@@ -60,7 +60,7 @@ if (paper.tldr) {
   </div>
   <div class="details maincol onscroll-fade-in">
     <span class="font-normal">
-      {paper.journal.name}
+      {paper.journal && paper.journal.name && paper.journal.name}
       <span class="font-semibold">{paper.year}</span>
     </span>
     {

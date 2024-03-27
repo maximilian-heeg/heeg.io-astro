@@ -61,7 +61,7 @@ if (year) {
             </ul>
             <div class="details">
               <span class="font-normal">
-                {p.journal.name}
+                {p.journal && p.journal.name && p.journal.name}
                 <span class="font-semibold">{p.year}</span>
               </span>
               {p.externalIds.DOI && (
