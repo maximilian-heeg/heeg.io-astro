@@ -28,16 +28,15 @@ if (year) {
               <a
                 href={`/paper/${p.paperId}-${p.title.replace(
                   /[^a-zA-Z0-9 ]/g,
-                  "",
+                  ""
                 )}`}
               >
                 <h3>{p.title}</h3>
               </a>
             </div>
             <div class="tags">
-              {p.publicationTypes.map((el) => (
-                <span>{el}</span>
-              ))}
+              {p.publicationTypes &&
+                p.publicationTypes.map((el) => <span>{el}</span>)}
               {p.isOpenAccess && (
                 <span>
                   Open Access

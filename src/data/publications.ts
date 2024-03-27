@@ -47,9 +47,9 @@ var url = `https://api.semanticscholar.org/graph/v1/author/${id}/papers?fields=$
 async function getPublications() {
   var paper: paper[] = (await makeRequest(url)).data;
 
-  paper = paper.filter(function (el) {
-    return el.publicationTypes !== null;
-  });
+  // paper = paper.filter(function (el) {
+  //   return el.publicationTypes !== null;
+  // });
 
   // convert date
   paper = paper.map((el) => {
@@ -58,7 +58,7 @@ async function getPublications() {
   });
 
   paper = paper.sort((a, b) =>
-    a.publicationDate < b.publicationDate ? 1 : -1,
+    a.publicationDate < b.publicationDate ? 1 : -1
   );
 
   let now = new Date();

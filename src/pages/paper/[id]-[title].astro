@@ -41,7 +41,10 @@ if (paper.tldr) {
   </h1>
 
   <div class="tags maincol onscroll-fade-in">
-    {paper.publicationTypes.map((el) => <span>{el}</span>)}
+    {
+      paper.publicationTypes &&
+        paper.publicationTypes.map((el) => <span>{el}</span>)
+    }
     {
       paper.isOpenAccess && (
         <span>
