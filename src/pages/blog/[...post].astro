@@ -31,10 +31,11 @@ export async function getStaticPaths() {
     <Hero Background={blogPost.data.image} Background_alt={blogPost.data.imageAlt}>
         <h1>{blogPost.data.title}</h1>
 
-        <Fragment slot="subtitle"> <h3>{blogPost.data.subTitle}</h3> </Fragment>
+        <Fragment slot="subtitle"><p class="publishedon">Published on {publishDate} </p></Fragment>
     </Hero>
 
-    <p  class="publishedon">Published on {publishDate} </p>
+    <h2>{blogPost.data.subTitle}</h2>
+    
     <Content />
 </Layout>
 
