@@ -125,14 +125,46 @@ import "@styles/global.css";
         }
 
         :global(pre) {
-          --at-apply: py-3 overflow-x-scroll;
+          --at-apply: py-3 overflow-x-auto;
 
-          :global(span[data-line]) {
-            --at-apply: px-3;
-          }
+          :global(code) {
+            :global([data-line]) {
+              --at-apply: px-3;
 
-          :global(span[data-highlighted-line]) {
-            --at-apply: bg-slate-700;
+              &[data-highlighted-line] {
+                --at-apply: bg-slate-700;
+              }
+            }
+
+            &[data-line-numbers] {
+              counter-reset: line;
+
+              :global([data-line]) {
+                &:before {
+                  counter-increment: line;
+                  content: counter(line);
+                  display: inline-block;
+                  width: 1rem;
+                  margin-right: 1rem;
+                  text-align: right;
+                  --at-apply: text-slate-600;
+                }
+
+                &[data-highlighted-line] {
+                  &:before {
+                    --at-apply: text-slate-500;
+                  }
+                }
+              }
+
+              &[data-line-numbers-max-digits="3"] {
+                :global([data-line]) {
+                  &:before {
+                    width: 2rem;
+                  }
+                }
+              }
+            }
           }
         }
       }
@@ -150,7 +182,7 @@ import "@styles/global.css";
 
       main > :global(.aside) {
         --at-apply: "md:col-span-10 md:col-start-2 md:px-0";
-        --at-apply: "lg:col-span-4 ld:col-start-9 lg:pl-3";
+        --at-apply: "lg:col-span-4 lg:col-start-9 lg:pl-3";
       }
 
       main :global(a) {

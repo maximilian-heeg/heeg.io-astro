@@ -13,7 +13,7 @@ I recently had to revisit some old R code to work on revisions for a paper. As i
 
 However, a lot had changed: I got a new laptop, switched from an x86 to an ARM architecture, and R had advanced from version 4.1 to 4.4. I attempted to restore the old package versions, specifically trying to install an outdated version of Seurat (4.0.2).
 
-```r
+```r showLineNumbers
 > devtools::install_version('Seurat', '4.0.2')
 ...
 ERROR: dependency ‘spatstat.core’ is not available for package ‘Seurat’
@@ -25,7 +25,7 @@ This didn’t work. I wondered if it was because I was now using a MacBook inste
 
 To solve this, I turned to the [Posit Public Package Manager](https://packagemanager.posit.co/client/#/), which archives old versions of packages. Following their instructions, I set the repository URL to an older snapshot from June 2021 (`options(repos = c(CRAN = "https://packagemanager.posit.co/cran/2021-06-01"))`). Trying to install Seurat again, I encountered a new error:
 
-```r {1,2,5}
+```r {1,2,5} showLineNumbers
 PerfectPenttinen.h:25:24: error: ‘DOUBLE_EPS’ was not declared in this scope
    25 |     ishard = (gamma <= DOUBLE_EPS);
       |                        ^~~~~~~~~~
@@ -46,7 +46,7 @@ Again, after some google searches, I found the solution. The constant `DOUBLE_EP
 
 I decided to use [devcontainers](https://code.visualstudio.com/docs/devcontainers/containers) in VS Code, using an Ubuntu 20.04 base image and installing R with [rig](https://github.com/rocker-org/devcontainer-features/blob/main/src/r-rig/README.md).
 
-```json title="devcontainer.json" {5-11}
+```json title="devcontainer.json" {5-11} showLineNumbers
 {
  "name": "R time travel",
  // Ubuntu image
@@ -66,7 +66,7 @@ I decided to use [devcontainers](https://code.visualstudio.com/docs/devcontainer
 
 After setting the repository as mentioned above, I successfully installed Seurat version 4.0.2. However, I wanted a more streamlined approach. The Rocker project provides an easy solution with the [r-packages](https://github.com/rocker-org/devcontainer-features/blob/main/src/r-packages/README.md) devcontainer feature, allowing packages to be installed upon container creation.
 
-``` json title="devcontainer.json" {6-11}
+``` json title="devcontainer.json" {6-11} showLineNumbers
 // ...
 "features": {
   "ghcr.io/rocker-org/devcontainer-features/r-rig:latest": {
@@ -85,7 +85,7 @@ After setting the repository as mentioned above, I successfully installed Seurat
 Now we have our conatiner up and running, however as soon as we start installing additional packages, they will be pulled from the up-to-date CRAN server.
 To ensure the use of old mirrors by default, I created a [`Profile.site`](https://support.posit.co/hc/en-us/articles/360047157094-Managing-R-with-Rprofile-Renviron-Rprofile-site-Renviron-site-rsession-conf-and-repos-conf) file specifying the snapshot date and BioConductor mirror. Adding one line to the JSON file ensured this file was copied to the correct location upon container creation.
 
-```r title="Profile.site"
+```r title="Profile.site" showLineNumbers
 # Configure BioCManager to use Posit Package Manager:
 options(BioC_mirror = "https://packagemanager.posit.co/bioconductor")
 options(BIOCONDUCTOR_CONFIG_FILE = "https://packagemanager.posit.co/bioconductor/config.yaml")
@@ -96,7 +96,7 @@ options(repos = c(CRAN = "https://packagemanager.posit.co/cran/__linux__/focal/2
 
 Within that file, we can again specify the date of the snapshot we want to use, and we can also specify a mirror for BioConductor packages. The last thing we have to do is to copy that file into the appropriate location upon creation of the devcontainer. We simply need to add one line to the JSON file.
 
-```json title="devcontainer.json"
+```json title="devcontainer.json" showLineNumbers
 // Make sure that the version of R matches the version install with rig
 "postCreateCommand": "sudo cp .devcontainer/Rprofile.site /opt/R/4.1.2/lib/R/etc/Rprofile.site",
 ```
@@ -109,7 +109,7 @@ With this setup, I created a devcontainer that allows using an older version of 
 
 One last check to make sure that everything is working correctly:
 
-```r {3,5,19}
+```r {3,5,19} showLineNumbers
 library(Seurat)
 options()$repos
 # CRAN: 'https://packagemanager.posit.co/cran/__linux__/focal/2021-06-01'
