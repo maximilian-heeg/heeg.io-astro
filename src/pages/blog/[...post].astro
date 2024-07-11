@@ -1,0 +1,46 @@
+---
+import { getCollection, getEntry } from "astro:content";
+import Layout from "@layouts/Base.astro";
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+import Hero from "@components/Hero.astro";
+
+dayjs.extend(utc);
+
+const { post } = Astro.params;
+const blogPost = await getEntry("blog", post);
+const { Content, headings } = await blogPost.render();
+
+const publishDate = dayjs(blogPost.data.publishDate)
+  .utc()
+  .format("D MMMM YYYY");
+
+
+
+export async function getStaticPaths() {
+    const allBlogPosts = await getCollection("blog");
+    return allBlogPosts.map((post) => {
+        return {
+            params: { post: post.slug },
+        };
+    });
+}
+---
+
+<Layout title={blogPost.data.title} description={blogPost.data.abstract}>
+    <Hero Background={blogPost.data.image} Background_alt={blogPost.data.imageAlt}>
+        <h1>{blogPost.data.title}</h1>
+
+        <Fragment slot="subtitle"> <h3>{blogPost.data.subTitle}</h3> </Fragment>
+    </Hero>
+
+    <p  class="publishedon">Published on {publishDate} </p>
+    <Content />
+</Layout>
+
+
+<style>
+    .publishedon {
+      --at-apply: "font-mono text-sm mt-4";
+    }
+  </style>
