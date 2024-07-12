@@ -1,19 +1,85 @@
 ---
-import { getCollection, getEntry } from 'astro:content';
+import { getCollection, getEntry } from "astro:content";
 import Layout from "@layouts/Base.astro";
+import { Image } from "astro:assets";
 
-const allBlogPosts = await getCollection('blog');
+import dayjs from "dayjs";
+import utc from "dayjs/plugin/utc";
+dayjs.extend(utc);
+
+const allBlogPosts = (await getCollection("blog")).sort(
+  (a, b) => b.data.publishDate.getDate() - a.data.publishDate.getDate()
+);;
 ---
 
-
-
-<Layout title='Blog' description='Blogposts'>
-
-    <p>
-        {allBlogPosts.map((post) => 
-        ( <a href={`/blog/${post.slug}`}>{post.data.title}</a>))
+<Layout title="Blog" description="Blogposts">
+    <ul>
+        {
+            allBlogPosts.map((post) => (
+                <li>
+                    <a href={`/blog/${post.slug}`} class="center">
+                        {" "}
+                        <Image
+                            src={post.data.image}
+                            alt={post.data.imageAlt}
+                            width={192}
+                            height={192}
+                            loading="lazy"
+                        />
+                    </a>
+                    <div>
+                        <a href={`/blog/${post.slug}`}>
+                            <h2>{post.data.title}</h2>
+                            <h3>{post.data.subTitle}</h3>
+                        </a>
+                        <div class="date">
+                            Published on
+                            {dayjs(post.data.publishDate)
+                                .utc()
+                                .format("D MMMM YYYY")}
+                        </div>
+                    </div>
+                    <div class="twocols">
+                        <p>{post.data.abstract}</p>
+                    </div>
+                </li>
+            ))
         }
-    </p>
-
-    
+    </ul>
 </Layout>
+
+<style>
+    ul {
+        --at-apply: divide-y;
+
+        li + li {
+            padding-top: 10px;
+        }
+
+        li {
+            --at-apply: "grid gap-4 grid-cols-[144px_1fr] sm:grid-cols-[192px_1fr] w-full";
+
+            img {
+                --at-apply: "max-w-36 sm:max-w-48";
+            }
+
+            h2 {
+                margin-top: 0.5rem;
+            }
+
+            .date {
+                --at-apply: text-xs font-mono;
+            }
+
+            .center {
+                display: flex;
+                align-items: center; /* vertically center the content */
+                justify-content: center;
+            }
+
+            .twocols {
+                grid-column: span 2;
+            }
+        }
+    }
+</style>
