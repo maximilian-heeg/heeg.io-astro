@@ -1,9 +1,16 @@
 export const experience = [
+  
+  {
+    title: "Assistant Investigator",
+    location: "Allen Institute for Immunology",
+    dates: "July 2024 – Present",
+    country: "Seattle, Washington",
+  },
   {
     title: "PostDoc",
     location: "University of California San Diego",
-    dates: "Jan 2020 – Present",
-    country: "California",
+    dates: "Jan 2020 – July 2024",
+    country: "San Diego, California",
     description: "DFG Research Fellowship",
     project:
       "Analysis of transcriptional regulators of tissue-resident memory differentiation",
