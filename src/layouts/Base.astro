@@ -126,14 +126,13 @@ import "@styles/global.css";
         }
 
         :global(pre) {
-          --at-apply: py-3 overflow-x-auto relative;
+          --at-apply: py-3 overflow-x-auto;
 
-          &::before {
-              content: attr(data-language);
-              position: absolute;
-              right: 0.5rem;
-              --at-apply: bg-gray-500 rounded-md px-1 text-gray-900;
-          }
+          // &::before {
+          //     content: attr(data-language);
+          //     display: inline-block;
+          //     --at-apply: bg-gray-500 rounded-md px-1 text-gray-900 ml-5 mb-1 text-xs;
+          // }
 
           :global(code) {
             :global([data-line]) {
