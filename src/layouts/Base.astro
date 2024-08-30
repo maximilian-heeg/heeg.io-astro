@@ -86,10 +86,21 @@ import "@styles/global.css";
       main > :global(h2),
       main > :global(h3),
       main > :global(ul),
+      main > :global(ol),
       main > :global(p) {
         --at-apply: col-span-12 col-start-1 max-w-full px-3 mb-3;
         --at-apply: "md:col-span-8 md:col-start-3";
         --at-apply: "lg:col-span-6 lg:col-start-3";
+      }
+
+      main > :global(ul) {
+        list-style-type: disc;
+        margin-left: 2em;
+      }
+
+      main > :global(ol) {
+        list-style-type: decimal;
+        margin-left: 2em;
       }
 
       main :global(p) {
